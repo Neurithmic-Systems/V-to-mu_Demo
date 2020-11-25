@@ -1,6 +1,6 @@
 # Compiled class file
 *.class
-build/*
+build/*.*
 nbproject/private/
 
 # Log file
