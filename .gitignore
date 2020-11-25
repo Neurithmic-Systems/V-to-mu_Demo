@@ -1,7 +1,7 @@
 # Compiled class file
 *.class
-build/
-nbproject/private/
+build/*
+**/nbproject/private/
 
 # Log file
 *.log
