@@ -7,8 +7,10 @@
 package CSApackage;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.text.DecimalFormat;
-import java.util.HashMap;
+import java.util.Dictionary;
+import java.util.Hashtable;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 
@@ -25,6 +27,8 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
   boolean relativeToMax_V_CrosstalkLims = false;  
   private boolean ShowHoveringVals = true;
   private boolean tie_G_V_ecc = false;
+  
+  Dictionary<Integer, Component> labelTable = new Hashtable<>();
   
    /**
    * @return the ShowHoveringVals
@@ -43,7 +47,14 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
   
   /** Creates new form MainCSA_demoPanel */
   public MainCSA_demoPanel(CSAdemo app)
-  {       
+  {    
+    labelTable.put(0, new JLabel("0"));
+    labelTable.put(20, new JLabel("0.2"));
+    labelTable.put(40, new JLabel("0.4"));
+    labelTable.put(60, new JLabel("0.6"));
+    labelTable.put(80, new JLabel("0.8"));
+    labelTable.put(100, new JLabel("1"));
+      
     theApp = app;
     initComponents();
      
@@ -97,6 +108,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     controlPanel = new javax.swing.JPanel();
     btClearCells = new javax.swing.JButton();
     G_Slider = new javax.swing.JSlider();
+    G_Slider.setLabelTable(labelTable);
 
     V_to_mu_multiplier_Slider = new javax.swing.JSlider();
 
@@ -115,8 +127,8 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     multiMacPanel = new javax.swing.JPanel();
     labMacChartTitle = new javax.swing.JLabel();
     macPanelControls = new javax.swing.JPanel();
-
     max_V_Slider = new javax.swing.JSlider();
+    max_V_Slider.setLabelTable(labelTable);
     phaseOfLifeChoice = new javax.swing.JPanel();
     Fam_Early = new javax.swing.JRadioButton();
     Fam_Middle = new javax.swing.JRadioButton();
@@ -159,7 +171,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     labMacChartTitle1.setForeground(new java.awt.Color(51, 51, 255));
     labMacChartTitle1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     labMacChartTitle1.setText("<html> Rel. Likelihood (<i>&mu;</i> ) of Win vs. Local Familiarity (<i>V</i> )");
-    labMacChartTitle1.setToolTipText("<html>\n<font size=6>Number of cells per CM is controlled by number of cells that user adds to G plot panel.  <br>\nBut the V and &rho; values are programmatically determined. That is, the V's are drawn from ranges <br>\nthat are set to simulate different amounts of crosstalk.\n<br>\n<br>\nFor V charts, black is cell with max V <br>\n<br>\nFor &rho; charts, black = winner (correct or not); rose = incorrect loser\n</font>\n</html>");
+    labMacChartTitle1.setToolTipText("<html>\n<font size=5>Number of cells per CM is controlled by number of cells that user adds to G plot panel.  <br>\nBut the V and &rho; values are programmatically determined. That is, the V's are drawn from ranges <br>\nthat are set to simulate different amounts of crosstalk.\n<br>\n<br>\nFor V charts, black is cell with max V <br>\n<br>\nFor &rho; charts, black = winner (correct or not); rose = incorrect loser\n</font>\n</html>");
     labMacChartTitle1.setAlignmentX(0.5F);
     labMacChartTitle1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
     labMacChartTitle1.setMaximumSize(new java.awt.Dimension(353, 30));
@@ -230,7 +242,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     G_Slider.setMajorTickSpacing(20);
     G_Slider.setPaintLabels(true);
     G_Slider.setPaintTicks(true);
-    G_Slider.setToolTipText("<html>\n<font size=6>\nSlide to control height of V to &mu; transform.<br>\nG stands for \"global familarity\" and is computed as the ave. of the max Vs across the Q CMs.<br>\nThis slider is linked to the max V slider below.<br><br>\nNOTE: Neither the G nor Max V slider can be set lower than the current upper crosstalk limit.");
+    G_Slider.setToolTipText("<html>\n<font size=4>\nSlide to control height of V to &mu; transform.<br>\nG stands for \"global familarity\" and is computed as the ave. of the max Vs across the Q CMs.<br>\nThis slider is linked to the max V slider below.<br><br>\nNOTE: Neither the G nor Max V slider can be set lower than the current upper crosstalk limit.");
     G_Slider.setValue(100);
     G_Slider.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "<html>\n\nGlobal Familarity (<i> G</i> )", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
     G_Slider.setMinimumSize(new java.awt.Dimension(300, 70));
@@ -254,7 +266,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     V_to_mu_multiplier_Slider.setMaximum(400);
     V_to_mu_multiplier_Slider.setPaintLabels(true);
     V_to_mu_multiplier_Slider.setPaintTicks(true);
-    V_to_mu_multiplier_Slider.setToolTipText("<html>\n<font size=6>\nSlide to control height of V to &mu; transform. The &mu; range is the product of G (between 0 and 1)<br>\nand  the factor whose size is controlled by this slider.  In general, the larger this factor, the greater the<br>\nadvantage given to cells with high Vs vs. low Vs, in the final prob (&rho;) distributions from which<br>\nthe softmax draws are made.");
+    V_to_mu_multiplier_Slider.setToolTipText("<html>\n<font size=4>\nSlide to control height of V to &mu; transform. The &mu; range is the product of G (between 0 and 1)<br>\nand  the factor whose size is controlled by this slider.  In general, the larger this factor, the greater the<br>\nadvantage given to cells with high Vs vs. low Vs, in the final prob (&rho;) distributions from which<br>\nthe softmax draws are made.");
     V_to_mu_multiplier_Slider.setValue(400);
     V_to_mu_multiplier_Slider.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "<html>\n\n<em>V</em> -to-&mu; Range Mult.", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
     V_to_mu_multiplier_Slider.setMinimumSize(new java.awt.Dimension(300, 70));
@@ -322,7 +334,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     min_crosstak_slider.setMinorTickSpacing(10);
     min_crosstak_slider.setPaintLabels(true);
     min_crosstak_slider.setPaintTicks(true);
-    min_crosstak_slider.setToolTipText("<html>\n<font size=6>\nSpecifies bottom of range (as % of max V) of distribution from which V vals <br>\nof other cells in CM are randomly chosen.");
+    min_crosstak_slider.setToolTipText("<html>\n<font size=4>\nSpecifies bottom of range (as % of max V) of distribution from which V vals <br>\nof other cells in CM are randomly chosen.");
     min_crosstak_slider.setValue(0);
     min_crosstak_slider.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Min Crosstalk Val (%)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
     min_crosstak_slider.setMinimumSize(new java.awt.Dimension(300, 70));
@@ -346,7 +358,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     max_crosstalk_slider.setMinorTickSpacing(10);
     max_crosstalk_slider.setPaintLabels(true);
     max_crosstalk_slider.setPaintTicks(true);
-    max_crosstalk_slider.setToolTipText("<html>\n<font size=6>\nSpecifies top of range (as % of max V) of distribution from which V vals <br>\nof other cells in CM are randomly chosen.");
+    max_crosstalk_slider.setToolTipText("<html>\n<font size=4>\nSpecifies top of range (as % of max V) of distribution from which V vals <br>\nof other cells in CM are randomly chosen.");
     max_crosstalk_slider.setValue(0);
     max_crosstalk_slider.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Max Crosstalk Val (%)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
     max_crosstalk_slider.setMinimumSize(new java.awt.Dimension(300, 70));
@@ -541,8 +553,9 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     max_V_Slider.setToolTipText("<html>\n<font size=6>\nSlide to control height of max V, which applies all CMs.<br><br>\nNOTE: Neiher the G nor Max V slider can be set below the current upper crosstalk limit.");
     max_V_Slider.setValue(100);
     max_V_Slider.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "<html>  Max <em>V</em>  &nbsp;in each CM", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
-    max_V_Slider.setMinimumSize(new java.awt.Dimension(300, 70));
-    max_V_Slider.setPreferredSize(new java.awt.Dimension(300, 70));
+    max_V_Slider.setMaximumSize(new java.awt.Dimension(240, 70));
+    max_V_Slider.setMinimumSize(new java.awt.Dimension(240, 70));
+    max_V_Slider.setPreferredSize(new java.awt.Dimension(240, 70));
     max_V_Slider.addChangeListener(new javax.swing.event.ChangeListener() {
       public void stateChanged(javax.swing.event.ChangeEvent evt) {
         max_V_SliderStateChanged(evt);
@@ -550,6 +563,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     });
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
+    gridBagConstraints.gridy = 0;
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
     gridBagConstraints.ipady = 2;
     gridBagConstraints.weightx = 1.0;
@@ -669,7 +683,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
 
     jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
     jLabel2.setText(" Expected Accuracy:");
-    jLabel2.setToolTipText("<html>\n<font size=6>\nExpected fraction of CMs in which max V cell is chosen.  Within any one CM, this is a Bernoulli trial with success probability<br>\nequal to the &rho; value of the max V cell, i.e., the max &rho; value. So the expected accuracy is simply the average<br>\nof the max &rho; values across the Q CMs.");
+    jLabel2.setToolTipText("<html>\n<font size=4>\nExpected fraction of CMs in which max V cell is chosen.  Within any one CM, this is a Bernoulli trial with success probability<br>\nequal to the &rho; value of the max V cell, i.e., the max &rho; value. So the expected accuracy is simply the average<br>\nof the max &rho; values across the Q CMs.");
     jLabel2.setPreferredSize(new java.awt.Dimension(158, 50));
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
@@ -686,7 +700,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     expectedAccuracy.setBackground(new java.awt.Color(204, 255, 204));
     expectedAccuracy.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
     expectedAccuracy.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-    expectedAccuracy.setToolTipText("<html>\n<font size=6>\nExpected fraction of CMs in which max V cell is chosen.  This is computed as the average &rho; value<br>\nof the max V cell, across the Q CMs.  Note: because the &rho; distribution (from which a winner is drawn)<br>\ndiffers from one CM to the next.  So the exact &rho; value of the max V cell also differs from Cm to CM<br>\n(even though the max V value is the same in all CMs).");
+    expectedAccuracy.setToolTipText("<html>\n<font size=4>\nExpected fraction of CMs in which max V cell is chosen.  This is computed as the average &rho; value<br>\nof the max V cell, across the Q CMs.  Note: because the &rho; distribution (from which a winner is drawn)<br>\ndiffers from one CM to the next.  So the exact &rho; value of the max V cell also differs from Cm to CM<br>\n(even though the max V value is the same in all CMs).");
     expectedAccuracy.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 0), 2, true));
     expectedAccuracy.setMargin(new java.awt.Insets(2, 2, 2, 6));
     expectedAccuracy.setMinimumSize(new java.awt.Dimension(60, 26));
@@ -733,7 +747,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     macStatsPanel.add(stdDevAccuracy, gridBagConstraints);
 
     minCrossTalkValLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-    minCrossTalkValLabel.setText(" Min Crosstalk (% of max V):");
+    minCrossTalkValLabel.setText("<html>\nMin Crosstalk (% of max  <i>V</i> ):");
     minCrossTalkValLabel.setPreferredSize(new java.awt.Dimension(233, 50));
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
@@ -759,7 +773,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     macStatsPanel.add(minCrosstalk_V, gridBagConstraints);
 
     maxCrossTalkValLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-    maxCrossTalkValLabel.setText(" Max Crosstalk (% of max V):");
+    maxCrossTalkValLabel.setText("<html>\nMax Crosstalk (% of max <i>V</i> ):");
     maxCrossTalkValLabel.setPreferredSize(new java.awt.Dimension(237, 50));
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
@@ -785,8 +799,8 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     macStatsPanel.add(maxCrosstalk_V, gridBagConstraints);
 
     jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-    jLabel4.setText(" Q (# of CMs)");
-    jLabel4.setToolTipText("<html>\n<font size=5>\nClick to change the number of CMs in the mac.  You may have to resize <br>\nthe GUI to see all the CMs.");
+    jLabel4.setText("<html>\n<i>Q</i> (# of CMs)");
+    jLabel4.setToolTipText("<html>\n<font size=4>\nClick to change the number of CMs in the mac.  You may have to resize <br>\nthe GUI to see all the CMs.");
     jLabel4.setPreferredSize(new java.awt.Dimension(113, 50));
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
@@ -831,15 +845,19 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
     gridBagConstraints.weightx = 0.2;
     gridBagConstraints.weighty = 1.0;
-    gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 0);
+    gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
     multiMacPanel.add(macPanelControls, gridBagConstraints);
 
     theMacPlanPanel.setMinimumSize(new java.awt.Dimension(300, 300));
-    theMacPlanPanel.setPreferredSize(new java.awt.Dimension(500, 500));
+    theMacPlanPanel.setPreferredSize(new java.awt.Dimension(700, 500));
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridy = 1;
     gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+    gridBagConstraints.ipadx = 2;
+    gridBagConstraints.ipady = 2;
     gridBagConstraints.weightx = 0.8;
+    gridBagConstraints.weighty = 1.0;
+    gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
     multiMacPanel.add(theMacPlanPanel, gridBagConstraints);
 
     gridBagConstraints = new java.awt.GridBagConstraints();
