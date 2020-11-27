@@ -97,7 +97,7 @@ public class MacPlanPanel extends javax.swing.JPanel
   Font axisValuesFont = new Font("Serif", Font.BOLD, 14);
   Font axisVarFont = new Font("Serif", Font.BOLD | Font.ITALIC, 20);
   Font axisVarFontLarge = new Font("Serif", Font.BOLD | Font.ITALIC, 26);
-  Font CM_LabelFont = new Font("Serif", Font.BOLD, 18);
+  Font CM_LabelFont = new Font("Serif", Font.BOLD, 14);
   
   protected void paintComponent(java.awt.Graphics g)
   {
@@ -106,7 +106,7 @@ public class MacPlanPanel extends javax.swing.JPanel
     
     if ( theMac == null )  { return; }
     
-    // we'll always have two rows, so divide it into two blocks
+    // Right now, we just show all CMs in one row
     
     numCMCols = (int) Math.ceil((double) theMac.Q / numCMRows);
     
@@ -140,7 +140,8 @@ public class MacPlanPanel extends javax.swing.JPanel
 //      CM_width = K * barZoneWidth;
     }
     
-    // Fill out all the CMs
+    // Fill out all the CMs. This code is a double loop to make it easy if we want
+    // to change to using two rows to show CMs.
     
     int q = 0;
     for ( int row = 0; row < numCMRows; row++ )
@@ -231,7 +232,6 @@ public class MacPlanPanel extends javax.swing.JPanel
         int max_V_in_pixels = 0;
         if (m_Controller != null)
         {
-          g2.setColor( Color.lightGray );
           Stroke oldStroke = g2.getStroke();
           g2.setStroke(dashed);
 
@@ -240,10 +240,14 @@ public class MacPlanPanel extends javax.swing.JPanel
           else
             max_V_in_pixels = (int) (CM_chart_y_range_ht_pix * 1);
           
+          g2.setColor( m_Controller.colorLowCrosstalkLimit );
           int min_crosstalk_y = ypos + CM_chart_ht - (int)(theMac.GetCrossTalkLowLimFactor() * max_V_in_pixels);
           g2.drawLine(xpos, min_crosstalk_y, xpos + CM_width, min_crosstalk_y );
+          
+          g2.setColor( m_Controller.colorHighCrosstalkLimit );
           int max_crosstalk_y = ypos + CM_chart_ht - (int)(theMac.GetCrossTalkHighLimFactor() * max_V_in_pixels);
           g2.drawLine(xpos, max_crosstalk_y, xpos + CM_width, max_crosstalk_y );
+          
           g2.setStroke(oldStroke);
         }
         

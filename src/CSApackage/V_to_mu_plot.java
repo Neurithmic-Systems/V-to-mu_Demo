@@ -355,8 +355,11 @@ public class V_to_mu_plot extends javax.swing.JPanel
       else
         x_max_V_in_pixels = (int) (this.plotWidthPixels * 1);
       
+      g2.setColor( m_Controller.colorLowCrosstalkLimit );
       int min_crosstalk_x = plotOrigin_X_Inset + (int)(theMac.GetCrossTalkLowLimFactor() * x_max_V_in_pixels);
       g2.drawLine(min_crosstalk_x, overallHeight - x_axis_label_space_height, min_crosstalk_x, topMarginPixels );
+      
+      g2.setColor( m_Controller.colorHighCrosstalkLimit );
       int max_crosstalk_x = plotOrigin_X_Inset + (int)(theMac.GetCrossTalkHighLimFactor() * x_max_V_in_pixels);
       g2.drawLine(max_crosstalk_x, overallHeight - x_axis_label_space_height, max_crosstalk_x, topMarginPixels );
       g2.setStroke(oldStroke);

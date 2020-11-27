@@ -160,11 +160,27 @@ public class Mac {
   }
   
   /**
-   * Called when user clicks in V-to-mu plot.  It sets the V value for the newly added cell to CM 0
-   * to be the V determined by where the user clicked in the plot.  In each of the other CMs,
-   * it sets the new cell's V to a random value.
+   * Called when user clicks in V-to-mu plot.  It sets the V value for the newly
+   * added in all CMs to be the V determined by where the user clicked in the plot.  
    */
   public void specifyNewCell_Vs(int new_cell_index, float specified_V)
+  {
+    V.get(0).set(new_cell_index, (double) specified_V);
+    
+    for (int q = 0; q < Q; q++)   // loop over CMs
+    {
+      V.get(q).set(new_cell_index, (double) specified_V);
+    }
+  }
+  
+  /**
+   * Not sure why I originally decided to add new V values in this particular way, but
+   * the new version above seems to make more sense, at least from a pedagogical standpoint.
+   * 
+   * @param new_cell_index
+   * @param specified_V 
+   */
+  public void specifyNewCell_Vs_OLD(int new_cell_index, float specified_V)
   {
     V.get(0).set(new_cell_index, (double) specified_V);
     
@@ -179,7 +195,8 @@ public class Mac {
   }
   
   /** 
-   * Determines parameter, eta, the range of the function. "factor" is the thing that scales the overall height of the sigmoid.
+   * Determines parameter, eta, a multiplier that affects the range of the V-to-mu function. 
+   * G is always between 0 and 1.  We raise G to gamma.  The higher is gamma, the the lower is eta.
    */
   public float calculate_eta()
   {
@@ -195,9 +212,10 @@ public class Mac {
       temp1 = G - G_lowCutoff;
       temp2 = 1.0f - G_lowCutoff;
       
-      // the highest "temp1 / temp2" can be is 1.  gamma is an int >= 1.  So result of the raising to power
-      // is that the higher gamma is, the more convex the fn is, and the more stringent the matching fn (the tighter the generalization gradient).
-      // factor just magnifies eta, which will be a real between 0 and 1 to determine the range of possible mu values.
+      // the highest "temp1 / temp2" can be is 1.  gamma is an int >= 1.  So result of raising to power gamma
+      // is that the higher gamma is, the more convex the map from V to mu is. So higher gamma
+      // results in a more stringent matching fn (tighter the generalization gradient).
+      // V_to_mu_Multiplier just magnifies the range of possible mu values.
       eta = (float) Math.pow( ( temp1 / temp2 ), gamma ) * V_to_mu_Multiplier;
     }
     
@@ -267,10 +285,10 @@ public class Mac {
    * deal directly from V to rho.
    * 
    * So far, in Sparsey, I've always just manipulated sigmoid ht, eta, as function of G.  But I really think
-   * that there it would be better to simultaneously vary eta and eccentricity as fn of G.  
+   * that it would be better to simultaneously vary eta and eccentricity as fn of G.  
    * Varying eta as fn of G has always had a straightforward neural interpretation, i.e., simply corresponding
    * to varying the amount of noise (relative to signal) present in the winner choice process.  I need to think
-   * through the neural implications of adding modulation of eccentricity.
+   * through the neural implications of adding simultaneous modulation of eccentricity.
    */  
   public void compute_whole_sigmoid()
   {

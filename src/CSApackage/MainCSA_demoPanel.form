@@ -52,13 +52,16 @@
             <LineBorder roundedCorners="true" thickness="2"/>
           </Border>
         </Property>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[500, 500]"/>
+        </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[500, 500]"/>
         </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-          <GridBagConstraints gridX="0" gridY="0" gridWidth="1" gridHeight="1" fill="1" ipadX="2" ipadY="2" insetsTop="2" insetsLeft="2" insetsBottom="2" insetsRight="2" anchor="10" weightX="0.4" weightY="0.0"/>
+          <GridBagConstraints gridX="0" gridY="0" gridWidth="1" gridHeight="1" fill="1" ipadX="2" ipadY="2" insetsTop="2" insetsLeft="2" insetsBottom="2" insetsRight="2" anchor="10" weightX="0.4" weightY="1.0"/>
         </Constraint>
       </Constraints>
 
@@ -131,16 +134,19 @@
             <LineBorder roundedCorners="true" thickness="2"/>
           </Border>
         </Property>
+        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[800, 600]"/>
+        </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[344, 370]"/>
+          <Dimension value="[500, 500]"/>
         </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[344, 370]"/>
+          <Dimension value="[500, 500]"/>
         </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-          <GridBagConstraints gridX="1" gridY="0" gridWidth="1" gridHeight="1" fill="1" ipadX="2" ipadY="2" insetsTop="2" insetsLeft="2" insetsBottom="2" insetsRight="2" anchor="17" weightX="0.4" weightY="0.8"/>
+          <GridBagConstraints gridX="1" gridY="0" gridWidth="1" gridHeight="1" fill="1" ipadX="2" ipadY="2" insetsTop="2" insetsLeft="2" insetsBottom="2" insetsRight="2" anchor="17" weightX="0.6" weightY="1.0"/>
         </Constraint>
       </Constraints>
 
@@ -157,13 +163,13 @@
               <Insets value="[4, 14, 4, 14]"/>
             </Property>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[204, 40]"/>
+              <Dimension value="[240, 40]"/>
             </Property>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[120, 30]"/>
+              <Dimension value="[240, 40]"/>
             </Property>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[350, 40]"/>
+              <Dimension value="[240, 40]"/>
             </Property>
           </Properties>
           <Events>
@@ -171,7 +177,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-              <GridBagConstraints gridX="1" gridY="4" gridWidth="1" gridHeight="1" fill="1" ipadX="6" ipadY="6" insetsTop="6" insetsLeft="18" insetsBottom="6" insetsRight="14" anchor="10" weightX="0.8" weightY="0.0"/>
+              <GridBagConstraints gridX="1" gridY="4" gridWidth="1" gridHeight="1" fill="0" ipadX="6" ipadY="6" insetsTop="6" insetsLeft="14" insetsBottom="6" insetsRight="18" anchor="10" weightX="0.0" weightY="0.0"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -183,7 +189,7 @@
             <Property name="majorTickSpacing" type="int" value="20"/>
             <Property name="paintLabels" type="boolean" value="true"/>
             <Property name="paintTicks" type="boolean" value="true"/>
-            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;&#xa;Slide to control height of V to &amp;mu; transform.&lt;br&gt;&#xa;G stands for &quot;global familarity&quot; and is computed as the ave. of the max Vs across the Q CMs.&lt;br&gt;&#xa;This slider is linked to the max V slider below.&lt;br&gt;&lt;br&gt;&#xa;NOTE: Neither the G nor Max V slider can be set lower than the current upper crosstalk limit."/>
+            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;&#xa;Slide to set the V value of the max-V cell in a CM.  This is the same for all Q CMs.&lt;br&gt;&#xa;G stands for &quot;global familarity&quot; and is computed as the ave. of the max Vs across the Q CMs.&lt;br&gt;&#xa;This slider is linked to the max V slider below.&lt;br&gt;&lt;br&gt;&#xa;NOTE: Neither the G nor Max V slider can be set lower than the current upper crosstalk limit. &lt;br&gt;&#xa;That&apos;s because that wouldn&apos;t make any sense.&lt;br&gt;&lt;br&gt;&#xa;NOTE: In a full Sparsey simulation, where no items are stored initially, but are stored in the &lt;br&gt;&#xa;coding field over time, the max V value would generally differ acorss CMs, although, there will &lt;br&gt;&#xa;be an initial period, i.e., the early learning phase, where the max V&apos;s will be fairly tightly correlated. &lt;br&gt;&#xa;The correlation will decrease over time."/>
             <Property name="value" type="int" value="100"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -191,6 +197,9 @@
                   <Font PropertyName="font" name="Tahoma" size="14" style="0"/>
                 </TitledBorder>
               </Border>
+            </Property>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[400, 70]"/>
             </Property>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[300, 70]"/>
@@ -210,7 +219,7 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-              <GridBagConstraints gridX="0" gridY="0" gridWidth="1" gridHeight="1" fill="1" ipadX="0" ipadY="2" insetsTop="6" insetsLeft="18" insetsBottom="6" insetsRight="14" anchor="10" weightX="0.0" weightY="0.0"/>
+              <GridBagConstraints gridX="0" gridY="0" gridWidth="1" gridHeight="1" fill="1" ipadX="0" ipadY="2" insetsTop="6" insetsLeft="18" insetsBottom="6" insetsRight="14" anchor="10" weightX="0.5" weightY="0.0"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -249,7 +258,7 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-              <GridBagConstraints gridX="0" gridY="2" gridWidth="1" gridHeight="1" fill="1" ipadX="0" ipadY="2" insetsTop="6" insetsLeft="18" insetsBottom="6" insetsRight="14" anchor="10" weightX="1.0" weightY="0.0"/>
+              <GridBagConstraints gridX="0" gridY="2" gridWidth="1" gridHeight="1" fill="1" ipadX="0" ipadY="2" insetsTop="6" insetsLeft="18" insetsBottom="6" insetsRight="14" anchor="10" weightX="0.0" weightY="0.0"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -327,7 +336,7 @@
             <Property name="minorTickSpacing" type="int" value="10"/>
             <Property name="paintLabels" type="boolean" value="true"/>
             <Property name="paintTicks" type="boolean" value="true"/>
-            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;&#xa;Specifies bottom of range (as % of max V) of distribution from which V vals &lt;br&gt;&#xa;of other cells in CM are randomly chosen."/>
+            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;&#xa;Specifies bottom of range (as % of max V) of distribution from which V vals &lt;br&gt;&#xa;of other cells in a CM (besides the max-V cell) are randomly chosen.&lt;br&gt;&lt;br&gt;&#xa;Drawn as dashed light blue line in relevant charts."/>
             <Property name="value" type="int" value="0"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -348,7 +357,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-              <GridBagConstraints gridX="1" gridY="0" gridWidth="2" gridHeight="1" fill="1" ipadX="0" ipadY="4" insetsTop="6" insetsLeft="14" insetsBottom="6" insetsRight="18" anchor="10" weightX="0.0" weightY="0.0"/>
+              <GridBagConstraints gridX="1" gridY="0" gridWidth="2" gridHeight="1" fill="1" ipadX="0" ipadY="4" insetsTop="6" insetsLeft="14" insetsBottom="6" insetsRight="18" anchor="10" weightX="0.5" weightY="0.0"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -361,7 +370,7 @@
             <Property name="minorTickSpacing" type="int" value="10"/>
             <Property name="paintLabels" type="boolean" value="true"/>
             <Property name="paintTicks" type="boolean" value="true"/>
-            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;&#xa;Specifies top of range (as % of max V) of distribution from which V vals &lt;br&gt;&#xa;of other cells in CM are randomly chosen."/>
+            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;&#xa;Specifies top of range (as % of max V) of distribution from which V vals &lt;br&gt;&#xa;of other cells in the CM (besides the max-V cell) are randomly chosen.&lt;br&gt;&lt;br&gt;&#xa;Drawn as dashed pink line in relevant charts."/>
             <Property name="value" type="int" value="0"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -392,10 +401,13 @@
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Generate New Sample"/>
-            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=6&gt;&#xa;Creates a sample of Vs in all Q CMs, which respects the min and max crosstalk slider values"/>
+            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;&#xa;Creates a sample of Vs in all Q CMs, which respects the min and max crosstalk slider values.&lt;br&gt;&#xa;The max-V value will be the same in all Q CMs."/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[4, 14, 4, 14]"/>
+            </Property>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[240, 40]"/>
             </Property>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[240, 40]"/>
@@ -412,7 +424,7 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-              <GridBagConstraints gridX="1" gridY="3" gridWidth="1" gridHeight="1" fill="1" ipadX="6" ipadY="6" insetsTop="6" insetsLeft="14" insetsBottom="6" insetsRight="18" anchor="10" weightX="0.0" weightY="0.0"/>
+              <GridBagConstraints gridX="1" gridY="3" gridWidth="1" gridHeight="1" fill="0" ipadX="6" ipadY="6" insetsTop="6" insetsLeft="14" insetsBottom="6" insetsRight="18" anchor="10" weightX="0.0" weightY="0.0"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -489,7 +501,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JSlider" name="etaRate_Slider1">
+        <Component class="javax.swing.JSlider" name="gamma_Slider1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="12" style="0"/>
@@ -502,7 +514,7 @@
             <Property name="value" type="int" value="2"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="&lt;html&gt;&#xa;&#xa;&lt;i&gt;V&lt;/i&gt; -to-&amp;mu; range multiplier">
+                <TitledBorder title="&lt;html&gt;&#xa;&#xa;&lt;i&gt;&amp;gamma; &lt;/i&gt; (affects generalization)">
                   <Font PropertyName="font" name="Tahoma" size="14" style="0"/>
                 </TitledBorder>
               </Border>
@@ -515,7 +527,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="etaRate_Slider1StateChanged"/>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="gamma_Slider1StateChanged"/>
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -532,10 +544,16 @@
             <LineBorder roundedCorners="true" thickness="2"/>
           </Border>
         </Property>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[400, 500]"/>
+        </Property>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[500, 500]"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-          <GridBagConstraints gridX="0" gridY="1" gridWidth="1" gridHeight="1" fill="1" ipadX="2" ipadY="2" insetsTop="2" insetsLeft="2" insetsBottom="2" insetsRight="2" anchor="10" weightX="0.4" weightY="0.0"/>
+          <GridBagConstraints gridX="0" gridY="1" gridWidth="1" gridHeight="1" fill="1" ipadX="2" ipadY="2" insetsTop="2" insetsLeft="2" insetsBottom="2" insetsRight="2" anchor="10" weightX="0.0" weightY="1.0"/>
         </Constraint>
       </Constraints>
 
@@ -600,13 +618,16 @@
           </Border>
         </Property>
         <Property name="alignmentY" type="float" value="0.0"/>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[500, 500]"/>
+        </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[800, 418]"/>
         </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-          <GridBagConstraints gridX="1" gridY="1" gridWidth="1" gridHeight="1" fill="1" ipadX="2" ipadY="2" insetsTop="2" insetsLeft="2" insetsBottom="2" insetsRight="2" anchor="10" weightX="0.8" weightY="1.0"/>
+          <GridBagConstraints gridX="1" gridY="1" gridWidth="1" gridHeight="1" fill="1" ipadX="2" ipadY="2" insetsTop="2" insetsLeft="2" insetsBottom="2" insetsRight="2" anchor="10" weightX="0.0" weightY="1.0"/>
         </Constraint>
       </Constraints>
 
@@ -622,7 +643,7 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Mac comprised of Multiple WTA CMs"/>
-            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=6&gt;Number of cells per CM is controlled by number of cells that user adds to G plot panel.  &lt;br&gt;&#xa;But the V and &amp;rho; values are programmatically determined. That is, the V&apos;s are drawn from ranges &lt;br&gt;&#xa;that are set to simulate different amounts of crosstalk.&#xa;&lt;br&gt;&#xa;&lt;br&gt;&#xa;For V charts, black is cell with max V &lt;br&gt;&#xa;&lt;br&gt;&#xa;For &amp;rho; charts, black = winner (correct or not); rose = incorrect loser&#xa;&lt;/font&gt;&#xa;&lt;/html&gt;"/>
+            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;Number of cells per CM is controlled by number of cells that user adds to G plot panel.  &lt;br&gt;&#xa;The number of CMs, Q, is controlled by the Q spinner. &lt;br&gt;&lt;br&gt;&#xa;The V and &amp;rho; values are programmatically determined. &lt;br&gt;&lt;br&gt;&#xa;- The max V value (which will be the same in all Q CMs) is set by the max V slider (which is tied to the &lt;br&gt;&#xa;G slider, i.e., both produce the same effect). &lt;br&gt;&lt;br&gt;&#xa;- The V&apos;s of the rest of the cells (besides the max-V cell) in each CM are drawn from ranges &lt;br&gt;&#xa;that are set to simulate different amounts of crosstalk.&#xa;&lt;br&gt;&#xa;&lt;br&gt;&#xa;For V charts, black is cell with max V &lt;br&gt;&#xa;&lt;br&gt;&#xa;For &amp;rho; charts, black = winner (correct or not); rose = incorrect loser&#xa;&lt;/font&gt;&#xa;"/>
             <Property name="alignmentX" type="float" value="0.5"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -655,7 +676,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-              <GridBagConstraints gridX="0" gridY="1" gridWidth="1" gridHeight="1" fill="3" ipadX="12" ipadY="0" insetsTop="4" insetsLeft="4" insetsBottom="4" insetsRight="4" anchor="18" weightX="0.2" weightY="1.0"/>
+              <GridBagConstraints gridX="0" gridY="1" gridWidth="1" gridHeight="1" fill="3" ipadX="12" ipadY="0" insetsTop="4" insetsLeft="4" insetsBottom="4" insetsRight="2" anchor="18" weightX="0.2" weightY="1.0"/>
             </Constraint>
           </Constraints>
 
@@ -669,7 +690,7 @@
                 <Property name="majorTickSpacing" type="int" value="20"/>
                 <Property name="paintLabels" type="boolean" value="true"/>
                 <Property name="paintTicks" type="boolean" value="true"/>
-                <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=6&gt;&#xa;Slide to control height of max V, which applies all CMs.&lt;br&gt;&lt;br&gt;&#xa;NOTE: Neiher the G nor Max V slider can be set below the current upper crosstalk limit."/>
+                <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;&#xa;Slide to control height of max V, which applies all CMs.&lt;br&gt;&lt;br&gt;&#xa;NOTE: Neiher the G nor Max V slider can be set below the current upper crosstalk limit."/>
                 <Property name="value" type="int" value="100"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -696,7 +717,7 @@
               </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                  <GridBagConstraints gridX="0" gridY="0" gridWidth="1" gridHeight="1" fill="2" ipadX="0" ipadY="2" insetsTop="0" insetsLeft="4" insetsBottom="0" insetsRight="4" anchor="10" weightX="1.0" weightY="0.1"/>
+                  <GridBagConstraints gridX="0" gridY="0" gridWidth="1" gridHeight="1" fill="1" ipadX="0" ipadY="2" insetsTop="0" insetsLeft="4" insetsBottom="4" insetsRight="4" anchor="10" weightX="1.0" weightY="0.2"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -721,7 +742,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                  <GridBagConstraints gridX="0" gridY="-1" gridWidth="1" gridHeight="1" fill="2" ipadX="0" ipadY="2" insetsTop="0" insetsLeft="4" insetsBottom="0" insetsRight="4" anchor="18" weightX="0.0" weightY="0.1"/>
+                  <GridBagConstraints gridX="0" gridY="-1" gridWidth="1" gridHeight="1" fill="1" ipadX="0" ipadY="2" insetsTop="2" insetsLeft="2" insetsBottom="0" insetsRight="2" anchor="18" weightX="0.0" weightY="0.2"/>
                 </Constraint>
               </Constraints>
 
@@ -739,7 +760,7 @@
                       <Font name="Tahoma" size="14" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Early"/>
-                    <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=6&gt;&#xa;V values of other cells besides the one with max V are set between 0% and 10% of max V.  &lt;br&gt;&#xa;Simulates early period of experience, when relatively few memories (cell assemblies) have been stored."/>
+                    <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;&#xa;V values of other cells besides the one with max V are set between 0% and 10% of max V.  &lt;br&gt;&#xa;Simulates early period of experience, when relatively few memories (cell assemblies) have been stored."/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
                         <EmptyBorder bottom="0" left="0" right="0" top="0"/>
@@ -763,7 +784,7 @@
                     </Property>
                     <Property name="selected" type="boolean" value="true"/>
                     <Property name="text" type="java.lang.String" value="Mid"/>
-                    <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=6&gt;&#xa;V values of other cells besides the one with max V are set between 0% and 50% of max V.  &lt;br&gt;&#xa;Simulates &quot;middle&quot; period of experience, with accumulating memories, and thus crosstalk, &lt;br&gt;&#xa;but still substantial substantial distance between max V and other cells&apos; Vs."/>
+                    <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;&#xa;V values of other cells besides the one with max V are set between 0% and 50% of max V.  &lt;br&gt;&#xa;Simulates &quot;middle&quot; period of experience, with accumulating memories, and thus crosstalk, &lt;br&gt;&#xa;but still substantial distance between max V [if max V (thus, G) is set to 1] and other cells&apos; Vs."/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
                         <EmptyBorder bottom="0" left="0" right="0" top="0"/>
@@ -795,7 +816,7 @@
                       <Font name="Tahoma" size="14" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Late"/>
-                    <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=6&gt;&#xa;V values of other cells besides the one with max V are set between 20% and 100% of max V.  Simulates &quot;late&quot; period of experience, &lt;br&gt;&#xa;with mounting crosstalk interference due to more and more memories (cell assemblies) having been stored in superposition."/>
+                    <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;&#xa;V values of other cells besides the one with max V are set between 20% and 100% of max V.  Simulates &quot;late&quot; period of experience, &lt;br&gt;&#xa;with mounting crosstalk interference due to more and more codes (memories, cell assemblies) having been stored in superposition."/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
                         <EmptyBorder bottom="0" left="0" right="0" top="0"/>
@@ -818,7 +839,7 @@
                       <Font name="Tahoma" size="14" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Old"/>
-                    <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=6&gt;&#xa;V values of other cells besides the one with max V are set between 60% and 100% of max V. &lt;br&gt; &#xa;Simulates &quot;old&quot; period of experience, where so many memories (cell assemblies) have been stored in superposition, &lt;br&gt;&#xa;that recognizing even extrememy familar inputs is difficult.  "/>
+                    <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;&#xa;V values of other cells besides the one with max V are set between 60% and 100% of max V. &lt;br&gt; &#xa;Simulates &quot;old&quot; period of experience, where so many codes (memories, cell assemblies) have been stored in superposition, &lt;br&gt;&#xa;that recognizing even extremely familar inputs is difficult.&lt;br&gt;&lt;br&gt;&#xa;HOWEVER, even in this regime, it is possible to greatly improve recall (i.e., inference) accuracy by adjusting &lt;br&gt;&#xa;Hor. Inflect. Pt. and Eccentricity params of the V-to-%mu; transform. Perhaps the analogs of these params &lt;br&gt;&#xa;of the &quot;default&quot; nonlinearity of real principal cells in cortex are modulated thusly over the lifetime of the organism."/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
                         <EmptyBorder bottom="0" left="0" right="0" top="0"/>
@@ -848,7 +869,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                  <GridBagConstraints gridX="0" gridY="-1" gridWidth="1" gridHeight="1" fill="1" ipadX="0" ipadY="2" insetsTop="4" insetsLeft="4" insetsBottom="4" insetsRight="4" anchor="11" weightX="1.0" weightY="1.0"/>
+                  <GridBagConstraints gridX="0" gridY="-1" gridWidth="1" gridHeight="1" fill="1" ipadX="2" ipadY="2" insetsTop="2" insetsLeft="2" insetsBottom="2" insetsRight="2" anchor="11" weightX="1.0" weightY="1.0"/>
                 </Constraint>
               </Constraints>
 
@@ -860,7 +881,7 @@
                       <Font name="Tahoma" size="14" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value=" Actual Accuracy: "/>
-                    <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=6&gt;&#xa;The fraction of CMs in which max V cell is chosen (for the depicted sample)"/>
+                    <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;&#xa;The fraction of CMs in which max V cell is chosen (for the depicted sample)"/>
                     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[200, 22]"/>
                     </Property>
@@ -870,7 +891,7 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                      <GridBagConstraints gridX="-1" gridY="-1" gridWidth="1" gridHeight="1" fill="2" ipadX="2" ipadY="4" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="17" weightX="0.8" weightY="0.2"/>
+                      <GridBagConstraints gridX="0" gridY="0" gridWidth="1" gridHeight="1" fill="2" ipadX="2" ipadY="4" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="17" weightX="0.8" weightY="0.2"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -881,7 +902,7 @@
                       <Font name="Tahoma" size="14" style="1"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="11"/>
-                    <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=6&gt;&#xa;The fraction of CMs in which max V cell is chosen (for the depicted sample)"/>
+                    <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;&#xa;The fraction of CMs in which the max V cell is chosen as winner (for the depicted sample)"/>
                     <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                       <Insets value="[2, 2, 2, 6]"/>
                     </Property>
@@ -900,7 +921,7 @@
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                      <GridBagConstraints gridX="-1" gridY="-1" gridWidth="1" gridHeight="1" fill="2" ipadX="2" ipadY="4" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="0.2" weightY="0.0"/>
+                      <GridBagConstraints gridX="1" gridY="0" gridWidth="1" gridHeight="1" fill="2" ipadX="2" ipadY="4" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="0.2" weightY="0.0"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -910,7 +931,7 @@
                       <Font name="Tahoma" size="14" style="1"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value=" Expected Accuracy:"/>
-                    <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;&#xa;Expected fraction of CMs in which max V cell is chosen.  Within any one CM, this is a Bernoulli trial with success probability&lt;br&gt;&#xa;equal to the &amp;rho; value of the max V cell, i.e., the max &amp;rho; value. So the expected accuracy is simply the average&lt;br&gt;&#xa;of the max &amp;rho; values across the Q CMs."/>
+                    <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;&#xa;Expected fraction of CMs in which max V cell is chosen winner.  Within any one CM, this is a Bernoulli trial with success probability&lt;br&gt;&#xa;equal to the &amp;rho; value of the max V cell, i.e., the max &amp;rho; value. So the expected accuracy of the whole chosen code, i.e., &lt;br&gt;&#xa;across all Q CMs, is simply the average of the max &amp;rho; values across the Q CMs.  It&apos;s essentially binomial, except that the exact&lt;br&gt;&#xa;&amp;rho; values can differ across the CMs, so it&apos;s just simply &amp;rho;."/>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[158, 50]"/>
                     </Property>
@@ -931,7 +952,7 @@
                       <Font name="Tahoma" size="14" style="1"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="11"/>
-                    <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;&#xa;Expected fraction of CMs in which max V cell is chosen.  This is computed as the average &amp;rho; value&lt;br&gt;&#xa;of the max V cell, across the Q CMs.  Note: because the &amp;rho; distribution (from which a winner is drawn)&lt;br&gt;&#xa;differs from one CM to the next.  So the exact &amp;rho; value of the max V cell also differs from Cm to CM&lt;br&gt;&#xa;(even though the max V value is the same in all CMs)."/>
+                    <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;&#xa;Expected fraction of CMs in which the max V cell is chosen winner.  This is computed as the average &amp;rho; value&lt;br&gt;&#xa;of the max V cell, across the Q CMs.  Note: because the &amp;rho; distribution (from which a winner is drawn)&lt;br&gt;&#xa;differs from one CM to the next, the exact &amp;rho; value of the max V cell also differs from CM to CM&lt;br&gt;&#xa;(even though the max V value is the same in all CMs).  If the &amp;rho; were exactly the same across all CMs&lt;br&gt;&#xa;then this expected fraction would just be Binomial, i.e., Q &amp;times; &amp;rho;"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                         <LineBorder roundedCorners="true" thickness="2">
@@ -964,7 +985,7 @@
                       <Font name="Tahoma" size="14" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value=" Std. Dev. Accuracy:"/>
-                    <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=6&gt;&#xa;Ave of the variance of the expected accuracy over the Q CMs. The choice process in each CM is a Bernoulli process, &lt;br&gt;&#xa;so the variance of expected accuracy in any one CM is just the &amp;rho; val of the max-V cell times (1 - that &amp;rho; val).  &lt;br&gt;&#xa;So this field just reports the average of those Q expected accuracy variance values."/>
+                    <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;&#xa;Ave of the variance of the expected accuracy over the Q CMs. The choice process in each CM is a Bernoulli process, &lt;br&gt;&#xa;so the variance of expected accuracy in any one CM is just the &amp;rho; val of the max-V cell times (1 - that &amp;rho; val).  &lt;br&gt;&#xa;So this field just reports the average of those Q expected accuracy variance values."/>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[159, 50]"/>
                     </Property>
@@ -1118,6 +1139,13 @@
         </Container>
         <Container class="javax.swing.JPanel" name="theMacPlanPanel">
           <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder roundedCorners="true">
+                  <Color PropertyName="color" blue="99" green="99" red="99" type="rgb"/>
+                </LineBorder>
+              </Border>
+            </Property>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[300, 300]"/>
             </Property>
