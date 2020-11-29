@@ -135,7 +135,7 @@ public class CSAdemo extends javax.swing.JFrame {
 
     tie_G_eccent_sliders_Chkbx.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
     tie_G_eccent_sliders_Chkbx.setText("Tie G, V, and Eccen");
-    tie_G_eccent_sliders_Chkbx.setToolTipText("When tied, as one moves G (or V) slider, eccentricity slider will move with it.");
+    tie_G_eccent_sliders_Chkbx.setToolTipText("<html>\nWhen tied, as one moves G (or V) slider, the eccentricity slider will also move, in a coordinated way, so that the overall relation <br>\nbetween G (input familiarity) and expected code intersection is close to linear. <br><br>\n\nG directly controls the range of the V-to-&mu; transform.  If the range is the only thing we change, then the overall relation <br>\nfrom G to expected code intersection, while correlated, cannot be linear over its whole range.  We need to simultaneously change <br>\nboth the transforms's range and its eccentricity in order to achieve near linearity over all or most of G's range, i.e., [0,1].<br><br>\n\nThere could be other combinations of sigmoid params that can also be changed in coordinated fashion to achieve an overall linear relation <br>\nfrom G to expected code intersection, e.g., involving the horizontal position of the inflection pt, but I haven't found one yet.");
     tie_G_eccent_sliders_Chkbx.setFocusable(false);
     tie_G_eccent_sliders_Chkbx.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
     tie_G_eccent_sliders_Chkbx.addActionListener(new java.awt.event.ActionListener() {
@@ -148,13 +148,13 @@ public class CSAdemo extends javax.swing.JFrame {
     getContentPane().add(jToolBar1, java.awt.BorderLayout.PAGE_START);
     getContentPane().add(mainCSA_demoPanel1, java.awt.BorderLayout.CENTER);
 
-    jMenuBar1.setPreferredSize(new java.awt.Dimension(74, 45));
+    jMenuBar1.setMinimumSize(new java.awt.Dimension(63, 30));
+    jMenuBar1.setPreferredSize(new java.awt.Dimension(74, 30));
 
     helpMenu.setText("About");
     helpMenu.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
     helpMenu.setMinimumSize(new java.awt.Dimension(63, 20));
-    helpMenu.setPreferredSize(new java.awt.Dimension(63, 24));
-    helpMenu.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+    helpMenu.setPreferredSize(new java.awt.Dimension(63, 20));
     jMenuBar1.add(helpMenu);
 
     setJMenuBar(jMenuBar1);
