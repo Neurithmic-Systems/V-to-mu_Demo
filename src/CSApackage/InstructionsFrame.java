@@ -39,7 +39,7 @@ public class InstructionsFrame extends javax.swing.JFrame {
             + "         It also allows you to specify the number of trials performed at each max V setting.  It computes average\n"
             + "         for the set of trials at each max V setting.  Soon you'll be able to save results to a txt file.\n\n\n"
             + " Notes: \n\n"
-            + "   - You might have to resize to see all 8 CMs in lower right panel. You can also change number of CMs.\n"
+            + "   - You might have to resize to see all the CMs in lower right panel. You can also change number of CMs.\n"
             + "   - You can hit buttons as many times as you want. Each time, new random V distributions are generated.\n"
             + "   - When you move sliders (except for crosstalk distribution limit sliders), the V distributions remain the same,\n"
             + "     but the \u03c1 distributions which vary.\n"
@@ -65,7 +65,7 @@ public class InstructionsFrame extends javax.swing.JFrame {
     setTitle("Sparsey Code Selection Algorithm (CSA) Demo Instructions");
 
     textArea2.setEditable(false);
-    textArea2.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+    textArea2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
     textArea2.setMinimumSize(new java.awt.Dimension(300, 300));
     textArea2.setPreferredSize(new java.awt.Dimension(400, 400));
     getContentPane().add(textArea2, java.awt.BorderLayout.CENTER);

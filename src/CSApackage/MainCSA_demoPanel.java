@@ -166,7 +166,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     setLayout(new java.awt.GridBagLayout());
 
     jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
-    jPanel2.setMinimumSize(new java.awt.Dimension(500, 500));
+    jPanel2.setMinimumSize(new java.awt.Dimension(400, 500));
     jPanel2.setPreferredSize(new java.awt.Dimension(500, 500));
     jPanel2.setLayout(new java.awt.GridBagLayout());
 
@@ -210,7 +210,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
     gridBagConstraints.ipadx = 2;
     gridBagConstraints.ipady = 2;
-    gridBagConstraints.weightx = 0.4;
+    gridBagConstraints.weightx = 0.1;
     gridBagConstraints.weighty = 1.0;
     gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
     add(jPanel2, gridBagConstraints);
@@ -480,7 +480,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
 
     jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
     jPanel3.setMinimumSize(new java.awt.Dimension(400, 500));
-    jPanel3.setPreferredSize(new java.awt.Dimension(500, 500));
+    jPanel3.setPreferredSize(new java.awt.Dimension(400, 500));
     jPanel3.setLayout(new java.awt.GridBagLayout());
 
     labSingleCMChartTitle1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -539,13 +539,11 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     labMacChartTitle.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
     labMacChartTitle.setMaximumSize(new java.awt.Dimension(600, 40));
     labMacChartTitle.setMinimumSize(new java.awt.Dimension(333, 40));
-    labMacChartTitle.setPreferredSize(new java.awt.Dimension(500, 40));
+    labMacChartTitle.setPreferredSize(new java.awt.Dimension(400, 40));
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 0;
     gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-    gridBagConstraints.weightx = 0.9;
     gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
     multiMacPanel.add(labMacChartTitle, gridBagConstraints);
 
@@ -854,15 +852,15 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 1;
     gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
-    gridBagConstraints.ipadx = 12;
+    gridBagConstraints.ipadx = 10;
     gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
     gridBagConstraints.weightx = 0.2;
     gridBagConstraints.weighty = 1.0;
-    gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 2);
+    gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 0);
     multiMacPanel.add(macPanelControls, gridBagConstraints);
 
     theMacPlanPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-    theMacPlanPanel.setMinimumSize(new java.awt.Dimension(300, 300));
+    theMacPlanPanel.setMinimumSize(new java.awt.Dimension(400, 300));
     theMacPlanPanel.setPreferredSize(new java.awt.Dimension(700, 500));
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridy = 1;
@@ -871,7 +869,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.ipady = 2;
     gridBagConstraints.weightx = 0.8;
     gridBagConstraints.weighty = 1.0;
-    gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+    gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 4);
     multiMacPanel.add(theMacPlanPanel, gridBagConstraints);
 
     gridBagConstraints = new java.awt.GridBagConstraints();

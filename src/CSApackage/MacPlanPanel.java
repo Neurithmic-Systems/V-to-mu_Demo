@@ -71,8 +71,8 @@ public class MacPlanPanel extends javax.swing.JPanel
   int x_AxisRightBufferPixels = 20;
   int overallWidth = 500;  
   int vertMargin = 15;
-  int horizSpaceCM = 20;
-  int CM_label_vert_space = 50;
+  int horizSpaceCM = 14;
+  int CM_label_vert_space = 40;
   int cellDiameter = 10;
   int cellRadius = 5;
   int barWidth = 5;
@@ -80,7 +80,7 @@ public class MacPlanPanel extends javax.swing.JPanel
   int barHorizMargin = 1;
   int barZoneWidth = barWidth + 2 * barHorizMargin;
   int chartInternalTopMargin = 8;
-  int leftMargin = 40;
+  int leftMargin = 35;
   int CM_width = 9 * 2 * barWidth;
   int CM_height = 60;
   int CM_halfWidth = 20;

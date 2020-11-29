@@ -6,7 +6,7 @@
 package CSApackage;
 
 import java.awt.Color;
-import java.util.List;
+import java.awt.Point;
 import javax.swing.JColorChooser;
 
 /**
@@ -55,11 +55,12 @@ public class CSAdemo extends javax.swing.JFrame {
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setTitle("Sparsey Code Selection Algorithm (CSA) Demo");
-    setPreferredSize(new java.awt.Dimension(1300, 1200));
+    setMinimumSize(new java.awt.Dimension(700, 600));
+    setPreferredSize(new java.awt.Dimension(1200, 1100));
 
     jToolBar1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
     jToolBar1.setRollover(true);
-    jToolBar1.setPreferredSize(new java.awt.Dimension(13, 50));
+    jToolBar1.setPreferredSize(new java.awt.Dimension(13, 30));
 
     instructionsBtn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
     instructionsBtn.setText("Instructions");
@@ -150,7 +151,10 @@ public class CSAdemo extends javax.swing.JFrame {
     jMenuBar1.setPreferredSize(new java.awt.Dimension(74, 45));
 
     helpMenu.setText("About");
-    helpMenu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    helpMenu.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+    helpMenu.setMinimumSize(new java.awt.Dimension(63, 20));
+    helpMenu.setPreferredSize(new java.awt.Dimension(63, 24));
+    helpMenu.setVerticalAlignment(javax.swing.SwingConstants.TOP);
     jMenuBar1.add(helpMenu);
 
     setJMenuBar(jMenuBar1);
@@ -160,7 +164,8 @@ public class CSAdemo extends javax.swing.JFrame {
 
   private void instructionsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_instructionsBtnActionPerformed
     InstructionsFrame instructionsFrame = new InstructionsFrame();
-    instructionsFrame.setSize(1200, 950);
+    instructionsFrame.setSize(900, 800);
+            
     instructionsFrame.setLocationRelativeTo(this);
     instructionsFrame.setLocation(400, 500);
     instructionsFrame.setVisible(true);
