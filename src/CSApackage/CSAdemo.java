@@ -55,6 +55,7 @@ public class CSAdemo extends javax.swing.JFrame {
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setTitle("Sparsey Code Selection Algorithm (CSA) Demo");
+    setLocation(new java.awt.Point(0, 0));
     setMinimumSize(new java.awt.Dimension(700, 600));
     setPreferredSize(new java.awt.Dimension(1200, 1100));
 
@@ -134,8 +135,8 @@ public class CSAdemo extends javax.swing.JFrame {
     jToolBar1.add(jButton1);
 
     tie_G_eccent_sliders_Chkbx.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-    tie_G_eccent_sliders_Chkbx.setText("Tie G, V, and Eccen");
-    tie_G_eccent_sliders_Chkbx.setToolTipText("<html>\nWhen tied, as one moves G (or V) slider, the eccentricity slider will also move, in a coordinated way, so that the overall relation <br>\nbetween G (input familiarity) and expected code intersection is close to linear. <br><br>\n\nG directly controls the range of the V-to-&mu; transform.  If the range is the only thing we change, then the overall relation <br>\nfrom G to expected code intersection, while correlated, cannot be linear over its whole range.  We need to simultaneously change <br>\nboth the transforms's range and its eccentricity in order to achieve near linearity over all or most of G's range, i.e., [0,1].<br><br>\n\nThere could be other combinations of sigmoid params that can also be changed in coordinated fashion to achieve an overall linear relation <br>\nfrom G to expected code intersection, e.g., involving the horizontal position of the inflection pt, but I haven't found one yet.");
+    tie_G_eccent_sliders_Chkbx.setText("Tie G, max V, and Eccen");
+    tie_G_eccent_sliders_Chkbx.setToolTipText("<html>\n<font size=4>\n<br>\nWhen tied, as one moves G (or V) slider, the eccentricity slider will also move, <br>\nin a coordinated way, so that the overall relation between G (input familiarity) <br>\nand expected code intersection is close to linear. <br><br>\n\nG directly controls the range of the V-to-&mu; transform.  If the range is the only thing <br>\nwe change, then the overall relation from G to expected code intersection, while correlated, <br>\ncannot be linear over its whole range.  We need to simultaneously change both the transforms's <br>\nrange and its eccentricity in order to achieve near linearity over all or most of G's range, i.e., [0,1].<br><br>\n\nThere could be other combinations of sigmoid params that can also be changed in coordinated <br>\nfashion to achieve an overall linear relation from G to expected code intersection, e.g., involving <br>\nthe horizontal position of the inflection pt, but I haven't found one yet.");
     tie_G_eccent_sliders_Chkbx.setFocusable(false);
     tie_G_eccent_sliders_Chkbx.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
     tie_G_eccent_sliders_Chkbx.addActionListener(new java.awt.event.ActionListener() {
@@ -160,6 +161,7 @@ public class CSAdemo extends javax.swing.JFrame {
     setJMenuBar(jMenuBar1);
 
     pack();
+    setLocationRelativeTo(null);
   }// </editor-fold>//GEN-END:initComponents
 
   private void instructionsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_instructionsBtnActionPerformed
