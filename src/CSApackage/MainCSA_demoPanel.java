@@ -149,7 +149,10 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     maxCrosstalk_V = new javax.swing.JTextField();
     jLabel4 = new javax.swing.JLabel();
     spinnerQ = new javax.swing.JSpinner();
-    spinnerQ.setValue(Mac.defaul_Q);
+    spinnerQ.setValue(Mac.default_Q);
+    jLabel5 = new javax.swing.JLabel();
+    spinnerK = new javax.swing.JSpinner();
+    spinnerK.setValue(Mac.default_K);
     theMacPlanPanel = new MacPlanPanel();
 
     setBackground(new java.awt.Color(153, 255, 255));
@@ -537,13 +540,14 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     labMacChartTitle.setToolTipText("<html>\n<font size=4>The number of cells per CM is controlled by number of cells that user adds.  <br>\n to G plot panel. The number of CMs, Q, is controlled by the Q spinner. <br><br>\nThe V and &rho; values are programmatically determined. <br><br>\n- The max V value (which will be the same in all Q CMs) is set by the max V slider<br>\n(which is tied to the G slider, i.e., both produce the same effect). <br><br>\n- The V's of the rest of the cells (besides the max-V cell) in each CM are drawn from ranges <br>\nthat are set to simulate different amounts of crosstalk.\n<br>\n<br>\nFor V charts, black is cell with max V <br>\n<br>\nFor &rho; charts, black = winner (correct or not); rose = incorrect loser\n</font>\n");
     labMacChartTitle.setAlignmentX(0.5F);
     labMacChartTitle.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-    labMacChartTitle.setMaximumSize(new java.awt.Dimension(600, 40));
+    labMacChartTitle.setMaximumSize(new java.awt.Dimension(1000, 40));
     labMacChartTitle.setMinimumSize(new java.awt.Dimension(333, 40));
-    labMacChartTitle.setPreferredSize(new java.awt.Dimension(400, 40));
+    labMacChartTitle.setPreferredSize(new java.awt.Dimension(700, 40));
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 0;
     gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
     gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
     multiMacPanel.add(labMacChartTitle, gridBagConstraints);
 
@@ -689,6 +693,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.ipadx = 2;
     gridBagConstraints.ipady = 4;
     gridBagConstraints.weightx = 0.2;
+    gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
     macStatsPanel.add(accuracy, gridBagConstraints);
 
     jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -720,6 +725,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.gridy = 1;
     gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
     gridBagConstraints.ipadx = 2;
+    gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
     macStatsPanel.add(expectedAccuracy, gridBagConstraints);
 
     jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -754,6 +760,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.gridy = 2;
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
     gridBagConstraints.ipadx = 2;
+    gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
     macStatsPanel.add(stdDevAccuracy, gridBagConstraints);
 
     minCrossTalkValLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -780,6 +787,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.gridy = 3;
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
     gridBagConstraints.ipadx = 2;
+    gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
     macStatsPanel.add(minCrosstalk_V, gridBagConstraints);
 
     maxCrossTalkValLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -806,6 +814,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.gridy = 4;
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
     gridBagConstraints.ipadx = 2;
+    gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
     macStatsPanel.add(maxCrosstalk_V, gridBagConstraints);
 
     jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -835,7 +844,38 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
     gridBagConstraints.ipadx = 2;
     gridBagConstraints.ipady = 4;
+    gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
     macStatsPanel.add(spinnerQ, gridBagConstraints);
+
+    jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+    jLabel5.setText("<html>\n<i>K</i> (# of units/CM)");
+    jLabel5.setToolTipText("<html>\n<font size=4>\nClick to change the number of units per CM.  You may have to resize <br>\nthe GUI to see the units more clearly.");
+    jLabel5.setPreferredSize(new java.awt.Dimension(113, 50));
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 0;
+    gridBagConstraints.gridy = 6;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.ipadx = 2;
+    gridBagConstraints.ipady = 4;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+    gridBagConstraints.weightx = 0.1;
+    gridBagConstraints.weighty = 0.2;
+    macStatsPanel.add(jLabel5, gridBagConstraints);
+
+    spinnerK.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+    spinnerK.addChangeListener(new javax.swing.event.ChangeListener() {
+      public void stateChanged(javax.swing.event.ChangeEvent evt) {
+        spinnerKStateChanged(evt);
+      }
+    });
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 1;
+    gridBagConstraints.gridy = 6;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.ipadx = 2;
+    gridBagConstraints.ipady = 4;
+    gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
+    macStatsPanel.add(spinnerK, gridBagConstraints);
 
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
@@ -933,6 +973,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     this.expectedAccuracy.setText(String.format(""));
     this.accuracy.setText(String.format(""));
     this.stdDevAccuracy.setText(String.format(""));
+    this.spinnerK.setValue(theApp.theMac.K);
   }//GEN-LAST:event_btClearCellsActionPerformed
 
   private void beta_sliderStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_beta_sliderStateChanged
@@ -1002,7 +1043,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
 
   private void spinnerQStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_spinnerQStateChanged
   {//GEN-HEADEREND:event_spinnerQStateChanged
-    
+   
     try {
       spinnerQ.commitEdit();
     } catch ( java.text.ParseException e )
@@ -1019,7 +1060,12 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
       theApp.theMac.chooseCodeAndComputeAccuracies();
     }
     
+    String text = String.format("Mac comprised of Q = %2d WTA CMs, each with K = %2d units", value, theApp.theMac.K);
+    labMacChartTitle.setText(text);
+    
     ((MacPlanPanel)theMacPlanPanel).repaint();
+    ((SingleCMPanel)this.singleCM_V_rho_Panel).repaint();
+    ((V_to_mu_plot)this.sigmoidDisplayPanel).repaint();
   }//GEN-LAST:event_spinnerQStateChanged
 
   private void accuracyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accuracyActionPerformed
@@ -1120,6 +1166,31 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     theApp.theMac.calculate_eta();
     updateStateOfGUI();
   }//GEN-LAST:event_gamma_Slider1StateChanged
+
+  private void spinnerKStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerKStateChanged
+    try {
+      spinnerK.commitEdit();
+    } catch ( java.text.ParseException e )
+    {
+      System.err.println("Error with the K spinner " + e.getMessage());
+    }
+    int value = (Integer) spinnerK.getValue();
+
+    theApp.theMac.setK(value);
+    if (theApp.theMac.K > 0)
+    {
+      theApp.theMac.create_V_Distributions(true, true);
+      theApp.theMac.updateDependentDistributions();
+      theApp.theMac.chooseCodeAndComputeAccuracies();
+    }
+    
+    String text = String.format("Mac comprised of Q = %2d WTA CMs, each with K = %2d units", value, theApp.theMac.K);
+    labMacChartTitle.setText(text);
+    
+    ((MacPlanPanel)theMacPlanPanel).repaint();
+    ((SingleCMPanel)this.singleCM_V_rho_Panel).repaint();
+    ((V_to_mu_plot)this.sigmoidDisplayPanel).repaint();
+  }//GEN-LAST:event_spinnerKStateChanged
 
   protected boolean isCrossTalkRelativeToCurrentMax_V()
   {
@@ -1253,6 +1324,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
   private javax.swing.JLabel jLabel2;
   private javax.swing.JLabel jLabel3;
   private javax.swing.JLabel jLabel4;
+  private javax.swing.JLabel jLabel5;
   private javax.swing.JPanel jPanel1;
   private javax.swing.JPanel jPanel2;
   private javax.swing.JPanel jPanel3;
@@ -1273,6 +1345,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
   private javax.swing.JRadioButton relativeToMaxV_Lims;
   private javax.swing.JPanel sigmoidDisplayPanel;
   private javax.swing.JPanel singleCM_V_rho_Panel;
+  private javax.swing.JSpinner spinnerK;
   private javax.swing.JSpinner spinnerQ;
   protected javax.swing.JTextField stdDevAccuracy;
   private javax.swing.JPanel theMacPlanPanel;

@@ -127,21 +127,28 @@ public class V_to_mu_plot extends javax.swing.JPanel
       m_Controller.repaint();
     }//GEN-LAST:event_formComponentShown
 
+    /** this handler allows user to add a cell to the "master" CM.
+     * 
+     * @param evt 
+     */
   private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-    // TODO add your handling code here:
-    int temp = theMac.K;
-    if (temp >= theMac.max_K)
-      return;
-
-    if (addCell(evt.getX(), evt.getY())) 
-    {                
-      theMac.updateDependentDistributions();
-      theMac.chooseCodeAndComputeAccuracies();
-      repaint();
-      theSingle_CM_Panel.repaint();
-      m_Controller.getMacPanel().repaint();
-      m_Controller.updateStatsControls(); 
-    }
+    
+    // Decided not to use this method to allow users to add units to CMs, but
+    // leaving the code here just in case.
+    
+//    int temp = theMac.K;
+//    if (temp >= theMac.max_K)
+//      return;
+//
+//    if (addCell(evt.getX(), evt.getY())) 
+//    {                
+//      theMac.updateDependentDistributions();
+//      theMac.chooseCodeAndComputeAccuracies();
+//      repaint();
+//      theSingle_CM_Panel.repaint();
+//      m_Controller.getMacPanel().repaint();
+//      m_Controller.updateStatsControls(); 
+//    }
   }//GEN-LAST:event_formMouseClicked
 
   private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved

@@ -17,9 +17,10 @@ public class Mac {
   
   private CSAdemo theApp = null;
   
-  static final int defaul_Q = 8;
-  protected int Q = defaul_Q;
-  int K = 0;
+  static final int default_Q = 8;
+  protected int Q = default_Q;
+  static final int default_K = 4;
+  protected int K = default_K;
   final int max_K = 20;
   
   float G = 1.0f;
@@ -89,6 +90,8 @@ public class Mac {
       cellsOfCM = new ArrayList<>(K);
       rhoCumulative.add(cellsOfCM);
     }
+    
+    this.ensureArraySizes(K);
     
     maxV_index = new ArrayList<>(Q);
     muSum = new ArrayList<>(Q);
@@ -425,6 +428,17 @@ public class Mac {
   public void setQ(int Q)
   {
     this.Q = Q;
+    ensureArraySizes(K);    
+  }
+  
+  /**
+   * Whenever we set K, we should also.....
+   * 
+   * @param K the K to set
+   */
+  public void setK(int K)
+  {
+    this.K = K;
     ensureArraySizes(K);    
   }
   
