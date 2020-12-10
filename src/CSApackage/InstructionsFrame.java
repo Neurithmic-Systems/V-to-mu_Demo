@@ -21,14 +21,15 @@ public class InstructionsFrame extends javax.swing.JFrame {
    */
   public InstructionsFrame() {
     initComponents();
-    textArea2.setText("\n Step 1: Add some units by clicking in upper left (V-to-\u03bc) chart.\n\n"
-            + "   - Click at different horiz. locations to assign different V values.\n"
-            + "   - A unit's V value is represents its input summation, but normalized to [0,1].\n"
-            + "   - When you add a unit, a unit is also added to each of the CMs at lower right.\n\n"
-            + " Step 2: After putting a few cells in the upper left chart, either:\n\n"
+    textArea2.setText("\n When the app opens there will be a default number (Q) of WTA CMs (V-to-\u03bc) chart.\n"
+            + " and a default number (K) of units in each CM.  You can change either with their\n"
+            + " corresponding spinners. The units will intially all have the same V value.\n"
+            + " A unit's V value represents its input summation, but normalized to [0,1].\n\n"
+            + " Step 1: Either:\n\n"
             + "   - Press one of the \"life phase\" buttons\n"
-            + "       This creates an entire new V dist. in each CM, respecting the specified crostalk limits for all cells besides the max.\n"
-            + "       The cell with max V may change with each press. The max V in each cell will be as specified by the G and V sliders (which are tied).\n"
+            + "       This creates an entire new V dist. in each CM, respecting the specified crostalk limits \n"
+            + "       for all cells besides the max. The cell with max V may change with each press. The max V \n"
+            + "       in each cell will be as specified by the G and V sliders (which are tied).\n"
             + "   - press \"Generate New Sample\" button\n"
             + "       This also creates an entire new V dist. in each CM, with specified crostalk limits\n"
             + "       But it keeps the winning cell the same.\n\n"
