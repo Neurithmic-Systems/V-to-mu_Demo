@@ -71,6 +71,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     ((V_to_mu_plot)sigmoidDisplayPanel).set_CM_plan_class((SingleCMPanel)singleCM_V_rho_Panel);
     ((SingleCMPanel)singleCM_V_rho_Panel).set_plot_class((V_to_mu_plot)sigmoidDisplayPanel);
     ((MacPlanPanel)theMacPlanPanel).set_plot_class((V_to_mu_plot)sigmoidDisplayPanel);   
+    ((SingleCMPanel)singleCM_V_rho_Panel).setM_macPlanPanel((MacPlanPanel)theMacPlanPanel);
       
     // Preset mac panel members in accord with the initially selected radio button.
     
@@ -1060,7 +1061,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
       theApp.theMac.chooseCodeAndComputeAccuracies();
     }
     
-    String text = String.format("Mac comprised of Q = %2d WTA CMs, each with K = %2d units", value, theApp.theMac.K);
+    String text = String.format("Mac comprised of Q = %2d WTA CMs, each with K = %2d units", theApp.theMac.Q, theApp.theMac.K);
     labMacChartTitle.setText(text);
     
     ((MacPlanPanel)theMacPlanPanel).repaint();
@@ -1184,7 +1185,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
       theApp.theMac.chooseCodeAndComputeAccuracies();
     }
     
-    String text = String.format("Mac comprised of Q = %2d WTA CMs, each with K = %2d units", value, theApp.theMac.K);
+    String text = String.format("Mac comprised of Q = %2d WTA CMs, each with K = %2d units", theApp.theMac.Q, theApp.theMac.K);
     labMacChartTitle.setText(text);
     
     ((MacPlanPanel)theMacPlanPanel).repaint();

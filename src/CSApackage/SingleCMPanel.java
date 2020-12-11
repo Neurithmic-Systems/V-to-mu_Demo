@@ -57,6 +57,7 @@ public class SingleCMPanel extends javax.swing.JPanel
   public NumberFormat m_FloatFormat_prob = NumberFormat.getNumberInstance();
   
   MainCSA_demoPanel m_Controller = null;
+  private MacPlanPanel m_macPlanPanel = null;
   
   /**
    * Creates new form single CM plan panel
@@ -132,7 +133,7 @@ public class SingleCMPanel extends javax.swing.JPanel
     
     m_cell_top = m_V_plot_bottom + 10;
     
-    // Draw background of chart in same color as background of first CM in mac panel chart   
+    // Draw background of chart in same color as background of the Focused CM in mac panel chart   
     if (m_Controller != null)
       g2.setColor(m_Controller.first_CM_background);
     g2.fillRect(plotOrigin_X_Inset, m_vert_spacer, getWidth() - plotOrigin_X_Inset - x_AxisRightBufferPixels, m_p_plot_height);
@@ -194,10 +195,11 @@ public class SingleCMPanel extends javax.swing.JPanel
     
     // draw cells and bars
     
-    int winnerIndex = theMac.getWinningIndex(0);
-    int max_V_Index = theMac.getMax_V_Index(0);      
+    int focusedCM = m_macPlanPanel.getFocused_CM_Index();
+    int winnerIndex = theMac.getWinningIndex(focusedCM);
+    int max_V_Index = theMac.getMax_V_Index(focusedCM);      
     
-    double divisor = ( theMac.muSum.get(0) > 0 ) ?  theMac.muSum.get(0) : 1;
+    double divisor = ( theMac.muSum.get(focusedCM) > 0 ) ?  theMac.muSum.get(focusedCM) : 1;
       
     int x_left = 0;  // convenience var in loop    
     for (int c = 0; c < numCells; c++)
@@ -213,18 +215,18 @@ public class SingleCMPanel extends javax.swing.JPanel
       
       g2.fillOval(x_left, m_cell_top, cellDiameter, cellDiameter );
       
-      y = (int) ( theMac.get_specific_V_val(0, c) * m_V_plot_height );
+      y = (int) ( theMac.get_specific_V_val(focusedCM, c) * m_V_plot_height );
       g2.fillRect(x_left, m_V_plot_bottom - y, cellDiameter, y );
       
-      y = (int) ( theMac.get_specific_mu_val(0, c) / divisor * m_p_plot_height );
+      y = (int) ( theMac.get_specific_mu_val(focusedCM, c) / divisor * m_p_plot_height );
       g2.fillRect(x_left, m_p_plot_bottom - y, cellDiameter, y );
       
       // show values as mouse hovers over bars
       if (mouse_X >= x_left && mouse_X <= x_left + cellDiameter) // && mouse_Y >= y_pos-3 && mouse_Y <= y_pos+3 )
       {
         g2.setColor( Color.black );
-        g2.drawString(m_FloatFormat_prob.format(theMac.get_specific_V_val(0, c)), x_left, m_V_plot_bottom - m_V_plot_height- 12 ); 
-        g2.drawString(m_FloatFormat_prob.format(theMac.get_specific_mu_val(0, c) / theMac.muSum.get(0)), x_left - 8, m_p_plot_bottom - m_p_plot_height - 12 ); 
+        g2.drawString(m_FloatFormat_prob.format(theMac.get_specific_V_val(focusedCM, c)), x_left, m_V_plot_bottom - m_V_plot_height- 12 ); 
+        g2.drawString(m_FloatFormat_prob.format(theMac.get_specific_mu_val(focusedCM, c) / theMac.muSum.get(0)), x_left - 8, m_p_plot_bottom - m_p_plot_height - 12 ); 
       }
       
     }
@@ -263,6 +265,20 @@ public class SingleCMPanel extends javax.swing.JPanel
    */
   public void setTheMac(Mac theMac) {
     this.theMac = theMac;
+  }
+
+  /**
+   * @return the m_macPlanPanel
+   */
+  public MacPlanPanel getM_macPlanPanel() {
+    return m_macPlanPanel;
+  }
+
+  /**
+   * @param m_macPlanPanel the m_macPlanPanel to set
+   */
+  public void setM_macPlanPanel(MacPlanPanel m_macPlanPanel) {
+    this.m_macPlanPanel = m_macPlanPanel;
   }
   
   // Variables declaration - do not modify//GEN-BEGIN:variables
