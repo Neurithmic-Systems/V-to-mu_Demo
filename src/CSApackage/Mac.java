@@ -164,7 +164,7 @@ public class Mac {
   
   /**
    * Called when user clicks in V-to-mu plot.  It sets the V value for the newly
-   * added in all CMs to be the V determined by where the user clicked in the plot.  
+   * added cell in all CMs to be the V determined by where the user clicked in the plot.  
    */
   public void specifyNewCell_Vs(int new_cell_index, float specified_V)
   {
@@ -229,7 +229,7 @@ public class Mac {
    * Creates random distributions of V values in each of the CMs.  One cell will be chosen at
    * random in each CM to have a max V, V_max, controlled by a slider.  The other cells in each CM will be 
    * assigned random V values uniformly distributed in a range, whose parameters vary to simulate conditions 
-   * that would exist at various periods of the model's life. This method also computes the rho values.
+   * that would exist at various periods of the model's life.
    */
   public void create_V_Distributions(boolean pick_new_max_V_dex, boolean randomly_draw_non_max_V_cells)
   {        
@@ -478,10 +478,12 @@ public class Mac {
   
   public void SetCrossTalkHighLimFactor( float val ) { crosstalk_V_upper_lim_factor = val; }  
   public float GetCrossTalkHighLimFactor() { return (float)crosstalk_V_upper_lim_factor; }  
+  public void SetCrossTalkHighLim( float val ) { crosstalk_V_upper_lim = val; }
   public float GetCrossTalkHighLim() { return (float)crosstalk_V_upper_lim; }
   
   public void SetCrossTalkLowLimFactor( float val ) { crosstalk_V_lower_lim_factor = val; }  
   public float GetCrossTalkLowLimFactor() { return (float)crosstalk_V_lower_lim_factor; }
+  public void SetCrossTalkLowLim( float val ) { crosstalk_V_lower_lim = val; }
   public float GetCrossTalkLowLim() { return (float)crosstalk_V_lower_lim; }
   
   public void SetWinner_V_Val( float val ) { winner_V_val = val; }  

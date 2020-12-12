@@ -226,7 +226,7 @@ public class SingleCMPanel extends javax.swing.JPanel
       {
         g2.setColor( Color.black );
         g2.drawString(m_FloatFormat_prob.format(theMac.get_specific_V_val(focusedCM, c)), x_left, m_V_plot_bottom - m_V_plot_height- 12 ); 
-        g2.drawString(m_FloatFormat_prob.format(theMac.get_specific_mu_val(focusedCM, c) / theMac.muSum.get(0)), x_left - 8, m_p_plot_bottom - m_p_plot_height - 12 ); 
+        g2.drawString(m_FloatFormat_prob.format(theMac.get_specific_mu_val(focusedCM, c) / theMac.muSum.get(focusedCM)), x_left - 8, m_p_plot_bottom - m_p_plot_height - 12 ); 
       }
       
     }

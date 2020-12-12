@@ -74,6 +74,69 @@ public class MacPlanPanel extends javax.swing.JPanel
     // TODO add your handling code here:
     mouse_X = evt.getX();
     mouse_Y = evt.getY();  
+    
+    // Determine which CM the user clicked on
+    
+    numCMCols = (int) Math.ceil((double) theMac.Q / numCMRows);
+    
+    overallHeight = getHeight();    
+    int single_CM_block_ht = (int)(overallHeight / numCMRows) - vertMargin * 2;
+    int CM_chart_ht = (int)((single_CM_block_ht - CM_label_vert_space) / 2) ;
+    int CM_chart_y_range_ht_pix = CM_chart_ht - chartInternalTopMargin;
+    int CM_chart_half_y_range_ht_pix = (int)(CM_chart_y_range_ht_pix / 2f);
+    
+    // determine widths of things
+    overallWidth = getWidth();
+    CM_width = (overallWidth - leftMargin - x_AxisRightBufferPixels) / numCMCols;
+    CM_width -= horizSpaceCM;    
+    barZoneWidth = CM_width / Math.max(theMac.K,2);                  // need to make sure never divide by zero just ot avoid error when we delete all cells.
+    barWidth = barZoneWidth - 2 * barHorizMargin;    
+    
+    // but we really don't want bars to get too wide so we have an upper limit on bar width.
+    // we check that here and recompute the other widths based on the max bar width.
+    
+    if (barWidth > maxBarWidth)
+    {
+      barWidth = maxBarWidth;
+      barZoneWidth = barWidth + 2 * barHorizMargin;
+//      CM_width = K * barZoneWidth;
+    }
+    
+    int xpos = 0;
+    int ypos = CM_chart_ht + vertMargin;
+    int barHeight = 0;
+    boolean found = false;
+    
+    // g2.drawRect(xpos - 3, ypos - CM_chart_ht, CM_width + 6, 2 * CM_chart_ht); 
+    
+    int q = 0;
+    for ( int row = 0; row < numCMRows; row++ )
+    {
+      xpos = leftMargin;
+      int col = 0;
+      while (col < numCMCols && q < theMac.Q - 1)
+      {
+        // q is the index of CM
+        q = row * numCMCols + col;
+        
+        if (mouse_X > xpos - 3 && mouse_X < xpos + CM_width + 6)
+        {
+          Focused_CM_Index = q;
+          found = true;
+          break;
+        }
+        
+        xpos += CM_width + horizSpaceCM;        
+        col++;
+      }
+      if (found)
+        break;
+      ypos += 2 * CM_chart_ht + CM_label_vert_space;
+    }
+    
+    this.m_Controller.updateOtherPanelsConsistently();
+    ((V_to_mu_plot)this.V_to_mu_plotPanel).repaint();
+    
     repaint();
   }//GEN-LAST:event_formMouseClicked
   
@@ -217,10 +280,10 @@ public class MacPlanPanel extends javax.swing.JPanel
         }
         g2.setColor( Color.BLACK ); // reset to sane color
         
-        g2.drawLine(xpos, ypos + CM_chart_ht, xpos + CM_width, ypos + CM_chart_ht );       // draw x-axis for whole_sigmoid_V bar graph for the CM.
+        g2.drawLine(xpos, ypos + CM_chart_ht, xpos + CM_width, ypos + CM_chart_ht );       // draw x-axis for V bar graph for the CM.
         g2.drawString("V", leftMargin/2 - 8, ypos + (int)(CM_chart_ht / 2) + vertMargin);
         
-        //// draw the whole_sigmoid_V bars.  This is done in two loops and a middle block because the winner's bar is drawn in a different color.
+        //// draw the V bars.  This is done in two loops and a middle block because the winner's bar is drawn in a different color.
         
         if (theMac.K > 0)
         {
@@ -277,8 +340,7 @@ public class MacPlanPanel extends javax.swing.JPanel
       }
       
       ypos += 2 * CM_chart_ht + CM_label_vert_space;
-    }
-    
+    }    
   }
 
 

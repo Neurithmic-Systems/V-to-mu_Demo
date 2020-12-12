@@ -174,16 +174,13 @@ public class V_to_mu_plot extends javax.swing.JPanel
     if ( theMac.K < theMac.max_K )
     {     
       theMac.K++;
-      x -= plotOrigin_X_Inset;                                                       // subtract off width of left margin
-      
+      x -= plotOrigin_X_Inset;                                                       // subtract off width of left margin      
       float new_V_val = (float) x / (float) plotWidthPixels;      
       theMac.ensureArraySizes(theMac.K);
       
       // add new cell with specified V val to CM 0 and new cell with random V val to all other CMs in mac
-      theMac.specifyNewCell_Vs(theMac.K - 1, new_V_val);
-      
-    }
-    
+      theMac.specifyNewCell_Vs(theMac.K - 1, new_V_val);      
+    }    
     return true;
   }
   
@@ -286,18 +283,20 @@ public class V_to_mu_plot extends javax.swing.JPanel
       last_y = y;
     }
     
+    int focusedCM = m_Controller.getMacPanel().getFocused_CM_Index();
+    
     // Draw any specific V vals as little up arrows impinging on x-axis.
     // Then show a verical bar reaching up to the function curve and also show mu val and rho val atop it.
     // The bar color will be black for correct winner, rose for incorrect winner, and gray otherwise.
     
-    int winnerIndex = theMac.getWinningIndex(0);
-    int max_V_Index = theMac.getMax_V_Index(0);
+    int winnerIndex = theMac.getWinningIndex(focusedCM);
+    int max_V_Index = theMac.getMax_V_Index(focusedCM);
     
-    g2.setFont(hoveringValsFont);     // set to this slightly bigger font for individual hovering vals
-   
+    g2.setFont(hoveringValsFont);     // set to this slightly bigger font for individual hovering vals   
+    
     for (int z = 0; z < theMac.K; z++)
     {
-      x_pos = (int) (theMac.get_specific_V_val(0, z) * plotWidthPixels);
+      x_pos = (int) (theMac.get_specific_V_val(focusedCM, z) * plotWidthPixels);
       x_pos += plotOrigin_X_Inset;
 
       if (z == max_V_Index && z != winnerIndex )
@@ -310,7 +309,7 @@ public class V_to_mu_plot extends javax.swing.JPanel
       g2.drawLine(x_pos, y_val_of_X_axis_pixels + 7, x_pos, y_val_of_X_axis_pixels + 3 );
 
       //draw line up to whole_sigmoid_mu value.
-      y_pos = y_val_of_X_axis_pixels - (int) ( theMac.get_specific_mu_val(0, z) * m_y_scaler );
+      y_pos = y_val_of_X_axis_pixels - (int) ( theMac.get_specific_mu_val(focusedCM, z) * m_y_scaler );
 
       g2.drawLine(x_pos, y_val_of_X_axis_pixels - 1, x_pos, y_pos + 2 );     
 
@@ -322,8 +321,8 @@ public class V_to_mu_plot extends javax.swing.JPanel
       {
         if (mouse_X >= x_pos-3 && mouse_X <= x_pos+3 && mouse_Y >= y_pos-3 && mouse_Y <= y_pos+3)
         {
-          g2.drawString(m_FloatFormat.format(theMac.get_specific_mu_val(0, z)), x_pos - 20, y_pos - 20 ); 
-          g2.drawString(m_FloatFormat.format(theMac.get_specific_mu_val(0, z) / theMac.muSum.get(0)), x_pos - 20, y_pos - 46 ); 
+          g2.drawString(m_FloatFormat.format(theMac.get_specific_mu_val(focusedCM, z)), x_pos - 20, y_pos - 20 ); 
+          g2.drawString(m_FloatFormat.format(theMac.get_specific_mu_val(focusedCM, z) / theMac.muSum.get(focusedCM)), x_pos - 20, y_pos - 46 ); 
         }
       }
     }
@@ -338,14 +337,16 @@ public class V_to_mu_plot extends javax.swing.JPanel
       g2.setColor( Color.BLACK );
       for (int z = 0; z < theMac.K; z++)
       {
-        x_pos = (int) (theMac.get_specific_V_val(0, z) * plotWidthPixels);
+        x_pos = (int) (theMac.get_specific_V_val(focusedCM, z) * plotWidthPixels);
         x_pos += plotOrigin_X_Inset;
 
-        g2.drawString(m_FloatFormat.format(theMac.get_specific_mu_val(0, z)), x_pos - 20, topMarginPixels + sigmoidUpperBufferPixels + plotHeightPixels - (int) ( theMac.get_specific_mu_val(0, z) * m_y_scaler ) - 20 );   
+        g2.drawString(m_FloatFormat.format(theMac.get_specific_mu_val(focusedCM, z)), x_pos - 20, 
+                topMarginPixels + sigmoidUpperBufferPixels + plotHeightPixels - (int) ( theMac.get_specific_mu_val(focusedCM, z) * m_y_scaler ) - 20 );   
 
         // the rho val, i.e., the total prob
-        y_val = theMac.get_specific_mu_val(0, z) / theMac.muSum.get(0);
-        g2.drawString(m_FloatFormat_prob.format( y_val ), x_pos - 20, topMarginPixels + sigmoidUpperBufferPixels + plotHeightPixels - (int) ( theMac.get_specific_mu_val(0, z) * m_y_scaler ) - 40 );
+        y_val = theMac.get_specific_mu_val(focusedCM, z) / theMac.muSum.get(focusedCM);
+        g2.drawString(m_FloatFormat_prob.format( y_val ), x_pos - 20, 
+                topMarginPixels + sigmoidUpperBufferPixels + plotHeightPixels - (int) ( theMac.get_specific_mu_val(focusedCM, z) * m_y_scaler ) - 40 );
       }
     }
     

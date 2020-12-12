@@ -30,6 +30,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
   public Color colorLowCrosstalkLimit = new Color(51,204,255);
   public Color colorHighCrosstalkLimit = new Color(255,102,102);
   
+  // this is used to create labels used in some sliders.
   Dictionary<Integer, Component> labelTable = new Hashtable<>();
   
    /**
@@ -71,17 +72,22 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     ((V_to_mu_plot)sigmoidDisplayPanel).set_CM_plan_class((SingleCMPanel)singleCM_V_rho_Panel);
     ((SingleCMPanel)singleCM_V_rho_Panel).set_plot_class((V_to_mu_plot)sigmoidDisplayPanel);
     ((MacPlanPanel)theMacPlanPanel).set_plot_class((V_to_mu_plot)sigmoidDisplayPanel);   
-    ((SingleCMPanel)singleCM_V_rho_Panel).setM_macPlanPanel((MacPlanPanel)theMacPlanPanel);
-      
+    ((SingleCMPanel)singleCM_V_rho_Panel).setM_macPlanPanel((MacPlanPanel)theMacPlanPanel);    
+    
     // Preset mac panel members in accord with the initially selected radio button.
     
     theApp.theMac.SetCrossTalkLowLimFactor( 0 );
+    theApp.theMac.SetCrossTalkLowLim( 0 );
     theApp.theMac.SetCrossTalkHighLimFactor( 0.5f );
+    theApp.theMac.SetCrossTalkHighLim( 0.5f );
     theApp.theMac.SetWinner_V_Val( 1.0f );
     
     this.max_crosstalk_slider.setValue((int)(theApp.theMac.GetCrossTalkHighLimFactor() * 100));
-    this.min_crosstak_slider.setValue((int)(theApp.theMac.GetCrossTalkLowLimFactor() * 100));
+    this.min_crosstalk_slider.setValue((int)(theApp.theMac.GetCrossTalkLowLimFactor() * 100));
 
+    theApp.theMac.create_V_Distributions(true, true);
+    theApp.theMac.updateDependentDistributions();
+    theApp.theMac.chooseCodeAndComputeAccuracies();   
   }
   
   public MacPlanPanel getMacPanel()
@@ -117,7 +123,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
 
     inflection_Slider = new javax.swing.JSlider();
     beta_slider = new javax.swing.JSlider();
-    min_crosstak_slider = new javax.swing.JSlider();
+    min_crosstalk_slider = new javax.swing.JSlider();
     max_crosstalk_slider = new javax.swing.JSlider();
     generateNewSample = new javax.swing.JButton();
     jPanel1 = new javax.swing.JPanel();
@@ -178,7 +184,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     labMacChartTitle1.setForeground(new java.awt.Color(51, 51, 255));
     labMacChartTitle1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     labMacChartTitle1.setText("<html> Rel. Likelihood (<i>&mu;</i> ) of Win vs. Local Familiarity (<i>V</i> )");
-    labMacChartTitle1.setToolTipText("<html>\n<font size=4>The number of cells per CM, K, is controlled by number of cells that user adds to G plot panel: <br>\neach click adds a cell.  Note: you can always hit the \"Clear Cells\" button to start over. <br>\nBut the V and &rho; values are programmatically determined. That is, the V's are drawn from ranges <br>\nthat are set to simulate different amounts of crosstalk.\n<br>\n<br>\nFor V charts, black is cell with max V <br>\n<br>\nFor &rho; charts, black = winner (correct or not); rose = incorrect loser\n</font>\n</html>");
+    labMacChartTitle1.setToolTipText("<html>\n<font size=4>The number of cells per CM, K, is controlled by the K spinner (in lower right panel): <br>\nNote: you can always hit the \"Clear Cells\" button to start over. But the V and &rho; values are programmatically <br>\ndetermined. That is, the V's are drawn from ranges that are set to simulate different amounts of crosstalk.\n<br>\n<br>\nFor V charts, black is cell with max V <br>\n<br>\nFor &rho; charts, black = winner (correct or not); pink = incorrect loser\n</font>\n</html>");
     labMacChartTitle1.setAlignmentX(0.5F);
     labMacChartTitle1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
     labMacChartTitle1.setMaximumSize(new java.awt.Dimension(353, 30));
@@ -337,19 +343,19 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.insets = new java.awt.Insets(6, 18, 6, 14);
     controlPanel.add(beta_slider, gridBagConstraints);
 
-    min_crosstak_slider.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-    min_crosstak_slider.setMajorTickSpacing(20);
-    min_crosstak_slider.setMinorTickSpacing(10);
-    min_crosstak_slider.setPaintLabels(true);
-    min_crosstak_slider.setPaintTicks(true);
-    min_crosstak_slider.setToolTipText("<html>\n<font size=4>\nSpecifies bottom of range (as % of max V) of distribution from which V vals <br>\nof other cells in a CM (besides the max-V cell) are randomly chosen.<br><br>\nDrawn as dashed light blue line in relevant charts.");
-    min_crosstak_slider.setValue(0);
-    min_crosstak_slider.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Min Crosstalk Val (%)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
-    min_crosstak_slider.setMinimumSize(new java.awt.Dimension(300, 70));
-    min_crosstak_slider.setPreferredSize(new java.awt.Dimension(350, 70));
-    min_crosstak_slider.addChangeListener(new javax.swing.event.ChangeListener() {
+    min_crosstalk_slider.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+    min_crosstalk_slider.setMajorTickSpacing(20);
+    min_crosstalk_slider.setMinorTickSpacing(10);
+    min_crosstalk_slider.setPaintLabels(true);
+    min_crosstalk_slider.setPaintTicks(true);
+    min_crosstalk_slider.setToolTipText("<html>\n<font size=4>\nSpecifies bottom of range (as % of max V) of distribution from which V vals <br>\nof other cells in a CM (besides the max-V cell) are randomly chosen.<br><br>\nDrawn as dashed light blue line in relevant charts.");
+    min_crosstalk_slider.setValue(0);
+    min_crosstalk_slider.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Min Crosstalk Val (%)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+    min_crosstalk_slider.setMinimumSize(new java.awt.Dimension(300, 70));
+    min_crosstalk_slider.setPreferredSize(new java.awt.Dimension(350, 70));
+    min_crosstalk_slider.addChangeListener(new javax.swing.event.ChangeListener() {
       public void stateChanged(javax.swing.event.ChangeEvent evt) {
-        min_crosstak_sliderStateChanged(evt);
+        min_crosstalk_sliderStateChanged(evt);
       }
     });
     gridBagConstraints = new java.awt.GridBagConstraints();
@@ -360,7 +366,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.ipady = 4;
     gridBagConstraints.weightx = 0.5;
     gridBagConstraints.insets = new java.awt.Insets(6, 14, 6, 18);
-    controlPanel.add(min_crosstak_slider, gridBagConstraints);
+    controlPanel.add(min_crosstalk_slider, gridBagConstraints);
 
     max_crosstalk_slider.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
     max_crosstalk_slider.setMajorTickSpacing(20);
@@ -538,7 +544,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     labMacChartTitle.setForeground(new java.awt.Color(51, 51, 255));
     labMacChartTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     labMacChartTitle.setText("Mac comprised of Multiple WTA CMs");
-    labMacChartTitle.setToolTipText("<html>\n<font size=4>The number of cells per CM is controlled by number of cells that user adds.  <br>\n to G plot panel. The number of CMs, Q, is controlled by the Q spinner. <br><br>\nThe V and &rho; values are programmatically determined. <br><br>\n- The max V value (which will be the same in all Q CMs) is set by the max V slider<br>\n(which is tied to the G slider, i.e., both produce the same effect). <br><br>\n- The V's of the rest of the cells (besides the max-V cell) in each CM are drawn from ranges <br>\nthat are set to simulate different amounts of crosstalk.\n<br>\n<br>\nFor V charts, black is cell with max V <br>\n<br>\nFor &rho; charts, black = winner (correct or not); rose = incorrect loser\n</font>\n");
+    labMacChartTitle.setToolTipText("<html>\n<font size=4>The number of cells per CM is controlled by the yK spinner.  <br>\nThe number of CMs, Q, is controlled by the Q spinner. <br><br>\nThe V and &rho; values are programmatically determined. <br><br>\n- The max V value (which will be the same in all Q CMs) is set by the max V slider<br>\n(which is tied to the G slider, i.e., both produce the same effect). <br><br>\n- The V's of the rest of the cells (besides the max-V cell) in each CM are drawn from ranges <br>\nthat are set to simulate different amounts of crosstalk.\n<br>\n<br>\nFor V charts, black is cell with max V <br>\n<br>\nFor &rho; charts, black = winner (correct or not); pink = incorrect loser\n</font>\n");
     labMacChartTitle.setAlignmentX(0.5F);
     labMacChartTitle.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
     labMacChartTitle.setMaximumSize(new java.awt.Dimension(1000, 40));
@@ -551,6 +557,8 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
     gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
     multiMacPanel.add(labMacChartTitle, gridBagConstraints);
+    String text = String.format("Mac comprised of Q = %2d WTA CMs, each with K = %2d units", theApp.theMac.Q, theApp.theMac.K);
+    labMacChartTitle.setText(text);
 
     macPanelControls.setMaximumSize(new java.awt.Dimension(240, 460));
     macPanelControls.setMinimumSize(new java.awt.Dimension(240, 460));
@@ -926,21 +934,21 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
 
   private void Fam_OldActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_Fam_OldActionPerformed
   {//GEN-HEADEREND:event_Fam_OldActionPerformed
-    this.min_crosstak_slider.setValue(60);
+    this.min_crosstalk_slider.setValue(60);
     this.max_crosstalk_slider.setValue(100);
     handleLifePhaseButton(0.6f, 1.0f);
   }//GEN-LAST:event_Fam_OldActionPerformed
 
   private void Fam_LateActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_Fam_LateActionPerformed
   {//GEN-HEADEREND:event_Fam_LateActionPerformed
-    this.min_crosstak_slider.setValue(20);
+    this.min_crosstalk_slider.setValue(20);
     this.max_crosstalk_slider.setValue(100);
     handleLifePhaseButton(0.2f, 1.0f);
   }//GEN-LAST:event_Fam_LateActionPerformed
 
   private void Fam_MiddleActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_Fam_MiddleActionPerformed
   {//GEN-HEADEREND:event_Fam_MiddleActionPerformed
-    this.min_crosstak_slider.setValue(0);
+    this.min_crosstalk_slider.setValue(0);
     this.max_crosstalk_slider.setValue(50);
     handleLifePhaseButton(0.0f, 0.5f);
   }//GEN-LAST:event_Fam_MiddleActionPerformed
@@ -948,7 +956,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
   private void Fam_EarlyActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_Fam_EarlyActionPerformed
   {//GEN-HEADEREND:event_Fam_EarlyActionPerformed
     // set the sliders 
-    this.min_crosstak_slider.setValue(0);
+    this.min_crosstalk_slider.setValue(0);
     this.max_crosstalk_slider.setValue(10);
     handleLifePhaseButton(0.0f, 0.1f);
   }//GEN-LAST:event_Fam_EarlyActionPerformed
@@ -956,7 +964,8 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
   private void formComponentShown(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_formComponentShown
   {//GEN-HEADEREND:event_formComponentShown
     this.max_crosstalk_slider.setValue((int)theApp.theMac.GetCrossTalkHighLimFactor() * 100);
-    this.min_crosstak_slider.setValue((int)theApp.theMac.GetCrossTalkLowLimFactor() * 100);
+    this.min_crosstalk_slider.setValue((int)theApp.theMac.GetCrossTalkLowLimFactor() * 100);
+    
     ((V_to_mu_plot)sigmoidDisplayPanel).repaint();
     ((MacPlanPanel)theMacPlanPanel).repaint();
     repaint();
@@ -993,10 +1002,8 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
 
   private void G_SliderStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_G_SliderStateChanged
   {//GEN-HEADEREND:event_G_SliderStateChanged
-    JSlider source = (JSlider)evt.getSource();
-    
-    int cantGoLowerThan = (int)(theApp.theMac.GetCrossTalkHighLim() * 100);
-    
+    JSlider source = (JSlider)evt.getSource();    
+    int cantGoLowerThan = (int)(theApp.theMac.GetCrossTalkHighLim() * 100);   
     
     if (source.getValue() < cantGoLowerThan)
     {
@@ -1077,27 +1084,47 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     // TODO add your handling code here:
   }//GEN-LAST:event_stdDevAccuracyActionPerformed
 
-  private void min_crosstak_sliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_min_crosstak_sliderStateChanged
+  private void min_crosstalk_sliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_min_crosstalk_sliderStateChanged
     JSlider source = (JSlider)evt.getSource();
 //    if (!source.getValueIsAdjusting())
 //    {
       int val = source.getValue();  
+      int cantGoHigherThan = (int)(theApp.theMac.GetCrossTalkHighLim() * 100);
       
-      theApp.theMac.SetCrossTalkLowLimFactor((float)val / 100);
-      
+      if (val < cantGoHigherThan)
+      {
+        theApp.theMac.SetCrossTalkLowLimFactor((float)val / 100);            
+      }
+      else
+      {
+        theApp.theMac.SetCrossTalkLowLimFactor((float)cantGoHigherThan / 100); 
+        this.min_crosstalk_slider.setValue(cantGoHigherThan);
+      }
       this.minCrosstalk_V.setText(String.format("%3.2f", theApp.theMac.GetCrossTalkLowLimFactor() * 100));
+      theApp.theMac.create_V_Distributions(false, true);
       updateStateOfGUI();
 //    }
-  }//GEN-LAST:event_min_crosstak_sliderStateChanged
+  }//GEN-LAST:event_min_crosstalk_sliderStateChanged
 
   private void max_crosstalk_sliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_max_crosstalk_sliderStateChanged
     JSlider source = (JSlider)evt.getSource();
 //    if (!source.getValueIsAdjusting())
 //    {
       int val = source.getValue();    
+      int cantGoLowerThan = (int)(theApp.theMac.GetCrossTalkLowLim() * 100);
       
-      theApp.theMac.SetCrossTalkHighLimFactor((float)val / 100);      
+      if (val > cantGoLowerThan)
+      {
+        theApp.theMac.SetCrossTalkHighLimFactor((float)val / 100);            
+      }
+      else
+      {
+        theApp.theMac.SetCrossTalkHighLimFactor((float)cantGoLowerThan / 100); 
+        this.max_crosstalk_slider.setValue(cantGoLowerThan);
+      }
+      
       this.maxCrosstalk_V.setText(String.format("%3.2f", theApp.theMac.GetCrossTalkHighLimFactor() * 100));      
+      theApp.theMac.create_V_Distributions(false, true);
       updateStateOfGUI();
 //    }
   }//GEN-LAST:event_max_crosstalk_sliderStateChanged
@@ -1340,7 +1367,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
   private javax.swing.JSlider max_crosstalk_slider;
   private javax.swing.JLabel minCrossTalkValLabel;
   private javax.swing.JTextField minCrosstalk_V;
-  private javax.swing.JSlider min_crosstak_slider;
+  private javax.swing.JSlider min_crosstalk_slider;
   private javax.swing.JPanel multiMacPanel;
   private javax.swing.JPanel phaseOfLifeChoice;
   private javax.swing.JRadioButton relativeToMaxV_Lims;

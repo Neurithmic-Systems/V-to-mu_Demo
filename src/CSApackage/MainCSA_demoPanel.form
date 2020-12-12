@@ -77,7 +77,7 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="&lt;html&gt; Rel. Likelihood (&lt;i&gt;&amp;mu;&lt;/i&gt; ) of Win vs. Local Familiarity (&lt;i&gt;V&lt;/i&gt; )"/>
-            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;The number of cells per CM, K, is controlled by number of cells that user adds to G plot panel: &lt;br&gt;&#xa;each click adds a cell.  Note: you can always hit the &quot;Clear Cells&quot; button to start over. &lt;br&gt;&#xa;But the V and &amp;rho; values are programmatically determined. That is, the V&apos;s are drawn from ranges &lt;br&gt;&#xa;that are set to simulate different amounts of crosstalk.&#xa;&lt;br&gt;&#xa;&lt;br&gt;&#xa;For V charts, black is cell with max V &lt;br&gt;&#xa;&lt;br&gt;&#xa;For &amp;rho; charts, black = winner (correct or not); rose = incorrect loser&#xa;&lt;/font&gt;&#xa;&lt;/html&gt;"/>
+            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;The number of cells per CM, K, is controlled by the K spinner (in lower right panel): &lt;br&gt;&#xa;Note: you can always hit the &quot;Clear Cells&quot; button to start over. But the V and &amp;rho; values are programmatically &lt;br&gt;&#xa;determined. That is, the V&apos;s are drawn from ranges that are set to simulate different amounts of crosstalk.&#xa;&lt;br&gt;&#xa;&lt;br&gt;&#xa;For V charts, black is cell with max V &lt;br&gt;&#xa;&lt;br&gt;&#xa;For &amp;rho; charts, black = winner (correct or not); pink = incorrect loser&#xa;&lt;/font&gt;&#xa;&lt;/html&gt;"/>
             <Property name="alignmentX" type="float" value="0.5"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -327,7 +327,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JSlider" name="min_crosstak_slider">
+        <Component class="javax.swing.JSlider" name="min_crosstalk_slider">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="12" style="0"/>
@@ -353,7 +353,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="min_crosstak_sliderStateChanged"/>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="min_crosstalk_sliderStateChanged"/>
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -643,7 +643,7 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Mac comprised of Multiple WTA CMs"/>
-            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;The number of cells per CM is controlled by number of cells that user adds.  &lt;br&gt;&#xa; to G plot panel. The number of CMs, Q, is controlled by the Q spinner. &lt;br&gt;&lt;br&gt;&#xa;The V and &amp;rho; values are programmatically determined. &lt;br&gt;&lt;br&gt;&#xa;- The max V value (which will be the same in all Q CMs) is set by the max V slider&lt;br&gt;&#xa;(which is tied to the G slider, i.e., both produce the same effect). &lt;br&gt;&lt;br&gt;&#xa;- The V&apos;s of the rest of the cells (besides the max-V cell) in each CM are drawn from ranges &lt;br&gt;&#xa;that are set to simulate different amounts of crosstalk.&#xa;&lt;br&gt;&#xa;&lt;br&gt;&#xa;For V charts, black is cell with max V &lt;br&gt;&#xa;&lt;br&gt;&#xa;For &amp;rho; charts, black = winner (correct or not); rose = incorrect loser&#xa;&lt;/font&gt;&#xa;"/>
+            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;The number of cells per CM is controlled by the yK spinner.  &lt;br&gt;&#xa;The number of CMs, Q, is controlled by the Q spinner. &lt;br&gt;&lt;br&gt;&#xa;The V and &amp;rho; values are programmatically determined. &lt;br&gt;&lt;br&gt;&#xa;- The max V value (which will be the same in all Q CMs) is set by the max V slider&lt;br&gt;&#xa;(which is tied to the G slider, i.e., both produce the same effect). &lt;br&gt;&lt;br&gt;&#xa;- The V&apos;s of the rest of the cells (besides the max-V cell) in each CM are drawn from ranges &lt;br&gt;&#xa;that are set to simulate different amounts of crosstalk.&#xa;&lt;br&gt;&#xa;&lt;br&gt;&#xa;For V charts, black is cell with max V &lt;br&gt;&#xa;&lt;br&gt;&#xa;For &amp;rho; charts, black = winner (correct or not); pink = incorrect loser&#xa;&lt;/font&gt;&#xa;"/>
             <Property name="alignmentX" type="float" value="0.5"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -656,6 +656,9 @@
               <Dimension value="[700, 40]"/>
             </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="String text = String.format(&quot;Mac comprised of Q = %2d WTA CMs, each with K = %2d units&quot;, theApp.theMac.Q, theApp.theMac.K);&#xa;labMacChartTitle.setText(text);"/>
+          </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
               <GridBagConstraints gridX="0" gridY="0" gridWidth="0" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="10" insetsBottom="0" insetsRight="10" anchor="10" weightX="0.0" weightY="0.0"/>
