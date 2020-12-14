@@ -49,7 +49,7 @@ public class SingleCMPanel extends javax.swing.JPanel
   int m_V_plot_bottom = 0;  
   int m_V_plot_y_mid = 0;
   
-  Color incorrectLossColor = new Color(255, 153, 153); // Color.red;    
+//  Color incorrectLossColor = new Color(255, 153, 153); // Color.red;    
   
   int m_cell_top = 0;
   
@@ -135,7 +135,7 @@ public class SingleCMPanel extends javax.swing.JPanel
     
     // Draw background of chart in same color as background of the Focused CM in mac panel chart   
     if (m_Controller != null)
-      g2.setColor(m_Controller.first_CM_background);
+      g2.setColor(m_Controller.focused_CM_background);
     g2.fillRect(plotOrigin_X_Inset, m_vert_spacer, getWidth() - plotOrigin_X_Inset - x_AxisRightBufferPixels, m_p_plot_height);
     g2.fillRect(plotOrigin_X_Inset, m_p_plot_bottom + m_vert_spacer, getWidth() - plotOrigin_X_Inset - x_AxisRightBufferPixels, m_V_plot_height);
     
@@ -193,33 +193,31 @@ public class SingleCMPanel extends javax.swing.JPanel
     
     g2.drawString("Cell", 30, m_cell_top + 15);
     
-    // draw cells and bars
+    //// draw cells and bars
     
     int focusedCM = m_macPlanPanel.getFocused_CM_Index();
     int winnerIndex = theMac.getWinningIndex(focusedCM);
-    int max_V_Index = theMac.getMax_V_Index(focusedCM);      
-    
+    int max_V_Index = theMac.getMax_V_Index(focusedCM);        
     double divisor = ( theMac.muSum.get(focusedCM) > 0 ) ?  theMac.muSum.get(focusedCM) : 1;
       
+    /// draw cells and rho bars
+    
     int x_left = 0;  // convenience var in loop    
     for (int c = 0; c < numCells; c++)
     {      
-      if (c == max_V_Index && c != winnerIndex )
-        g2.setColor( incorrectLossColor );
-      else if (c == winnerIndex)
-        g2.setColor( Color.black );
-      else
-        g2.setColor( Color.lightGray );    
-      
       x_left = plotOrigin_X_Inset + c * cellHorizSpace + cellHorizInset;
       
-      g2.fillOval(x_left, m_cell_top, cellDiameter, cellDiameter );
+      // Set color for cell and rho bar
+      if (c == winnerIndex && c == max_V_Index)
+        g2.setColor(m_Controller.correctWinColor);
+      else if (c == winnerIndex && c != max_V_Index)
+        g2.setColor(m_Controller.incorrectWinColor);
+      else
+        g2.setColor(m_Controller.irrelevantColor);         
       
-      y = (int) ( theMac.get_specific_V_val(focusedCM, c) * m_V_plot_height );
-      g2.fillRect(x_left, m_V_plot_bottom - y, cellDiameter, y );
-      
+      g2.fillOval(x_left, m_cell_top, cellDiameter, cellDiameter );      
       y = (int) ( theMac.get_specific_mu_val(focusedCM, c) / divisor * m_p_plot_height );
-      g2.fillRect(x_left, m_p_plot_bottom - y, cellDiameter, y );
+      g2.fillRect(x_left, m_p_plot_bottom - y, cellDiameter, y );      
       
       // show values as mouse hovers over bars
       if (mouse_X >= x_left && mouse_X <= x_left + cellDiameter) // && mouse_Y >= y_pos-3 && mouse_Y <= y_pos+3 )
@@ -227,15 +225,26 @@ public class SingleCMPanel extends javax.swing.JPanel
         g2.setColor( Color.black );
         g2.drawString(m_FloatFormat_prob.format(theMac.get_specific_V_val(focusedCM, c)), x_left, m_V_plot_bottom - m_V_plot_height- 12 ); 
         g2.drawString(m_FloatFormat_prob.format(theMac.get_specific_mu_val(focusedCM, c) / theMac.muSum.get(focusedCM)), x_left - 8, m_p_plot_bottom - m_p_plot_height - 12 ); 
-      }
-      
+      }      
     }
     
-     // Draw faint horizontal lines to show crosstalk limits.
+    /// Draw V vars
+    
+    for (int c = 0; c < numCells; c++)
+    {      
+      x_left = plotOrigin_X_Inset + c * cellHorizSpace + cellHorizInset;
+      
+      // Set color for V bar
+      g2.setColor((c == max_V_Index) ? m_Controller.correctWinColor : m_Controller.irrelevantColor);      
+      y = (int) ( theMac.get_specific_V_val(focusedCM, c) * m_V_plot_height );
+      g2.fillRect(x_left, m_V_plot_bottom - y, cellDiameter, y );
+    }
+    
+    //// Draw faint horizontal lines to show crosstalk limits.
+    
     int y_max_V_in_pixels = 0;
     if (m_Controller != null)
     {
-      g2.setColor( Color.lightGray );
       Stroke oldStroke = g2.getStroke();
       g2.setStroke(dashed);
 
@@ -244,8 +253,11 @@ public class SingleCMPanel extends javax.swing.JPanel
       else
         y_max_V_in_pixels = (int) (m_V_plot_height * 1);
       
+      g2.setColor( m_Controller.colorLowCrosstalkLimit );
       int min_crosstalk_y = m_V_plot_bottom - (int)(theMac.GetCrossTalkLowLimFactor() * y_max_V_in_pixels);
       g2.drawLine(plotOrigin_X_Inset, min_crosstalk_y, getWidth() - x_AxisRightBufferPixels, min_crosstalk_y );
+      
+      g2.setColor( m_Controller.colorHighCrosstalkLimit );
       int max_crosstalk_y = m_V_plot_bottom - (int)(theMac.GetCrossTalkHighLimFactor() * y_max_V_in_pixels);
       g2.drawLine(plotOrigin_X_Inset, max_crosstalk_y, getWidth() - x_AxisRightBufferPixels, max_crosstalk_y ); 
       g2.setStroke(oldStroke);

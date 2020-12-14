@@ -39,11 +39,7 @@ public class InstructionsFrame extends javax.swing.JFrame {
             + "    explicitly represented).  Therefore, if the model were operating in inference (recognition)\n"
             + "    mode, we would want all Q of those units to be chosen winners. \n\n"
             + " The \u03C1 chart bar colors:\n\n"
-            + "  - Black denotes the unit that actually wins, i.e., is drawn from the \u03C1 distribution.\n"
-            + "    The winner might not be the unit with the max V.  In CMs in which that happens,\n"
-            + "    the \u03C1 bar of the max V unit is drawn in pink indicating an \"error\" (in the sense\n"
-            + "    that the winning unit was not part of the code of the most closely matching previously\n"
-            + "    stored input, as described above).\n\n"
+            + "  - Black if winner (drawn from the \u03C1 distribution) is the max V unit. Red, otherwise. \n\n"
             + " Step 1: Either:\n\n"
             + "   - Press one of the \"life phase\" buttons\n"
             + "       This creates an entire new V dist. in each CM, respecting the specified crostalk limits \n"
@@ -51,17 +47,18 @@ public class InstructionsFrame extends javax.swing.JFrame {
             + "       in each cell will be as specified by the G and V sliders (which are tied).\n"
             + "   - press \"Generate New Sample\" button\n"
             + "       This also creates an entire new V dist. in each CM, with specified crosstalk limits\n"
-            + "       But it keeps the winning cell the same.\n\n"
+            + "       But it keeps the winning cell in each CM the same.\n\n"
             + " Step 2: Then you can play with sliders and buttons to understand how Sparsey preserves similarity \n\n"
-            + " Step 3: (optional) Press \"Run Experiment\" button.  Brings up dialog allowing you to run experiment involving\n"
-            + "         many runs while max V varies from 1.0 down to the max crosstalk V in specifiable deltas.\n"
-            + "         It also allows you to specify the number of trials performed at each max V setting.  It computes average\n"
-            + "         for the set of trials at each max V setting.  Soon you'll be able to save results to a txt file.\n\n\n"
+            + " Step 3: (optional) Press \"Run Experiment\" button.  Brings up dialog allowing you to run experiment\n"
+            + "         involving many runs while max V varies, in specifiable deltas, from 1.0 down to the currently\n"
+            + "         specified max crosstalk V.  It also allows you to specify the number of trials performed at\n"
+            + "         each max V setting.  It computes average for the set of trials at each max V setting.\n"
+            + "         Coming Soon: you'll be able to save results to a txt file.\n\n\n"
             + " Notes: \n\n"
-            + "   - You might have to resize to see all the CMs in lower right panel. You can also change number of CMs.\n"
+            + "   - You might have to resize to see all the CMs and or units' bars clearly in lower right panel.\n"
             + "   - You can hit buttons as many times as you want. Each time, new random V distributions are generated.\n"
-            + "   - When you move sliders (except for crosstalk distribution limit sliders), the V distributions remain the same,\n"
-            + "     but the \u03c1 distributions which vary.\n"
+            + "   - When you move sliders (except for crosstalk distribution limit sliders), the V distributions remain \n"
+            + "     the same, but the \u03c1 distributions vary.\n"
             + "   - When you vary the crosstalk range distribution sliders, you then have to hit one of the buttons to generate\n"
             + "     new V distributions adhering to the updated range.  But if you hit one of the \"life phase\" buttons,\n"
             + "     the crosstalk range limits are set to default values (as are the sliders).  If you want to specify the crosstalk\n"
@@ -100,7 +97,7 @@ public class InstructionsFrame extends javax.swing.JFrame {
   {
 //    super.paintComponent( g );
     Graphics2D g2 = (Graphics2D) g;
-    
+    g2.setBackground(Color.white);
     g2.setColor( Color.BLACK );
     
   }

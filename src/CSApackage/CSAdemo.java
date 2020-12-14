@@ -137,6 +137,7 @@ public class CSAdemo extends javax.swing.JFrame {
     tie_G_eccent_sliders_Chkbx.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
     tie_G_eccent_sliders_Chkbx.setText("Tie G, max V, and Eccen");
     tie_G_eccent_sliders_Chkbx.setToolTipText("<html>\n<font size=4>\n<br>\nWhen tied, as one moves G (or V) slider, the eccentricity slider will also move, <br>\nin a coordinated way, so that the overall relation between G (input familiarity) <br>\nand expected code intersection is close to linear. <br><br>\n\nG directly controls the range of the V-to-&mu; transform.  If the range is the only thing <br>\nwe change, then the overall relation from G to expected code intersection, while correlated, <br>\ncannot be linear over its whole range.  We need to simultaneously change both the transforms's <br>\nrange and its eccentricity in order to achieve near linearity over all or most of G's range, i.e., [0,1].<br><br>\n\nThere could be other combinations of sigmoid params that can also be changed in coordinated <br>\nfashion to achieve an overall linear relation from G to expected code intersection, e.g., involving <br>\nthe horizontal position of the inflection pt, but I haven't found one yet.");
+    tie_G_eccent_sliders_Chkbx.setEnabled(false);
     tie_G_eccent_sliders_Chkbx.setFocusable(false);
     tie_G_eccent_sliders_Chkbx.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
     tie_G_eccent_sliders_Chkbx.addActionListener(new java.awt.event.ActionListener() {
@@ -234,6 +235,7 @@ public class CSAdemo extends javax.swing.JFrame {
 
     /* Create and display the form */
     java.awt.EventQueue.invokeLater(new Runnable() {
+      @Override
       public void run() {        
         new CSAdemo().setVisible(true);
       }

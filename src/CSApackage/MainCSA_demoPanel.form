@@ -77,7 +77,7 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="&lt;html&gt; Rel. Likelihood (&lt;i&gt;&amp;mu;&lt;/i&gt; ) of Win vs. Local Familiarity (&lt;i&gt;V&lt;/i&gt; )"/>
-            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;The number of cells per CM, K, is controlled by the K spinner (in lower right panel): &lt;br&gt;&#xa;Note: you can always hit the &quot;Clear Cells&quot; button to start over. But the V and &amp;rho; values are programmatically &lt;br&gt;&#xa;determined. That is, the V&apos;s are drawn from ranges that are set to simulate different amounts of crosstalk.&#xa;&lt;br&gt;&#xa;&lt;br&gt;&#xa;For V charts, black is cell with max V &lt;br&gt;&#xa;&lt;br&gt;&#xa;For &amp;rho; charts, black = winner (correct or not); pink = incorrect loser&#xa;&lt;/font&gt;&#xa;&lt;/html&gt;"/>
+            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;The number of cells per CM, K, is controlled by the K spinner (in lower right panel): &lt;br&gt;&#xa;Note: you can always hit the &quot;Clear Cells&quot; button to start over. But the V and &amp;rho; values are programmatically &lt;br&gt;&#xa;determined. That is, the V&apos;s are drawn from ranges that are set to simulate different amounts of crosstalk.&lt;br&gt;&#xa;&lt;br&gt;&#xa;For V charts, black is cell with max V &lt;br&gt;&#xa;&lt;br&gt;&#xa;For &amp;rho; charts, if winner is not max V cell, it&apos;s shown in red.&#xa;&lt;/font&gt;&#xa;&lt;/html&gt;"/>
             <Property name="alignmentX" type="float" value="0.5"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -643,7 +643,7 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Mac comprised of Multiple WTA CMs"/>
-            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;The number of cells per CM is controlled by the K spinner.  &lt;br&gt;&#xa;The number of CMs, Q, is controlled by the Q spinner. &lt;br&gt;&lt;br&gt;&#xa;The V and &amp;rho; values are programmatically determined. &lt;br&gt;&lt;br&gt;&#xa;- The max V value (which will be the same in all Q CMs) is set by the max V slider&lt;br&gt;&#xa;(which is tied to the G slider, i.e., both produce the same effect). &lt;br&gt;&lt;br&gt;&#xa;- The V&apos;s of the rest of the cells (besides the max-V cell) in each CM are drawn from ranges &lt;br&gt;&#xa;that are set to simulate different amounts of crosstalk.&#xa;&lt;br&gt;&#xa;&lt;br&gt;&#xa;For V charts, black is cell with max V &lt;br&gt;&#xa;&lt;br&gt;&#xa;For &amp;rho; charts, black = winner (correct or not); pink = incorrect loser&#xa;&lt;/font&gt;&#xa;"/>
+            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;The number of cells per CM is controlled by the K spinner.  &lt;br&gt;&#xa;The number of CMs, Q, is controlled by the Q spinner. &lt;br&gt;&lt;br&gt;&#xa;The V and &amp;rho; values are programmatically determined. &lt;br&gt;&lt;br&gt;&#xa;- The max V value (which will be the same in all Q CMs) is set by the max V slider&lt;br&gt;&#xa;(which is tied to the G slider, i.e., both produce the same effect). &lt;br&gt;&lt;br&gt;&#xa;- The V&apos;s of the rest of the cells (besides the max-V cell) in each CM are drawn from ranges &lt;br&gt;&#xa;that are set to simulate different amounts of crosstalk.&#xa;&lt;br&gt;&#xa;&lt;br&gt;&#xa;For V charts, black is cell with max V &lt;br&gt;&#xa;&lt;br&gt;&#xa;For &amp;rho; charts, if winner is not the max V cell, it&apos;s shown in red.&#xa;&lt;/font&gt;&#xa;"/>
             <Property name="alignmentX" type="float" value="0.5"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -884,7 +884,7 @@
                       <Font name="Tahoma" size="14" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value=" Actual Accuracy: "/>
-                    <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;&#xa;The fraction of CMs in which max V cell is chosen (for the depicted sample)"/>
+                    <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;&#xa;The fraction of CMs in which max V cell actually wins, for the depicted sample."/>
                     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[200, 22]"/>
                     </Property>
@@ -905,7 +905,7 @@
                       <Font name="Tahoma" size="14" style="1"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="11"/>
-                    <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;&#xa;The fraction of CMs in which the max V cell is chosen as winner (for the depicted sample)"/>
+                    <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;&#xa;The fraction of CMs in which the max V cell actually wins, for the depicted sample."/>
                     <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                       <Insets value="[2, 2, 2, 6]"/>
                     </Property>
@@ -934,7 +934,7 @@
                       <Font name="Tahoma" size="14" style="1"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value=" Expected Accuracy:"/>
-                    <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;&#xa;Expected fraction of CMs in which max V cell is chosen winner.  Within any one CM, this is a Bernoulli trial with success probability&lt;br&gt;&#xa;equal to the &amp;rho; value of the max V cell, i.e., the max &amp;rho; value. So the expected accuracy of the whole chosen code, i.e., &lt;br&gt;&#xa;across all Q CMs, is simply the average of the max &amp;rho; values across the Q CMs.  It&apos;s essentially binomial, except that the exact&lt;br&gt;&#xa;&amp;rho; values can differ across the CMs, so it&apos;s just simply &amp;rho;."/>
+                    <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;&#xa;Expected fraction of CMs in which max V cell is chosen winner.  Within any one CM,&lt;br&gt;&#xa;this is a Bernoulli trial with success probability equal to the &amp;rho; value of the max V cell,&lt;br&gt;&#xa;i.e., the max &amp;rho; value. So the expected accuracy of the whole chosen code, i.e.,  across&lt;br&gt;&#xa;all Q CMs, is simply the average of the max &amp;rho; values across the Q CMs.  It&apos;s essentially &lt;br&gt;&#xa;binomial, except that the exact &amp;rho; values can differ across the CMs."/>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[158, 50]"/>
                     </Property>

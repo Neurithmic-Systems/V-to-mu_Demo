@@ -23,8 +23,6 @@ public class V_to_mu_plot extends javax.swing.JPanel
   public NumberFormat m_FloatFormat = NumberFormat.getNumberInstance();
   public NumberFormat m_FloatFormat_prob = NumberFormat.getNumberInstance();
   
-  Color incorrectLossColor = new Color(255, 153, 153); // Color.red;  
-  
   int numX_AxisTicks = 10;
   int numY_AxisTicks = 10;
   
@@ -52,17 +50,14 @@ public class V_to_mu_plot extends javax.swing.JPanel
   
   MainCSA_demoPanel m_Controller = null;
   
-  Color V_to_mu_fn_color = Color.red;
+  Color V_to_mu_fn_color = Color.blue;
   private float V_to_mu_fn_thickness = 3;
   
   BasicStroke m_ThickStroke = new BasicStroke( 3f );
   
   final static float dash1[] = {10.0f};
-    final static BasicStroke dashed =
-        new BasicStroke(1.0f,
-                        BasicStroke.CAP_BUTT,
-                        BasicStroke.JOIN_MITER,
-                        10.0f, dash1, 0.0f);
+  final static BasicStroke dashed = 
+          new BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash1, 0.0f);
   
   
   /**
@@ -160,6 +155,13 @@ public class V_to_mu_plot extends javax.swing.JPanel
   }//GEN-LAST:event_formMouseMoved
   
   
+  /**
+   * No longer used.  Originally, the user added cells by clicking in the V-to-mu plot.
+   * But that's no longer the case.
+   * @param x
+   * @param y
+   * @return 
+   */
   public boolean addCell( int x, int y )
   {
     overallHeight = this.getHeight();
@@ -209,7 +211,7 @@ public class V_to_mu_plot extends javax.swing.JPanel
     
     // Draw background of chart in same color as background of first CM in mac panel chart  
     if (m_Controller != null)
-      g2.setColor(m_Controller.first_CM_background);
+      g2.setColor(m_Controller.focused_CM_background);
     g2.fillRect(plotOrigin_X_Inset, topMarginPixels, plotWidthPixels, sigmoidUpperBufferPixels + plotHeightPixels);
     
     // Draw x axis stuff    
@@ -283,11 +285,11 @@ public class V_to_mu_plot extends javax.swing.JPanel
       last_y = y;
     }
     
+    // update the chart consistent with the currently selected CM in the mac panel
     int focusedCM = m_Controller.getMacPanel().getFocused_CM_Index();
     
     // Draw any specific V vals as little up arrows impinging on x-axis.
     // Then show a verical bar reaching up to the function curve and also show mu val and rho val atop it.
-    // The bar color will be black for correct winner, rose for incorrect winner, and gray otherwise.
     
     int winnerIndex = theMac.getWinningIndex(focusedCM);
     int max_V_Index = theMac.getMax_V_Index(focusedCM);
@@ -299,21 +301,22 @@ public class V_to_mu_plot extends javax.swing.JPanel
       x_pos = (int) (theMac.get_specific_V_val(focusedCM, z) * plotWidthPixels);
       x_pos += plotOrigin_X_Inset;
 
-      if (z == max_V_Index && z != winnerIndex )
-        g2.setColor( incorrectLossColor );
-      else if (z == winnerIndex)
-        g2.setColor( Color.black );
+      // Set color mu bar
+      if (z == winnerIndex && z == max_V_Index)
+        g2.setColor(m_Controller.correctWinColor);
+      else if (z == winnerIndex && z != max_V_Index)
+        g2.setColor(m_Controller.incorrectWinColor);
       else
-        g2.setColor( Color.lightGray );      
-
+        g2.setColor(m_Controller.irrelevantColor);    
+      
       g2.drawLine(x_pos, y_val_of_X_axis_pixels + 7, x_pos, y_val_of_X_axis_pixels + 3 );
 
-      //draw line up to whole_sigmoid_mu value.
+      // Draw line up to sigmoid curve.
       y_pos = y_val_of_X_axis_pixels - (int) ( theMac.get_specific_mu_val(focusedCM, z) * m_y_scaler );
 
       g2.drawLine(x_pos, y_val_of_X_axis_pixels - 1, x_pos, y_pos + 2 );     
 
-      // also draw a big dot on the sigmoid for the corresponding unit
+      // Also draw a big dot on the sigmoid for the corresponding unit
       g2.setColor( Color.BLACK );
       g2.fillOval(x_pos-3, y_pos - 3, 6, 6);
       
@@ -355,7 +358,6 @@ public class V_to_mu_plot extends javax.swing.JPanel
     int x_max_V_in_pixels = 0;
     if (m_Controller != null)
     {
-      g2.setColor( Color.lightGray );
       Stroke oldStroke = g2.getStroke();
       g2.setStroke(dashed);
       if (m_Controller.isCrossTalkRelativeToCurrentMax_V())        

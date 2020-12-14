@@ -29,9 +29,21 @@ public class MacPlanPanel extends javax.swing.JPanel
   MainCSA_demoPanel m_Controller = null;
   Color old_background_color; 
   
+  // Record to maintain the upper left corner x and y and lower right corner x and y 
+  // of each CM block, where the CM block will contain both the rho and the V charts.
+  
+  class CM_Bounds {
+    int ulx;
+    int uly;
+    int lrx;
+    int lry;
+  }
+  // The list is 1D, but the display can be an arbitrary number of rows
+  List<CM_Bounds> CM_Bounds_list = new ArrayList<CM_Bounds>(0);
+  
   int mouse_X;
   int mouse_Y;
-  private int Focused_CM_Index = 3;
+  private int Focused_CM_Index = 0;
   
   
   /**
@@ -62,6 +74,7 @@ public class MacPlanPanel extends javax.swing.JPanel
   // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
   private void initComponents() {
 
+    setBackground(new java.awt.Color(230, 230, 230));
     addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
         formMouseClicked(evt);
@@ -71,72 +84,24 @@ public class MacPlanPanel extends javax.swing.JPanel
   }// </editor-fold>//GEN-END:initComponents
 
   private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-    // TODO add your handling code here:
+    
     mouse_X = evt.getX();
     mouse_Y = evt.getY();  
     
-    // Determine which CM the user clicked on
-    
-    numCMCols = (int) Math.ceil((double) theMac.Q / numCMRows);
-    
-    overallHeight = getHeight();    
-    int single_CM_block_ht = (int)(overallHeight / numCMRows) - vertMargin * 2;
-    int CM_chart_ht = (int)((single_CM_block_ht - CM_label_vert_space) / 2) ;
-    int CM_chart_y_range_ht_pix = CM_chart_ht - chartInternalTopMargin;
-    int CM_chart_half_y_range_ht_pix = (int)(CM_chart_y_range_ht_pix / 2f);
-    
-    // determine widths of things
-    overallWidth = getWidth();
-    CM_width = (overallWidth - leftMargin - x_AxisRightBufferPixels) / numCMCols;
-    CM_width -= horizSpaceCM;    
-    barZoneWidth = CM_width / Math.max(theMac.K,2);                  // need to make sure never divide by zero just ot avoid error when we delete all cells.
-    barWidth = barZoneWidth - 2 * barHorizMargin;    
-    
-    // but we really don't want bars to get too wide so we have an upper limit on bar width.
-    // we check that here and recompute the other widths based on the max bar width.
-    
-    if (barWidth > maxBarWidth)
-    {
-      barWidth = maxBarWidth;
-      barZoneWidth = barWidth + 2 * barHorizMargin;
-//      CM_width = K * barZoneWidth;
-    }
-    
-    int xpos = 0;
-    int ypos = CM_chart_ht + vertMargin;
-    int barHeight = 0;
-    boolean found = false;
-    
-    // g2.drawRect(xpos - 3, ypos - CM_chart_ht, CM_width + 6, 2 * CM_chart_ht); 
-    
+    // Determine which CM the user clicked on    
     int q = 0;
-    for ( int row = 0; row < numCMRows; row++ )
+    while (q < theMac.Q)
     {
-      xpos = leftMargin;
-      int col = 0;
-      while (col < numCMCols && q < theMac.Q - 1)
+      if (mouse_X > CM_Bounds_list.get(q).ulx && mouse_X < CM_Bounds_list.get(q).lrx)
       {
-        // q is the index of CM
-        q = row * numCMCols + col;
-        
-        if (mouse_X > xpos - 3 && mouse_X < xpos + CM_width + 6)
-        {
-          Focused_CM_Index = q;
-          found = true;
-          break;
-        }
-        
-        xpos += CM_width + horizSpaceCM;        
-        col++;
-      }
-      if (found)
+        Focused_CM_Index = q;
         break;
-      ypos += 2 * CM_chart_ht + CM_label_vert_space;
+      }
+      q++;
     }
     
     this.m_Controller.updateOtherPanelsConsistently();
-    ((V_to_mu_plot)this.V_to_mu_plotPanel).repaint();
-    
+    ((V_to_mu_plot)this.V_to_mu_plotPanel).repaint();    
     repaint();
   }//GEN-LAST:event_formMouseClicked
   
@@ -164,14 +129,6 @@ public class MacPlanPanel extends javax.swing.JPanel
   int CM_halfWidth = 20;
   int CM_halfHeight = 20;
   
-  Color nonMaxVColor = Color.lightGray;
-  Color maxVColor = Color.black;
-  Color irrelevantColor = Color.lightGray;
-  Color correctWinColor = Color.black;
-  Color incorrectWinColor = Color.black;
-  Color incorrectLossColor = new Color(255, 153, 153); // Color.red;  
-//  Color cellColor = new Color(192, 192, 192);
-  
   Font axisValuesFont = new Font("Serif", Font.BOLD, 14);
   Font axisVarFont = new Font("Serif", Font.BOLD | Font.ITALIC, 20);
   Font axisVarFontLarge = new Font("Serif", Font.BOLD | Font.ITALIC, 26);
@@ -183,6 +140,11 @@ public class MacPlanPanel extends javax.swing.JPanel
     Graphics2D g2 = (Graphics2D) g;        
     
     if ( theMac == null )  { return; }
+    
+    // We dynamically rewrite the CM bounds each time we repaint.
+    // The reason we bother with maintaining an explicit list of the CM bounds
+    // is so that the mouseclick handler code is simpler.
+    CM_Bounds_list.clear();
     
     // Right now, we just show all CMs in one row
     
@@ -231,15 +193,18 @@ public class MacPlanPanel extends javax.swing.JPanel
         // q is the index of CM
         q = row * numCMCols + col;
         
+        // add the CM bounds record for the q^th CM. Its vals are filled in below.
+        CM_Bounds_list.add(new CM_Bounds());        
+        
         // Paint background diff color for the Focused CM than for the rest.  That background will be same as for
         // the sigmoid graph at upper left.  This tells the user that the values in the sigmoid graph
         // correspond to those in the Focused CM.  The V vals in the other CMs are selected randomly from distributions.
         
         if (q == this.Focused_CM_Index)
-          g2.setColor(m_Controller.first_CM_background);
+          g2.setColor(m_Controller.focused_CM_background);
         else
-          g2.setColor(old_background_color);
-        
+          g2.setColor(Color.white);       
+                
         g2.fillRect(xpos - 3, ypos - CM_chart_ht, CM_width + 6, 2 * CM_chart_ht); 
         
         // draw box around the area for one CM (which includes the two stacked charts)        
@@ -248,57 +213,58 @@ public class MacPlanPanel extends javax.swing.JPanel
         
         g2.drawLine(xpos, ypos, xpos + CM_width, ypos);                                                             // draw x-axis for rho bar graph for the CM.
         
+        // Keep record of bounding box for the CM, for use in mouseclick handler.
+        CM_Bounds_list.get(q).ulx = xpos - 3;
+        CM_Bounds_list.get(q).uly = ypos - CM_chart_ht;
+        CM_Bounds_list.get(q).lrx = xpos + CM_width + 6;
+        CM_Bounds_list.get(q).lry = ypos + 2 * CM_chart_ht;
+        
         g2.setColor( Color.BLACK );
         g2.setFont(axisVarFontLarge);
         g2.drawString("\u03c1", leftMargin/2 - 8, ypos - CM_chart_half_y_range_ht_pix);
           
         //// Draw the rho bars.
         
-        g2.setColor( Color.BLACK );    
-        
-        boolean hasCorrectWinner = (theMac.maxV_index.get(q) == theMac.winnerIndex.get(q));
-        
-        for ( int c = 0; c < theMac.K; c++ )     
+        g2.setColor(Color.BLACK);            
+        boolean hasCorrectWinner = (theMac.maxV_index.get(q) == theMac.winnerIndex.get(q));        
+        for (int c = 0; c < theMac.K; c++)     
         {
           if (c == theMac.winnerIndex.get(q))
           {
             if (hasCorrectWinner)
-              g2.setColor( correctWinColor );
+              g2.setColor(m_Controller.correctWinColor);
             else
-              g2.setColor( incorrectWinColor );
+              g2.setColor(m_Controller.incorrectWinColor);
           }
           else
           {
-            if (c == theMac.maxV_index.get(q))
-              g2.setColor( incorrectLossColor );
-            else
-              g2.setColor( irrelevantColor );
+            g2.setColor(m_Controller.irrelevantColor);
           }
           
-          barHeight = (int) ( ( theMac.mu.get(q).get(c) / theMac.muSum.get(q) ) * CM_chart_y_range_ht_pix );          
-          g2.fillRect(xpos + c * barZoneWidth * barHorizMargin, ypos - barHeight, barWidth, barHeight );
+          barHeight = (int) ((theMac.mu.get(q).get(c) / theMac.muSum.get(q)) * CM_chart_y_range_ht_pix);          
+          g2.fillRect(xpos + c * barZoneWidth * barHorizMargin, ypos - barHeight, barWidth, barHeight);
         }
-        g2.setColor( Color.BLACK ); // reset to sane color
+        g2.setColor(Color.BLACK); // reset to sane color
         
         g2.drawLine(xpos, ypos + CM_chart_ht, xpos + CM_width, ypos + CM_chart_ht );       // draw x-axis for V bar graph for the CM.
-        g2.drawString("V", leftMargin/2 - 8, ypos + (int)(CM_chart_ht / 2) + vertMargin);
+        g2.drawString("V", leftMargin/2 - 12, ypos + (int)(CM_chart_ht / 2) + vertMargin);
         
         //// draw the V bars.  This is done in two loops and a middle block because the winner's bar is drawn in a different color.
         
         if (theMac.K > 0)
         {
-          g2.setColor( nonMaxVColor );
-          for ( int c = 0; c < theMac.maxV_index.get(q); c++ )                       
+          g2.setColor( m_Controller.nonMaxVColor );
+          for (int c = 0; c < theMac.maxV_index.get(q); c++)                       
           {
-            barHeight = (int) ( theMac.V.get(q).get(c) * CM_chart_y_range_ht_pix );
-            g2.fillRect(xpos + c * barZoneWidth * barHorizMargin, ypos + CM_chart_ht - barHeight, barWidth, barHeight );
+            barHeight = (int) (theMac.V.get(q).get(c) * CM_chart_y_range_ht_pix);
+            g2.fillRect(xpos + c * barZoneWidth * barHorizMargin, ypos + CM_chart_ht - barHeight, barWidth, barHeight);
           }
 
-          g2.setColor( maxVColor );
+          g2.setColor( m_Controller.maxVColor );
           barHeight = (int) ( theMac.V.get(q).get(theMac.maxV_index.get(q)) * CM_chart_y_range_ht_pix );
           g2.fillRect(xpos + theMac.maxV_index.get(q) * barZoneWidth * barHorizMargin, ypos + CM_chart_ht - barHeight, barWidth, barHeight );
 
-          g2.setColor( nonMaxVColor );
+          g2.setColor( m_Controller.nonMaxVColor );
           for ( int c = theMac.maxV_index.get(q) + 1; c < theMac.K; c++ )
           {
             barHeight = (int) ( theMac.V.get(q).get(c) * CM_chart_y_range_ht_pix );

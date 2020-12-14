@@ -192,6 +192,7 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Tie G, max V, and Eccen"/>
             <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;font size=4&gt;&#xa;&lt;br&gt;&#xa;When tied, as one moves G (or V) slider, the eccentricity slider will also move, &lt;br&gt;&#xa;in a coordinated way, so that the overall relation between G (input familiarity) &lt;br&gt;&#xa;and expected code intersection is close to linear. &lt;br&gt;&lt;br&gt;&#xa;&#xa;G directly controls the range of the V-to-&amp;mu; transform.  If the range is the only thing &lt;br&gt;&#xa;we change, then the overall relation from G to expected code intersection, while correlated, &lt;br&gt;&#xa;cannot be linear over its whole range.  We need to simultaneously change both the transforms&apos;s &lt;br&gt;&#xa;range and its eccentricity in order to achieve near linearity over all or most of G&apos;s range, i.e., [0,1].&lt;br&gt;&lt;br&gt;&#xa;&#xa;There could be other combinations of sigmoid params that can also be changed in coordinated &lt;br&gt;&#xa;fashion to achieve an overall linear relation from G to expected code intersection, e.g., involving &lt;br&gt;&#xa;the horizontal position of the inflection pt, but I haven&apos;t found one yet."/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
