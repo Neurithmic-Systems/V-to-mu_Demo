@@ -26,7 +26,7 @@ When you run the app, the window opens.  You see four main panels. Many of the c
    
 3. Now you can click on the "Generate New Sample" button. Each click generates a new pattern of V inputs in all Q CMs.  
    In each CM, there will be one randomly chosen unit to have a V value equal to the current setting of of the "Max V" 
-   slider (which is tied to the "Global Familarity" slider. And, in each CM, the other K-1 units will receive a random V 
+   slider (which is tied to the "Global Familarity" slider). And, in each CM, the other K-1 units will receive a random V 
    value chosen from the range determined by the current settings of the Min and Max Crosstalk sliders. 
    
 4. Each time you hit the "Generate New Sample" button, you will get a new draw determined as described in the previous bullet.
