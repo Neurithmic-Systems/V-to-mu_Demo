@@ -338,7 +338,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     beta_slider.setPaintLabels(true);
     beta_slider.setPaintTicks(true);
     beta_slider.setValue(15);
-    beta_slider.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "<html>\n\nSigmoid Eccentricity", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+    beta_slider.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "<html>\n\nInverse Sigmoid Eccentricity", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
     beta_slider.setMinimumSize(new java.awt.Dimension(300, 70));
     beta_slider.setPreferredSize(new java.awt.Dimension(350, 70));
     beta_slider.addChangeListener(new javax.swing.event.ChangeListener() {
