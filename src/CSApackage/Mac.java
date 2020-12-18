@@ -217,7 +217,7 @@ public class Mac {
       
       // the highest "temp1 / temp2" can be is 1.  gamma is an int >= 1.  So result of raising to power gamma
       // is that the higher gamma is, the more convex the map from V to mu is. So higher gamma
-      // results in a more stringent matching fn (tighter the generalization gradient).
+      // results in a more stringent matching fn (a tighter generalization gradient).
       // V_to_mu_Multiplier just magnifies the range of possible mu values.
       eta = (float) Math.pow( ( temp1 / temp2 ), gamma ) * V_to_mu_Multiplier;
     }

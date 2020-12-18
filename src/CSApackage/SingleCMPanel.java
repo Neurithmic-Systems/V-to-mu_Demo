@@ -30,8 +30,9 @@ public class SingleCMPanel extends javax.swing.JPanel
   
   float[] V_vals = null;
   float[] muVals = null;
+  float[] rhovals = null;
   
-  int m_vert_spacer = 35;
+  int m_vert_spacer = 25;
   
   int plotHeightPixels = 0;
   int overallHeight = 0;
@@ -45,16 +46,19 @@ public class SingleCMPanel extends javax.swing.JPanel
   int m_p_plot_bottom = 0;
   int m_p_plot_y_mid = 0;
   
+  int m_mu_plot_height = 0;
+  int m_mu_plot_bottom = 0;
+  int m_mu_plot_y_mid = 0;
+  
   int m_V_plot_height = 0;
   int m_V_plot_bottom = 0;  
   int m_V_plot_y_mid = 0;
-  
-//  Color incorrectLossColor = new Color(255, 153, 153); // Color.red;    
   
   int m_cell_top = 0;
   
   public NumberFormat m_FloatFormat = NumberFormat.getNumberInstance();
   public NumberFormat m_FloatFormat_prob = NumberFormat.getNumberInstance();
+  public NumberFormat m_IntFormat = NumberFormat.getNumberInstance();
   
   MainCSA_demoPanel m_Controller = null;
   private MacPlanPanel m_macPlanPanel = null;
@@ -72,6 +76,8 @@ public class SingleCMPanel extends javax.swing.JPanel
     m_FloatFormat_prob.setMaximumFractionDigits(2);
     m_FloatFormat_prob.setMinimumFractionDigits(2);
     m_FloatFormat_prob.setMinimumIntegerDigits(1);
+    
+    m_IntFormat.setMaximumFractionDigits(0);
     
     initComponents();
   }
@@ -122,13 +128,16 @@ public class SingleCMPanel extends javax.swing.JPanel
     
     if ( m_Plot_Panel == null ) { return; }
     
-    m_p_plot_height = (int) ( overallHeight * 0.35 );
+    m_p_plot_height = (int) ( overallHeight * 0.23 );
+    m_mu_plot_height = m_p_plot_height;
     m_V_plot_height = m_p_plot_height;
     
     m_p_plot_bottom = m_p_plot_height + m_vert_spacer; 
-    m_V_plot_bottom = m_p_plot_bottom + m_V_plot_height + m_vert_spacer; 
+    m_mu_plot_bottom = m_p_plot_bottom + m_mu_plot_height + m_vert_spacer; 
+    m_V_plot_bottom = m_mu_plot_bottom + m_V_plot_height + m_vert_spacer; 
     
     m_p_plot_y_mid = (int) ( (float) m_p_plot_bottom - m_p_plot_height / 2 );
+    m_mu_plot_y_mid = (int) ( (float) m_mu_plot_bottom - m_mu_plot_height / 2 );
     m_V_plot_y_mid = (int) ( (float) m_V_plot_bottom - m_V_plot_height / 2 );
     
     m_cell_top = m_V_plot_bottom + 10;
@@ -137,14 +146,15 @@ public class SingleCMPanel extends javax.swing.JPanel
     if (m_Controller != null)
       g2.setColor(m_Controller.focused_CM_background);
     g2.fillRect(plotOrigin_X_Inset, m_vert_spacer, getWidth() - plotOrigin_X_Inset - x_AxisRightBufferPixels, m_p_plot_height);
-    g2.fillRect(plotOrigin_X_Inset, m_p_plot_bottom + m_vert_spacer, getWidth() - plotOrigin_X_Inset - x_AxisRightBufferPixels, m_V_plot_height);
+    g2.fillRect(plotOrigin_X_Inset, m_p_plot_bottom + m_vert_spacer, getWidth() - plotOrigin_X_Inset - x_AxisRightBufferPixels, m_mu_plot_height);
+    g2.fillRect(plotOrigin_X_Inset, m_mu_plot_bottom + m_vert_spacer, getWidth() - plotOrigin_X_Inset - x_AxisRightBufferPixels, m_V_plot_height);
     
     g2.setColor( Color.BLACK );
     
     int y = 0;    
     int numCells = theMac.K;
     
-    // compute how wide bars should be to fit everything
+    // Compute how wide bars should be to fit everything
     cellHorizSpace = (numCells > 0) ? plotWidthPixels / numCells : cellHorizSpace;
     if (cellHorizSpace > 20)
     {
@@ -158,7 +168,7 @@ public class SingleCMPanel extends javax.swing.JPanel
       cellDiameter = cellHorizSpace - 2 * cellHorizInset;
     }    
     
-    // draw x-axes for rho and V plots   
+    // Draw x-axes for rho, mu, and V plots   
     
     g2.drawLine(plotOrigin_X_Inset, m_p_plot_bottom, getWidth() - x_AxisRightBufferPixels, m_p_plot_bottom );
     g2.setFont(axisVarFontLarge);
@@ -168,6 +178,13 @@ public class SingleCMPanel extends javax.swing.JPanel
     g2.drawString( "Winning", 10, m_p_plot_y_mid + 22 );
     g2.drawString( "(normed \u03bc)", 10, m_p_plot_y_mid + 44 );
     
+    g2.drawLine(plotOrigin_X_Inset, m_mu_plot_bottom, getWidth() - x_AxisRightBufferPixels, m_mu_plot_bottom );
+    g2.setFont(axisVarFontLarge);
+    g2.drawString("\u03bc", (int) (plotOrigin_X_Inset / 3) - 3, m_mu_plot_y_mid - 26);
+    g2.setFont(axisVarFont);
+    g2.drawString( "Rel. Prob.", 10, m_mu_plot_y_mid + 6);
+    g2.drawString( "of Winning", 10, m_mu_plot_y_mid + 28 );
+    
     g2.drawLine(plotOrigin_X_Inset, m_V_plot_bottom, getWidth() - x_AxisRightBufferPixels, m_V_plot_bottom );
     g2.setFont(axisVarFontLarge);
     g2.drawString("V", (plotOrigin_X_Inset / 3) - 3, m_V_plot_y_mid - 30 );
@@ -176,9 +193,10 @@ public class SingleCMPanel extends javax.swing.JPanel
     g2.drawString( "Synaptic", 10, m_V_plot_y_mid + 18);
     g2.drawString( "Support", 10, m_V_plot_y_mid + 40 );
     
-    // draw y-axes for rho and V plots
+    // draw y-axes for rho, mu, and V plots
     
     g2.drawLine(plotOrigin_X_Inset, m_p_plot_bottom, plotOrigin_X_Inset, m_p_plot_bottom - m_p_plot_height );
+    g2.drawLine(plotOrigin_X_Inset, m_mu_plot_bottom, plotOrigin_X_Inset, m_mu_plot_bottom - m_mu_plot_height );
     g2.drawLine(plotOrigin_X_Inset, m_V_plot_bottom, plotOrigin_X_Inset, m_V_plot_bottom - m_V_plot_height );
     
     g2.setFont(axisValuesFont);
@@ -187,8 +205,13 @@ public class SingleCMPanel extends javax.swing.JPanel
     for (int h = 0; h <= num_Y_AxisTicks; h++)                                              // draw y-axis ticks and vals
     {
       y_pos = h * y_axis_maj_interval;
-      g2.drawString(m_FloatFormat.format((float) h / num_Y_AxisTicks ), plotOrigin_X_Inset - 22, m_p_plot_bottom - y_pos + 6 );
-      g2.drawString(m_FloatFormat.format((float) h / num_Y_AxisTicks ), plotOrigin_X_Inset - 22, m_V_plot_bottom - y_pos + 6 );      
+      g2.drawString(m_FloatFormat.format((float) h / num_Y_AxisTicks), plotOrigin_X_Inset - 22, m_p_plot_bottom - y_pos + 6 );
+      // the min value of mu is always 1, so special case this.
+      if (h == 0)
+        g2.drawString("1", plotOrigin_X_Inset - 26, m_mu_plot_bottom - y_pos + 6 );
+      else
+        g2.drawString(m_IntFormat.format((float) h / num_Y_AxisTicks * theMac.max_V_to_mu_Multiplier), plotOrigin_X_Inset - 26, m_mu_plot_bottom - y_pos + 6 );
+      g2.drawString(m_FloatFormat.format((float) h / num_Y_AxisTicks), plotOrigin_X_Inset - 22, m_V_plot_bottom - y_pos + 6 );      
     }
     
     g2.drawString("Cell", 30, m_cell_top + 15);
@@ -200,14 +223,16 @@ public class SingleCMPanel extends javax.swing.JPanel
     int max_V_Index = theMac.getMax_V_Index(focusedCM);        
     double divisor = ( theMac.muSum.get(focusedCM) > 0 ) ?  theMac.muSum.get(focusedCM) : 1;
       
-    /// draw cells and rho bars
+    /// draw cells and mu and rho bars.  And show hovering values if cursor is over in
+    /// a vertical region for a paricular cell.
     
+    float barHeightCorrection;
     int x_left = 0;  // convenience var in loop    
     for (int c = 0; c < numCells; c++)
     {      
       x_left = plotOrigin_X_Inset + c * cellHorizSpace + cellHorizInset;
       
-      // Set color for cell and rho bar
+      // Set color for cell and mu and rho bar
       if (c == winnerIndex && c == max_V_Index)
         g2.setColor(m_Controller.correctWinColor);
       else if (c == winnerIndex && c != max_V_Index)
@@ -215,32 +240,37 @@ public class SingleCMPanel extends javax.swing.JPanel
       else
         g2.setColor(m_Controller.irrelevantColor);         
       
-      g2.fillOval(x_left, m_cell_top, cellDiameter, cellDiameter );      
+      g2.fillOval(x_left, m_cell_top, cellDiameter, cellDiameter ); 
+      
       y = (int) ( theMac.get_specific_mu_val(focusedCM, c) / divisor * m_p_plot_height );
       g2.fillRect(x_left, m_p_plot_bottom - y, cellDiameter, y );      
+      
+      barHeightCorrection = theMac.getEta() / theMac.max_V_to_mu_Multiplier;
+      y = (int) (theMac.get_specific_mu_val(focusedCM, c) / theMac.getEta() * barHeightCorrection * m_mu_plot_height);
+      g2.fillRect(x_left, m_mu_plot_bottom - y, cellDiameter, y );
       
       // show values as mouse hovers over bars
       if (mouse_X >= x_left && mouse_X <= x_left + cellDiameter) // && mouse_Y >= y_pos-3 && mouse_Y <= y_pos+3 )
       {
         g2.setColor( Color.black );
-        g2.drawString(m_FloatFormat_prob.format(theMac.get_specific_V_val(focusedCM, c)), x_left, m_V_plot_bottom - m_V_plot_height- 12 ); 
-        g2.drawString(m_FloatFormat_prob.format(theMac.get_specific_mu_val(focusedCM, c) / theMac.muSum.get(focusedCM)), x_left - 8, m_p_plot_bottom - m_p_plot_height - 12 ); 
+        g2.drawString(m_FloatFormat_prob.format(theMac.get_specific_mu_val(focusedCM, c) / theMac.muSum.get(focusedCM)), x_left - 8, m_p_plot_bottom - m_p_plot_height - 8 ); 
+        g2.drawString(m_FloatFormat_prob.format(theMac.get_specific_mu_val(focusedCM, c)), x_left - 8, m_mu_plot_bottom - m_mu_plot_height - 8 ); 
+        g2.drawString(m_FloatFormat_prob.format(theMac.get_specific_V_val(focusedCM, c)), x_left, m_V_plot_bottom - m_V_plot_height - 8 );         
       }      
     }
     
-    /// Draw V vars
+    /// Draw mu V bars
     
     for (int c = 0; c < numCells; c++)
     {      
-      x_left = plotOrigin_X_Inset + c * cellHorizSpace + cellHorizInset;
-      
+      x_left = plotOrigin_X_Inset + c * cellHorizSpace + cellHorizInset;      
       // Set color for V bar
-      g2.setColor((c == max_V_Index) ? m_Controller.correctWinColor : m_Controller.irrelevantColor);      
+      g2.setColor((c == max_V_Index) ? m_Controller.correctWinColor : m_Controller.irrelevantColor);            
       y = (int) ( theMac.get_specific_V_val(focusedCM, c) * m_V_plot_height );
       g2.fillRect(x_left, m_V_plot_bottom - y, cellDiameter, y );
     }
     
-    //// Draw faint horizontal lines to show crosstalk limits.
+    //// Draw faint horizontal lines on the V plot to show crosstalk limits.
     
     int y_max_V_in_pixels = 0;
     if (m_Controller != null)
