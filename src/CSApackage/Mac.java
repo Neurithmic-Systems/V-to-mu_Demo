@@ -299,7 +299,7 @@ public class Mac {
     {
       whole_sigmoid_mu[x] = 100 * whole_sigmoid_V[x];
       whole_sigmoid_mu[x] = (float) Math.exp(-1 * (whole_sigmoid_mu[x] - horizInflectionLocation) / eccentricity) + 1;
-      whole_sigmoid_mu[x] = eta / whole_sigmoid_mu[x];
+      whole_sigmoid_mu[x] = eta / whole_sigmoid_mu[x] + 1;
 
       if (whole_sigmoid_mu[x] < muMin)
         muMin = whole_sigmoid_mu[x];
@@ -327,7 +327,7 @@ public class Mac {
         
         temp = 100 * V.get(q).get(c);      
         temp = (float) Math.exp(-1 * (temp - horizInflectionLocation) / eccentricity) + 1;        // "1" needed to prevent div by 0 in next line.
-        temp = eta / temp;
+        temp = eta / temp  + 1;
         
         mu.get(q).set(c, temp);
         muSum.set(q, muSum.get(q) + temp);
