@@ -330,7 +330,7 @@ public class V_to_mu_plot extends javax.swing.JPanel
       }
     }
 
-    // Show hovering whole_sigmoid_mu and rho vals is appropriate
+    // Show hovering mu and rho vals is appropriate
     
     if (this.m_Controller.isShowHoveringVals()) 
     {
@@ -338,19 +338,33 @@ public class V_to_mu_plot extends javax.swing.JPanel
       
       double y_val = 0;
       g2.setColor( Color.BLACK );
-      for (int z = 0; z < theMac.K; z++)
-      {
-        x_pos = (int) (theMac.get_specific_V_val(focusedCM, z) * plotWidthPixels);
-        x_pos += plotOrigin_X_Inset;
-
-        g2.drawString(m_FloatFormat.format(theMac.get_specific_mu_val(focusedCM, z)), x_pos - 20, 
-                topMarginPixels + sigmoidUpperBufferPixels + plotHeightPixels - (int) ( theMac.get_specific_mu_val(focusedCM, z) * m_y_scaler ) - 20 );   
+//      for (int z = 0; z < theMac.K; z++)
+//      {
+//        x_pos = (int) (theMac.get_specific_V_val(focusedCM, z) * plotWidthPixels);
+//        x_pos += plotOrigin_X_Inset;
+//
+//        g2.drawString(m_FloatFormat.format(theMac.get_specific_mu_val(focusedCM, z)), x_pos - 20, 
+//                topMarginPixels + sigmoidUpperBufferPixels + plotHeightPixels - (int)(theMac.get_specific_mu_val(focusedCM, z) * m_y_scaler) - 20);   
+//
+//        // the rho val, i.e., the total prob
+//        y_val = theMac.get_specific_mu_val(focusedCM, z) / theMac.muSum.get(focusedCM);
+//        g2.drawString(m_FloatFormat_prob.format( y_val ), x_pos - 20, 
+//                topMarginPixels + sigmoidUpperBufferPixels + plotHeightPixels - (int)(theMac.get_specific_mu_val(focusedCM, z) * m_y_scaler) - 40);
+//      }
+      
+      int focusedUnit = theSingle_CM_Panel.getFocusedUnit();
+      x_pos = (int) (theMac.get_specific_V_val(focusedCM, focusedUnit) * plotWidthPixels);
+      x_pos += plotOrigin_X_Inset;
+      
+      g2.drawString(m_FloatFormat.format(theMac.get_specific_mu_val(focusedCM, focusedUnit)), x_pos - 20, 
+                topMarginPixels + sigmoidUpperBufferPixels + plotHeightPixels - 
+                        (int)(theMac.get_specific_mu_val(focusedCM, focusedUnit) * m_y_scaler) - 20);   
 
         // the rho val, i.e., the total prob
-        y_val = theMac.get_specific_mu_val(focusedCM, z) / theMac.muSum.get(focusedCM);
+        y_val = theMac.get_specific_mu_val(focusedCM, focusedUnit) / theMac.muSum.get(focusedCM);
         g2.drawString(m_FloatFormat_prob.format( y_val ), x_pos - 20, 
-                topMarginPixels + sigmoidUpperBufferPixels + plotHeightPixels - (int) ( theMac.get_specific_mu_val(focusedCM, z) * m_y_scaler ) - 40 );
-      }
+                topMarginPixels + sigmoidUpperBufferPixels + plotHeightPixels - 
+                        (int)(theMac.get_specific_mu_val(focusedCM, focusedUnit) * m_y_scaler) - 40);
     }
     
     // Draw faint vertical lines to show crosstalk limits.

@@ -21,6 +21,7 @@ public class SingleCMPanel extends javax.swing.JPanel
   
   int mouse_X;
   int mouse_Y;
+  private int focusedUnit;
   
   int cellHorizInset = 3;
   int cellDiameter = 14;
@@ -99,10 +100,10 @@ public class SingleCMPanel extends javax.swing.JPanel
   }// </editor-fold>//GEN-END:initComponents
 
   private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
-    // TODO add your handling code here:
     mouse_X = evt.getX();
     mouse_Y = evt.getY();  
     repaint();
+    this.m_Controller.get_V_to_mu_Panel().repaint();
   }//GEN-LAST:event_formMouseMoved
   
   public void SetController ( MainCSA_demoPanel controller )
@@ -249,9 +250,10 @@ public class SingleCMPanel extends javax.swing.JPanel
       y = (int) (theMac.get_specific_mu_val(focusedCM, c) / theMac.getEta() * barHeightCorrection * m_mu_plot_height);
       g2.fillRect(x_left, m_mu_plot_bottom - y, cellDiameter, y );
       
-      // show values as mouse hovers over bars
+      // Show values as mouse hovers over bars
       if (mouse_X >= x_left && mouse_X <= x_left + cellDiameter) // && mouse_Y >= y_pos-3 && mouse_Y <= y_pos+3 )
       {
+        setFocusedUnit(c);
         g2.setColor( Color.black );
         g2.drawString(m_FloatFormat_prob.format(theMac.get_specific_mu_val(focusedCM, c) / theMac.muSum.get(focusedCM)), x_left - 8, m_p_plot_bottom - m_p_plot_height - 8 ); 
         g2.drawString(m_FloatFormat_prob.format(theMac.get_specific_mu_val(focusedCM, c)), x_left - 8, m_mu_plot_bottom - m_mu_plot_height - 8 ); 
@@ -259,7 +261,7 @@ public class SingleCMPanel extends javax.swing.JPanel
       }      
     }
     
-    /// Draw mu V bars
+    /// Draw V bars
     
     for (int c = 0; c < numCells; c++)
     {      
@@ -322,6 +324,20 @@ public class SingleCMPanel extends javax.swing.JPanel
   public void setM_macPlanPanel(MacPlanPanel m_macPlanPanel) {
     this.m_macPlanPanel = m_macPlanPanel;
   }
+
+    /**
+     * @return the focusedUnit
+     */
+    public int getFocusedUnit() {
+        return focusedUnit;
+    }
+
+    /**
+     * @param focusedUnit the focusedUnit to set
+     */
+    public void setFocusedUnit(int focusedUnit) {
+        this.focusedUnit = focusedUnit;
+    }
   
   // Variables declaration - do not modify//GEN-BEGIN:variables
   // End of variables declaration//GEN-END:variables
