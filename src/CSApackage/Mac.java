@@ -19,7 +19,7 @@ public class Mac {
   
   static final int default_Q = 8;
   protected int Q = default_Q;
-  static final int default_K = 4;
+  static final int default_K = 5;
   protected int K = default_K;
   final int max_K = 20;
   
