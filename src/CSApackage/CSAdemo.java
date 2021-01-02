@@ -16,6 +16,7 @@ import javax.swing.JColorChooser;
 public class CSAdemo extends javax.swing.JFrame {
   
   protected Mac theMac = null;
+  private int NumInputUnits = 20;
   
   /**
    * Creates new form CSAdemo
@@ -23,6 +24,7 @@ public class CSAdemo extends javax.swing.JFrame {
   public CSAdemo() {
     theMac = new Mac();
     theMac.setTheApp(this);
+    
     initComponents();
   }
 
@@ -56,6 +58,7 @@ public class CSAdemo extends javax.swing.JFrame {
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setTitle("Sparsey Code Selection Algorithm (CSA) Demo");
     setLocation(new java.awt.Point(0, 0));
+    setMaximumSize(new java.awt.Dimension(1000, 1000));
     setMinimumSize(new java.awt.Dimension(700, 600));
     setPreferredSize(new java.awt.Dimension(1200, 1100));
 
@@ -148,6 +151,10 @@ public class CSAdemo extends javax.swing.JFrame {
     jToolBar1.add(tie_G_eccent_sliders_Chkbx);
 
     getContentPane().add(jToolBar1, java.awt.BorderLayout.PAGE_START);
+
+    mainCSA_demoPanel1.setMaximumSize(new java.awt.Dimension(1000, 1000));
+    mainCSA_demoPanel1.setMinimumSize(new java.awt.Dimension(700, 800));
+    mainCSA_demoPanel1.setPreferredSize(new java.awt.Dimension(900, 900));
     getContentPane().add(mainCSA_demoPanel1, java.awt.BorderLayout.CENTER);
 
     jMenuBar1.setMinimumSize(new java.awt.Dimension(63, 30));
@@ -265,4 +272,18 @@ public class CSAdemo extends javax.swing.JFrame {
   private javax.swing.JCheckBox showHoveringValsChkBx;
   private javax.swing.JCheckBox tie_G_eccent_sliders_Chkbx;
   // End of variables declaration//GEN-END:variables
+
+  /**
+   * @return the NumInputUnits
+   */
+  public int getNumInputUnits() {
+    return NumInputUnits;
+  }
+
+  /**
+   * @param NumInputUnits the NumInputUnits to set
+   */
+  public void setNumInputUnits(int NumInputUnits) {
+    this.NumInputUnits = NumInputUnits;
+  }
 }

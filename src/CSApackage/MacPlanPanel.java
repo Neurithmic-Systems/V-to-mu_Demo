@@ -134,6 +134,7 @@ public class MacPlanPanel extends javax.swing.JPanel
   Font axisVarFontLarge = new Font("Serif", Font.BOLD | Font.ITALIC, 26);
   Font CM_LabelFont = new Font("Serif", Font.BOLD, 14);
   
+  @Override
   protected void paintComponent(java.awt.Graphics g)
   {
     super.paintComponent(g);
@@ -298,7 +299,7 @@ public class MacPlanPanel extends javax.swing.JPanel
         
         g2.setColor( Color.BLACK ); // reset to sane color
         g2.setFont(CM_LabelFont);
-        g2.drawString("CM " + m_IntFormat.format(q + 1 ), xpos + (int) ( CM_width / 2 ) - 15, ypos + CM_chart_ht + 25 );            // draw q label under box
+        g2.drawString("CM" + m_IntFormat.format(q + 1 ), xpos + (int) ( CM_width / 2 ) - 15, ypos + CM_chart_ht + 25 );            // draw q label under box
         
         xpos += CM_width + horizSpaceCM;
         

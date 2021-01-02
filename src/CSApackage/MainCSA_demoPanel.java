@@ -8,8 +8,10 @@ package CSApackage;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.text.DecimalFormat;
 import java.util.Dictionary;
+import java.util.HashSet;
 import java.util.Hashtable;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
@@ -68,22 +70,27 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     labelTable.put(60, new JLabel("0.6"));
     labelTable.put(80, new JLabel("0.8"));
     labelTable.put(100, new JLabel("1"));
+    
+    
       
     theApp = app;
     initComponents();
      
     ((V_to_mu_plot)sigmoidDisplayPanel).SetController(this);
     ((SingleCMPanel)singleCM_V_rho_Panel).SetController(this);
-    ((MacPlanPanel)theMacPlanPanel).SetController(this);    
+    ((MacPlanPanel)theMacPlanPanel).SetController(this);  
+    ((ExplicitInputDisplayPanel)ExplicitInputDisplay).SetController(this);    
     
     ((V_to_mu_plot)sigmoidDisplayPanel).setTheMac(theApp.theMac);
     ((SingleCMPanel)singleCM_V_rho_Panel).setTheMac(theApp.theMac);
     ((MacPlanPanel)theMacPlanPanel).setTheMac(theApp.theMac);
+    ((ExplicitInputDisplayPanel)ExplicitInputDisplay).setTheMac(theApp.theMac);
     
     ((V_to_mu_plot)sigmoidDisplayPanel).set_CM_plan_class((SingleCMPanel)singleCM_V_rho_Panel);
     ((SingleCMPanel)singleCM_V_rho_Panel).set_plot_class((V_to_mu_plot)sigmoidDisplayPanel);
     ((MacPlanPanel)theMacPlanPanel).set_plot_class((V_to_mu_plot)sigmoidDisplayPanel);   
-    ((SingleCMPanel)singleCM_V_rho_Panel).setM_macPlanPanel((MacPlanPanel)theMacPlanPanel);    
+    ((SingleCMPanel)singleCM_V_rho_Panel).setM_macPlanPanel((MacPlanPanel)theMacPlanPanel);   
+    ((ExplicitInputDisplayPanel)ExplicitInputDisplay).setM_macPlanPanel((MacPlanPanel)theMacPlanPanel);
     
     // Preset mac panel members in accord with the initially selected radio button.
     
@@ -167,18 +174,20 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     maxCrosstalk_V = new javax.swing.JTextField();
     jLabel4 = new javax.swing.JLabel();
     spinnerQ = new javax.swing.JSpinner();
-    spinnerQ.setValue(Mac.default_Q);
     jLabel5 = new javax.swing.JLabel();
     spinnerK = new javax.swing.JSpinner();
-    spinnerK.setValue(Mac.default_K);
     theMacPlanPanel = new MacPlanPanel();
+    jPanel4 = new javax.swing.JPanel();
+    jSplitPane1 = new javax.swing.JSplitPane();
+    ExplicitInputDisplay = new ExplicitInputDisplayPanel();
+    jPanel6 = new javax.swing.JPanel();
 
     setBackground(new java.awt.Color(153, 255, 255));
     setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
     setMaximumSize(new java.awt.Dimension(1500, 1400));
-    setMinimumSize(new java.awt.Dimension(800, 800));
+    setMinimumSize(new java.awt.Dimension(900, 800));
     setName(""); // NOI18N
-    setPreferredSize(new java.awt.Dimension(1000, 900));
+    setPreferredSize(new java.awt.Dimension(900, 800));
     addComponentListener(new java.awt.event.ComponentAdapter() {
       public void componentShown(java.awt.event.ComponentEvent evt) {
         formComponentShown(evt);
@@ -187,30 +196,33 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     setLayout(new java.awt.GridBagLayout());
 
     jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+    jPanel2.setMaximumSize(new java.awt.Dimension(900, 900));
     jPanel2.setMinimumSize(new java.awt.Dimension(400, 500));
     jPanel2.setPreferredSize(new java.awt.Dimension(500, 500));
     jPanel2.setLayout(new java.awt.GridBagLayout());
 
-    labMacChartTitle1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+    labMacChartTitle1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
     labMacChartTitle1.setForeground(new java.awt.Color(51, 51, 255));
     labMacChartTitle1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    labMacChartTitle1.setText("<html> Rel. Likelihood (<i>&mu;</i> ) of Win vs. Local Familiarity (<i>V</i> )");
+    labMacChartTitle1.setText("<html> Rel. Prob. (<i>&mu;</i> ) of Win vs. Local Familiarity (<i>V</i> )");
     labMacChartTitle1.setToolTipText("<html>\n<font size=4>The number of cells per CM, K, is controlled by the K spinner (in lower right panel): <br>\nNote: you can always hit the \"Clear Cells\" button to start over. But the V and &rho; values are programmatically <br>\ndetermined. That is, the V's are drawn from ranges that are set to simulate different amounts of crosstalk.<br>\n<br>\nFor V charts, black is cell with max V <br>\n<br>\nFor &rho; charts, if winner is not max V cell, it's shown in red.\n</font>\n</html>");
     labMacChartTitle1.setAlignmentX(0.5F);
+    labMacChartTitle1.setDoubleBuffered(true);
     labMacChartTitle1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-    labMacChartTitle1.setMaximumSize(new java.awt.Dimension(353, 30));
-    labMacChartTitle1.setMinimumSize(new java.awt.Dimension(333, 30));
-    labMacChartTitle1.setPreferredSize(new java.awt.Dimension(360, 40));
+    labMacChartTitle1.setMaximumSize(new java.awt.Dimension(400, 30));
+    labMacChartTitle1.setMinimumSize(new java.awt.Dimension(400, 40));
+    labMacChartTitle1.setPreferredSize(new java.awt.Dimension(400, 40));
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 0;
-    gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
     gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
+    gridBagConstraints.weightx = 0.5;
     gridBagConstraints.insets = new java.awt.Insets(6, 10, 0, 10);
     jPanel2.add(labMacChartTitle1, gridBagConstraints);
 
     sigmoidDisplayPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+    sigmoidDisplayPanel.setMaximumSize(new java.awt.Dimension(900, 900));
     sigmoidDisplayPanel.setMinimumSize(new java.awt.Dimension(600, 500));
     sigmoidDisplayPanel.setPreferredSize(new java.awt.Dimension(600, 500));
     sigmoidDisplayPanel.setLayout(null);
@@ -220,8 +232,8 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
     gridBagConstraints.ipadx = 2;
     gridBagConstraints.ipady = 2;
-    gridBagConstraints.weightx = 0.6;
-    gridBagConstraints.weighty = 0.8;
+    gridBagConstraints.weightx = 0.5;
+    gridBagConstraints.weighty = 0.7;
     gridBagConstraints.insets = new java.awt.Insets(2, 4, 2, 2);
     jPanel2.add(sigmoidDisplayPanel, gridBagConstraints);
 
@@ -231,21 +243,23 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
     gridBagConstraints.ipadx = 2;
     gridBagConstraints.ipady = 2;
-    gridBagConstraints.weightx = 0.1;
-    gridBagConstraints.weighty = 1.0;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+    gridBagConstraints.weightx = 0.3;
+    gridBagConstraints.weighty = 0.4;
     gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
     add(jPanel2, gridBagConstraints);
 
     controlPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
     controlPanel.setMaximumSize(new java.awt.Dimension(800, 600));
-    controlPanel.setMinimumSize(new java.awt.Dimension(500, 500));
+    controlPanel.setMinimumSize(new java.awt.Dimension(700, 500));
     controlPanel.setPreferredSize(new java.awt.Dimension(500, 500));
     controlPanel.setLayout(new java.awt.GridBagLayout());
 
     btClearCells.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
     btClearCells.setText("Clear Cells");
+    btClearCells.setEnabled(false);
     btClearCells.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-    btClearCells.setMargin(new java.awt.Insets(4, 14, 4, 14));
+    btClearCells.setMargin(new java.awt.Insets(2, 10, 2, 10));
     btClearCells.setMaximumSize(new java.awt.Dimension(240, 40));
     btClearCells.setMinimumSize(new java.awt.Dimension(240, 40));
     btClearCells.setPreferredSize(new java.awt.Dimension(240, 40));
@@ -257,9 +271,9 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 1;
     gridBagConstraints.gridy = 4;
-    gridBagConstraints.ipadx = 6;
-    gridBagConstraints.ipady = 6;
-    gridBagConstraints.insets = new java.awt.Insets(6, 14, 6, 18);
+    gridBagConstraints.ipadx = 2;
+    gridBagConstraints.ipady = 2;
+    gridBagConstraints.insets = new java.awt.Insets(1, 6, 1, 6);
     controlPanel.add(btClearCells, gridBagConstraints);
 
     G_Slider.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -280,10 +294,10 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 0;
-    gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
     gridBagConstraints.ipady = 2;
     gridBagConstraints.weightx = 0.5;
-    gridBagConstraints.insets = new java.awt.Insets(6, 18, 6, 14);
+    gridBagConstraints.insets = new java.awt.Insets(2, 6, 2, 6);
     controlPanel.add(G_Slider, gridBagConstraints);
     G_Slider.getAccessibleContext().setAccessibleName("");
 
@@ -295,6 +309,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     V_to_mu_multiplier_Slider.setToolTipText("<html>\n<font size=4>\nSlide to control height of V to &mu; transform. The &mu; range is the product of G (between 0 and 1)<br>\nand  the factor whose size is controlled by this slider.  In general, the larger this factor, the greater the<br>\nadvantage given to cells with high Vs vs. low Vs, in the final prob (&rho;) distributions from which<br>\nthe softmax draws are made.");
     V_to_mu_multiplier_Slider.setValue(400);
     V_to_mu_multiplier_Slider.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "<html>\n\n<em>V</em> -to-&mu; Range Mult.", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+    V_to_mu_multiplier_Slider.setMaximumSize(new java.awt.Dimension(400, 70));
     V_to_mu_multiplier_Slider.setMinimumSize(new java.awt.Dimension(300, 70));
     V_to_mu_multiplier_Slider.setPreferredSize(new java.awt.Dimension(350, 70));
     this.V_to_mu_multiplier_Slider.setValue(theApp.theMac.getV_to_mu_Multiplier());
@@ -306,9 +321,9 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 2;
-    gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
     gridBagConstraints.ipady = 2;
-    gridBagConstraints.insets = new java.awt.Insets(6, 18, 6, 14);
+    gridBagConstraints.insets = new java.awt.Insets(2, 6, 2, 6);
     controlPanel.add(V_to_mu_multiplier_Slider, gridBagConstraints);
 
     inflection_Slider.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -317,6 +332,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     inflection_Slider.setPaintLabels(true);
     inflection_Slider.setPaintTicks(true);
     inflection_Slider.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "<html>\n\nHorizontal Inflect. Pt. (%)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+    inflection_Slider.setMaximumSize(new java.awt.Dimension(400, 70));
     inflection_Slider.setMinimumSize(new java.awt.Dimension(300, 70));
     inflection_Slider.setPreferredSize(new java.awt.Dimension(350, 70));
     inflection_Slider.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -327,9 +343,9 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 3;
-    gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
     gridBagConstraints.ipady = 2;
-    gridBagConstraints.insets = new java.awt.Insets(6, 18, 6, 14);
+    gridBagConstraints.insets = new java.awt.Insets(2, 6, 2, 6);
     controlPanel.add(inflection_Slider, gridBagConstraints);
 
     beta_slider.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -339,6 +355,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     beta_slider.setPaintTicks(true);
     beta_slider.setValue(15);
     beta_slider.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "<html>\n\nInverse Sigmoid Eccentricity", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+    beta_slider.setMaximumSize(new java.awt.Dimension(400, 70));
     beta_slider.setMinimumSize(new java.awt.Dimension(300, 70));
     beta_slider.setPreferredSize(new java.awt.Dimension(350, 70));
     beta_slider.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -349,9 +366,9 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 1;
-    gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
     gridBagConstraints.ipady = 2;
-    gridBagConstraints.insets = new java.awt.Insets(6, 18, 6, 14);
+    gridBagConstraints.insets = new java.awt.Insets(2, 6, 2, 6);
     controlPanel.add(beta_slider, gridBagConstraints);
 
     min_crosstalk_slider.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -374,9 +391,9 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.gridy = 0;
     gridBagConstraints.gridwidth = 2;
     gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-    gridBagConstraints.ipady = 4;
+    gridBagConstraints.ipady = 2;
     gridBagConstraints.weightx = 0.5;
-    gridBagConstraints.insets = new java.awt.Insets(6, 14, 6, 18);
+    gridBagConstraints.insets = new java.awt.Insets(2, 6, 2, 6);
     controlPanel.add(min_crosstalk_slider, gridBagConstraints);
 
     max_crosstalk_slider.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -399,15 +416,15 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.gridy = 1;
     gridBagConstraints.gridwidth = 2;
     gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-    gridBagConstraints.ipady = 4;
-    gridBagConstraints.insets = new java.awt.Insets(6, 14, 6, 18);
+    gridBagConstraints.ipady = 2;
+    gridBagConstraints.insets = new java.awt.Insets(2, 6, 2, 6);
     controlPanel.add(max_crosstalk_slider, gridBagConstraints);
 
     generateNewSample.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
     generateNewSample.setText("Generate New Sample");
     generateNewSample.setToolTipText("<html>\n<font size=4>\nCreates a sample of Vs in all Q CMs, which respects the min and max crosstalk slider values.<br>\nThe max-V value will be the same in all Q CMs.");
     generateNewSample.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-    generateNewSample.setMargin(new java.awt.Insets(4, 14, 4, 14));
+    generateNewSample.setMargin(new java.awt.Insets(2, 10, 2, 10));
     generateNewSample.setMaximumSize(new java.awt.Dimension(240, 40));
     generateNewSample.setMinimumSize(new java.awt.Dimension(240, 40));
     generateNewSample.setPreferredSize(new java.awt.Dimension(240, 40));
@@ -419,9 +436,9 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 1;
     gridBagConstraints.gridy = 3;
-    gridBagConstraints.ipadx = 6;
-    gridBagConstraints.ipady = 6;
-    gridBagConstraints.insets = new java.awt.Insets(6, 14, 6, 18);
+    gridBagConstraints.ipadx = 2;
+    gridBagConstraints.ipady = 2;
+    gridBagConstraints.insets = new java.awt.Insets(1, 6, 1, 6);
     controlPanel.add(generateNewSample, gridBagConstraints);
 
     jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Crosstalk Distribution Limits Determination", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
@@ -460,8 +477,8 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.gridy = 2;
     gridBagConstraints.gridwidth = 2;
     gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-    gridBagConstraints.ipady = 4;
-    gridBagConstraints.insets = new java.awt.Insets(6, 14, 6, 18);
+    gridBagConstraints.ipady = 2;
+    gridBagConstraints.insets = new java.awt.Insets(2, 6, 2, 6);
     controlPanel.add(jPanel1, gridBagConstraints);
 
     gamma_Slider1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -472,6 +489,8 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gamma_Slider1.setSnapToTicks(true);
     gamma_Slider1.setValue(2);
     gamma_Slider1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "<html>\n\n<i>&gamma; </i> (affects generalization)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+    gamma_Slider1.setEnabled(false);
+    gamma_Slider1.setMaximumSize(new java.awt.Dimension(400, 70));
     gamma_Slider1.setMinimumSize(new java.awt.Dimension(300, 70));
     gamma_Slider1.setPreferredSize(new java.awt.Dimension(350, 70));
     gamma_Slider1.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -482,9 +501,9 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 4;
-    gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-    gridBagConstraints.ipady = 4;
-    gridBagConstraints.insets = new java.awt.Insets(6, 18, 6, 14);
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.ipady = 2;
+    gridBagConstraints.insets = new java.awt.Insets(2, 6, 2, 6);
     controlPanel.add(gamma_Slider1, gridBagConstraints);
 
     gridBagConstraints = new java.awt.GridBagConstraints();
@@ -495,11 +514,12 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.ipady = 2;
     gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
     gridBagConstraints.weightx = 0.6;
-    gridBagConstraints.weighty = 1.0;
+    gridBagConstraints.weighty = 0.4;
     gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
     add(controlPanel, gridBagConstraints);
 
     jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+    jPanel3.setMaximumSize(new java.awt.Dimension(800, 800));
     jPanel3.setMinimumSize(new java.awt.Dimension(400, 500));
     jPanel3.setPreferredSize(new java.awt.Dimension(400, 500));
     jPanel3.setLayout(new java.awt.GridBagLayout());
@@ -518,11 +538,13 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
     gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
     gridBagConstraints.weightx = 1.0;
-    gridBagConstraints.insets = new java.awt.Insets(6, 10, 0, 10);
+    gridBagConstraints.weighty = 0.1;
+    gridBagConstraints.insets = new java.awt.Insets(4, 10, 0, 10);
     jPanel3.add(labSingleCMChartTitle1, gridBagConstraints);
 
+    singleCM_V_rho_Panel.setMaximumSize(new java.awt.Dimension(700, 600));
     singleCM_V_rho_Panel.setMinimumSize(new java.awt.Dimension(279, 250));
-    singleCM_V_rho_Panel.setPreferredSize(new java.awt.Dimension(279, 250));
+    singleCM_V_rho_Panel.setPreferredSize(new java.awt.Dimension(300, 450));
     singleCM_V_rho_Panel.setLayout(null);
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
@@ -531,8 +553,8 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.ipadx = 2;
     gridBagConstraints.ipady = 2;
     gridBagConstraints.weightx = 0.3;
-    gridBagConstraints.weighty = 1.0;
-    gridBagConstraints.insets = new java.awt.Insets(2, 4, 2, 2);
+    gridBagConstraints.weighty = 0.9;
+    gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
     jPanel3.add(singleCM_V_rho_Panel, gridBagConstraints);
 
     gridBagConstraints = new java.awt.GridBagConstraints();
@@ -541,14 +563,13 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
     gridBagConstraints.ipadx = 2;
     gridBagConstraints.ipady = 2;
-    gridBagConstraints.weighty = 1.0;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+    gridBagConstraints.weighty = 0.4;
     gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
     add(jPanel3, gridBagConstraints);
 
     multiMacPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
     multiMacPanel.setAlignmentY(0.0F);
-    multiMacPanel.setMinimumSize(new java.awt.Dimension(500, 500));
-    multiMacPanel.setPreferredSize(new java.awt.Dimension(800, 418));
     multiMacPanel.setLayout(new java.awt.GridBagLayout());
 
     labMacChartTitle.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -558,22 +579,25 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     labMacChartTitle.setToolTipText("<html>\n<font size=4>The number of cells per CM is controlled by the K spinner.  <br>\nThe number of CMs, Q, is controlled by the Q spinner. <br><br>\nThe V and &rho; values are programmatically determined. <br><br>\n- The max V value (which will be the same in all Q CMs) is set by the max V slider<br>\n(which is tied to the G slider, i.e., both produce the same effect). <br><br>\n- The V's of the rest of the cells (besides the max-V cell) in each CM are drawn from ranges <br>\nthat are set to simulate different amounts of crosstalk.\n<br>\n<br>\nFor V charts, black is cell with max V <br>\n<br>\nFor &rho; charts, if winner is not the max V cell, it's shown in red.\n</font>\n");
     labMacChartTitle.setAlignmentX(0.5F);
     labMacChartTitle.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-    labMacChartTitle.setMaximumSize(new java.awt.Dimension(1000, 40));
-    labMacChartTitle.setMinimumSize(new java.awt.Dimension(333, 40));
-    labMacChartTitle.setPreferredSize(new java.awt.Dimension(700, 40));
+    labMacChartTitle.setMaximumSize(new java.awt.Dimension(700, 40));
+    labMacChartTitle.setMinimumSize(new java.awt.Dimension(500, 40));
+    labMacChartTitle.setPreferredSize(new java.awt.Dimension(500, 40));
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 0;
-    gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-    gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+    gridBagConstraints.gridwidth = 2;
+    gridBagConstraints.ipadx = 2;
+    gridBagConstraints.ipady = 4;
+    gridBagConstraints.weightx = 0.5;
+    gridBagConstraints.weighty = 0.2;
+    gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
     multiMacPanel.add(labMacChartTitle, gridBagConstraints);
     String text = String.format("Mac comprised of Q = %2d WTA CMs, each with K = %2d units", theApp.theMac.Q, theApp.theMac.K);
     labMacChartTitle.setText(text);
 
-    macPanelControls.setMaximumSize(new java.awt.Dimension(240, 460));
-    macPanelControls.setMinimumSize(new java.awt.Dimension(240, 460));
-    macPanelControls.setPreferredSize(new java.awt.Dimension(240, 460));
+    macPanelControls.setMaximumSize(new java.awt.Dimension(400, 460));
+    macPanelControls.setMinimumSize(new java.awt.Dimension(320, 460));
+    macPanelControls.setPreferredSize(new java.awt.Dimension(320, 460));
     macPanelControls.setLayout(new java.awt.GridBagLayout());
 
     max_V_Slider.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -584,7 +608,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     max_V_Slider.setValue(100);
     max_V_Slider.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "<html>  Max <em>V</em>  &nbsp;in each CM", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
     max_V_Slider.setMaximumSize(new java.awt.Dimension(240, 70));
-    max_V_Slider.setMinimumSize(new java.awt.Dimension(240, 70));
+    max_V_Slider.setMinimumSize(new java.awt.Dimension(240, 90));
     max_V_Slider.setPreferredSize(new java.awt.Dimension(240, 70));
     max_V_Slider.addChangeListener(new javax.swing.event.ChangeListener() {
       public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -598,12 +622,12 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.ipady = 2;
     gridBagConstraints.weightx = 1.0;
     gridBagConstraints.weighty = 0.2;
-    gridBagConstraints.insets = new java.awt.Insets(0, 4, 4, 4);
+    gridBagConstraints.insets = new java.awt.Insets(0, 2, 2, 2);
     macPanelControls.add(max_V_Slider, gridBagConstraints);
 
     phaseOfLifeChoice.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Phase of Life", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
     phaseOfLifeChoice.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-    phaseOfLifeChoice.setMinimumSize(new java.awt.Dimension(130, 70));
+    phaseOfLifeChoice.setMinimumSize(new java.awt.Dimension(130, 80));
     phaseOfLifeChoice.setPreferredSize(new java.awt.Dimension(160, 80));
     phaseOfLifeChoice.setLayout(new java.awt.GridLayout(1, 4));
 
@@ -686,8 +710,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 0;
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-    gridBagConstraints.ipadx = 2;
-    gridBagConstraints.ipady = 4;
+    gridBagConstraints.ipady = 2;
     gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
     gridBagConstraints.weightx = 0.8;
     gridBagConstraints.weighty = 0.2;
@@ -710,8 +733,6 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.gridx = 1;
     gridBagConstraints.gridy = 0;
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-    gridBagConstraints.ipadx = 2;
-    gridBagConstraints.ipady = 4;
     gridBagConstraints.weightx = 0.2;
     gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
     macStatsPanel.add(accuracy, gridBagConstraints);
@@ -724,8 +745,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 1;
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-    gridBagConstraints.ipadx = 2;
-    gridBagConstraints.ipady = 4;
+    gridBagConstraints.ipady = 2;
     gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
     gridBagConstraints.weightx = 0.1;
     gridBagConstraints.weighty = 0.2;
@@ -738,13 +758,13 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     expectedAccuracy.setToolTipText("<html>\n<font size=4>\nExpected fraction of CMs in which the max V cell is chosen winner.  This is computed as the average &rho; value<br>\nof the max V cell, across the Q CMs.  Note: because the &rho; distribution (from which a winner is drawn)<br>\ndiffers from one CM to the next, the exact &rho; value of the max V cell also differs from CM to CM<br>\n(even though the max V value is the same in all CMs).  If the &rho; were exactly the same across all CMs<br>\nthen this expected fraction would just be Binomial, i.e., Q &times; &rho;");
     expectedAccuracy.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 0), 2, true));
     expectedAccuracy.setMargin(new java.awt.Insets(2, 2, 2, 6));
-    expectedAccuracy.setMinimumSize(new java.awt.Dimension(60, 26));
+    expectedAccuracy.setMaximumSize(new java.awt.Dimension(60, 30));
+    expectedAccuracy.setMinimumSize(new java.awt.Dimension(60, 30));
     expectedAccuracy.setPreferredSize(new java.awt.Dimension(60, 40));
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 1;
     gridBagConstraints.gridy = 1;
     gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-    gridBagConstraints.ipadx = 2;
     gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
     macStatsPanel.add(expectedAccuracy, gridBagConstraints);
 
@@ -768,7 +788,8 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     stdDevAccuracy.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
     stdDevAccuracy.setToolTipText("");
     stdDevAccuracy.setMargin(new java.awt.Insets(2, 2, 2, 6));
-    stdDevAccuracy.setMinimumSize(new java.awt.Dimension(60, 26));
+    stdDevAccuracy.setMaximumSize(new java.awt.Dimension(60, 30));
+    stdDevAccuracy.setMinimumSize(new java.awt.Dimension(60, 30));
     stdDevAccuracy.setPreferredSize(new java.awt.Dimension(60, 30));
     stdDevAccuracy.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -779,13 +800,13 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.gridx = 1;
     gridBagConstraints.gridy = 2;
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-    gridBagConstraints.ipadx = 2;
     gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
     macStatsPanel.add(stdDevAccuracy, gridBagConstraints);
 
     minCrossTalkValLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
     minCrossTalkValLabel.setText("<html>\nMin Crosstalk (% of max  <i>V</i> ):");
-    minCrossTalkValLabel.setPreferredSize(new java.awt.Dimension(233, 50));
+    minCrossTalkValLabel.setMinimumSize(new java.awt.Dimension(240, 17));
+    minCrossTalkValLabel.setPreferredSize(new java.awt.Dimension(240, 50));
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 3;
@@ -801,18 +822,20 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     minCrosstalk_V.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
     minCrosstalk_V.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
     minCrosstalk_V.setMargin(new java.awt.Insets(2, 2, 2, 6));
+    minCrosstalk_V.setMaximumSize(new java.awt.Dimension(60, 30));
+    minCrosstalk_V.setMinimumSize(new java.awt.Dimension(60, 30));
     minCrosstalk_V.setPreferredSize(new java.awt.Dimension(60, 30));
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 1;
     gridBagConstraints.gridy = 3;
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-    gridBagConstraints.ipadx = 2;
     gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
     macStatsPanel.add(minCrosstalk_V, gridBagConstraints);
 
     maxCrossTalkValLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
     maxCrossTalkValLabel.setText("<html>\nMax Crosstalk (% of max <i>V</i> ):");
-    maxCrossTalkValLabel.setPreferredSize(new java.awt.Dimension(237, 50));
+    maxCrossTalkValLabel.setMinimumSize(new java.awt.Dimension(240, 17));
+    maxCrossTalkValLabel.setPreferredSize(new java.awt.Dimension(240, 50));
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 4;
@@ -828,19 +851,21 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     maxCrosstalk_V.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
     maxCrosstalk_V.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
     maxCrosstalk_V.setMargin(new java.awt.Insets(2, 2, 2, 6));
+    maxCrosstalk_V.setMaximumSize(new java.awt.Dimension(60, 30));
+    maxCrosstalk_V.setMinimumSize(new java.awt.Dimension(60, 30));
     maxCrosstalk_V.setPreferredSize(new java.awt.Dimension(60, 30));
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 1;
     gridBagConstraints.gridy = 4;
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-    gridBagConstraints.ipadx = 2;
     gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
     macStatsPanel.add(maxCrosstalk_V, gridBagConstraints);
 
     jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
     jLabel4.setText("<html>\n<i>Q</i> (# of CMs)");
     jLabel4.setToolTipText("<html>\n<font size=4>\nClick to change the number of CMs in the mac.  You may have to resize <br>\nthe GUI to see all the CMs.");
-    jLabel4.setPreferredSize(new java.awt.Dimension(113, 50));
+    jLabel4.setMinimumSize(new java.awt.Dimension(180, 17));
+    jLabel4.setPreferredSize(new java.awt.Dimension(150, 50));
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 5;
@@ -853,6 +878,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     macStatsPanel.add(jLabel4, gridBagConstraints);
 
     spinnerQ.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+    spinnerQ.setModel(new javax.swing.SpinnerNumberModel(4, 1, null, 1));
     spinnerQ.addChangeListener(new javax.swing.event.ChangeListener() {
       public void stateChanged(javax.swing.event.ChangeEvent evt) {
         spinnerQStateChanged(evt);
@@ -862,15 +888,16 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.gridx = 1;
     gridBagConstraints.gridy = 5;
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-    gridBagConstraints.ipadx = 2;
-    gridBagConstraints.ipady = 4;
+    gridBagConstraints.ipady = 1;
     gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
     macStatsPanel.add(spinnerQ, gridBagConstraints);
+    spinnerQ.setValue(Mac.default_Q);
 
     jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
     jLabel5.setText("<html>\n<i>K</i> (# of units/CM)");
     jLabel5.setToolTipText("<html>\n<font size=4>\nClick to change the number of units per CM.  You may have to resize <br>\nthe GUI to see the units more clearly.");
-    jLabel5.setPreferredSize(new java.awt.Dimension(113, 50));
+    jLabel5.setMinimumSize(new java.awt.Dimension(180, 17));
+    jLabel5.setPreferredSize(new java.awt.Dimension(180, 50));
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 6;
@@ -883,6 +910,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     macStatsPanel.add(jLabel5, gridBagConstraints);
 
     spinnerK.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+    spinnerK.setModel(new javax.swing.SpinnerNumberModel(4, 2, null, 1));
     spinnerK.addChangeListener(new javax.swing.event.ChangeListener() {
       public void stateChanged(javax.swing.event.ChangeEvent evt) {
         spinnerKStateChanged(evt);
@@ -892,10 +920,10 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.gridx = 1;
     gridBagConstraints.gridy = 6;
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-    gridBagConstraints.ipadx = 2;
-    gridBagConstraints.ipady = 4;
+    gridBagConstraints.ipady = 1;
     gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 2);
     macStatsPanel.add(spinnerK, gridBagConstraints);
+    spinnerK.setValue(Mac.default_K);
 
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
@@ -911,25 +939,28 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 1;
-    gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
-    gridBagConstraints.ipadx = 10;
+    gridBagConstraints.ipady = 2;
     gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
     gridBagConstraints.weightx = 0.2;
-    gridBagConstraints.weighty = 1.0;
-    gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 0);
+    gridBagConstraints.weighty = 0.8;
+    gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
     multiMacPanel.add(macPanelControls, gridBagConstraints);
 
     theMacPlanPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-    theMacPlanPanel.setMinimumSize(new java.awt.Dimension(400, 300));
-    theMacPlanPanel.setPreferredSize(new java.awt.Dimension(700, 500));
+    theMacPlanPanel.setAlignmentX(0.0F);
+    theMacPlanPanel.setMaximumSize(new java.awt.Dimension(701, 500));
+    theMacPlanPanel.setMinimumSize(new java.awt.Dimension(300, 300));
+    theMacPlanPanel.setPreferredSize(new java.awt.Dimension(400, 500));
     gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 1;
     gridBagConstraints.gridy = 1;
     gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
     gridBagConstraints.ipadx = 2;
     gridBagConstraints.ipady = 2;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
     gridBagConstraints.weightx = 0.8;
-    gridBagConstraints.weighty = 1.0;
-    gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 4);
+    gridBagConstraints.weighty = 0.8;
+    gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
     multiMacPanel.add(theMacPlanPanel, gridBagConstraints);
 
     gridBagConstraints = new java.awt.GridBagConstraints();
@@ -938,9 +969,41 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
     gridBagConstraints.ipadx = 2;
     gridBagConstraints.ipady = 2;
-    gridBagConstraints.weighty = 1.0;
+    gridBagConstraints.weightx = 0.6;
+    gridBagConstraints.weighty = 0.4;
     gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
     add(multiMacPanel, gridBagConstraints);
+
+    jPanel4.setMaximumSize(new java.awt.Dimension(2000, 400));
+    jPanel4.setMinimumSize(new java.awt.Dimension(900, 200));
+    jPanel4.setPreferredSize(new java.awt.Dimension(800, 300));
+    jPanel4.setLayout(new java.awt.BorderLayout());
+
+    jSplitPane1.setMinimumSize(new java.awt.Dimension(600, 12));
+    jSplitPane1.setPreferredSize(new java.awt.Dimension(800, 200));
+
+    ExplicitInputDisplay.setBackground(new java.awt.Color(255, 255, 255));
+    ExplicitInputDisplay.setMinimumSize(new java.awt.Dimension(400, 10));
+    ExplicitInputDisplay.setPreferredSize(new java.awt.Dimension(400, 100));
+    jSplitPane1.setLeftComponent(ExplicitInputDisplay);
+
+    jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+    jPanel6.setMinimumSize(new java.awt.Dimension(400, 10));
+    jPanel6.setPreferredSize(new java.awt.Dimension(400, 100));
+    jSplitPane1.setRightComponent(jPanel6);
+
+    jPanel4.add(jSplitPane1, java.awt.BorderLayout.CENTER);
+
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 0;
+    gridBagConstraints.gridy = 2;
+    gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+    gridBagConstraints.ipadx = 2;
+    gridBagConstraints.ipady = 2;
+    gridBagConstraints.weighty = 0.2;
+    gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+    add(jPanel4, gridBagConstraints);
   }// </editor-fold>//GEN-END:initComponents
 
   private void Fam_OldActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_Fam_OldActionPerformed
@@ -1085,6 +1148,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     ((MacPlanPanel)theMacPlanPanel).repaint();
     ((SingleCMPanel)this.singleCM_V_rho_Panel).repaint();
     ((V_to_mu_plot)this.sigmoidDisplayPanel).repaint();
+    ((ExplicitInputDisplayPanel)ExplicitInputDisplay).repaint();
   }//GEN-LAST:event_spinnerQStateChanged
 
   private void accuracyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accuracyActionPerformed
@@ -1229,6 +1293,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     ((MacPlanPanel)theMacPlanPanel).repaint();
     ((SingleCMPanel)this.singleCM_V_rho_Panel).repaint();
     ((V_to_mu_plot)this.sigmoidDisplayPanel).repaint();
+    ((ExplicitInputDisplayPanel)ExplicitInputDisplay).repaint();
   }//GEN-LAST:event_spinnerKStateChanged
 
   protected boolean isCrossTalkRelativeToCurrentMax_V()
@@ -1344,6 +1409,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
   
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.ButtonGroup Age_Related_Dists;
+  private javax.swing.JPanel ExplicitInputDisplay;
   private javax.swing.JRadioButton Fam_Early;
   private javax.swing.JRadioButton Fam_Late;
   private javax.swing.JRadioButton Fam_Middle;
@@ -1367,6 +1433,9 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
   private javax.swing.JPanel jPanel1;
   private javax.swing.JPanel jPanel2;
   private javax.swing.JPanel jPanel3;
+  private javax.swing.JPanel jPanel4;
+  private javax.swing.JPanel jPanel6;
+  private javax.swing.JSplitPane jSplitPane1;
   private javax.swing.JLabel labMacChartTitle;
   private javax.swing.JLabel labMacChartTitle1;
   private javax.swing.JLabel labSingleCMChartTitle1;
