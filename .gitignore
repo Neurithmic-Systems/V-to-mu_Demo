@@ -1,7 +1,7 @@
 # Compiled class file
 *.class
-build/
-nbproject/private/
+/build/
+/nbproject/private/
 
 # Log file
 *.log
@@ -23,6 +23,5 @@ nbproject/private/
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-build/built-jar.properties
-build/built-jar.properties
-nbproject/project.properties
+/nbproject/build-impl.xml
+/nbproject/genfiles.properties
