@@ -321,12 +321,18 @@ public class Mac {
       muSum.set(q, 0d);             
       for (int c = 0; c < K; c++)
       {        
-        // Compute mu vals (relative likelihoods) and muSum. rho values are computed in next loop.
-        // We also fill out the cumulative rho distribution in this loop as well. We need it so 
-        // we can make a draw of a winner in each CM.
+        //// Compute mu vals (relative likelihoods) and muSum. rho values are computed in next loop.
+        //// We also fill out the cumulative rho distribution in this loop as well. We need it so 
+        //// we can make a draw of a winner in each CM.
         
+        // I think this factor of 100 is needed because the horiz. inflect pt is defined as varyng between 0 and 100.
+        // even though the V scale (abcissa) in the V-to-mu plot varies from 0 to 1. So we have to map the V's into
+        // [0,100] in order for the subtraction to make sense.  ALTER: probably could define horiz inflect pt
+        // to vary from 0 to 1, so that this mult would not be needed.  Not a big deal, I guess.
         temp = 100 * V.get(q).get(c);      
         temp = (float) Math.exp(-1 * (temp - horizInflectionLocation) / eccentricity) + 1;        // "1" needed to prevent div by 0 in next line.
+        
+        // eta is the overall range (hieght) of the V-to-mu transform.
         temp = eta / temp  + 1;
         
         mu.get(q).set(c, temp);
@@ -335,6 +341,7 @@ public class Mac {
       }       
      
       // Determine rho vals by normalizing mu vals
+      // NOTE: rho is defined as the absolute prob in this app...but it is actually the cumulative prob in the main Sparsey app.   ALTER: I should straighten that out....for clarity
       for (int c = 0; c < K; c++)    // loop over K cells of a CM
         rho.get(q).set(c, mu.get(q).get(c) / muSum.get(q));
     }  
