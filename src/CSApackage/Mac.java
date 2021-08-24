@@ -197,11 +197,23 @@ public class Mac {
     }
   }
   
+  
+  public float calculate_eta()
+  {
+    if ( G < G_lowCutoff )
+    {
+      eta = 0;
+    }
+    else
+      eta = V_to_mu_Multiplier;
+    return eta;
+  }
+    
   /** 
    * Determines parameter, eta, a multiplier that affects the range of the V-to-mu function. 
    * G is always between 0 and 1.  We raise G to gamma.  The higher is gamma, the the lower is eta.
    */
-  public float calculate_eta()
+  public float calculate_eta_OLD()
   {
     float temp1 = 0;
     float temp2 = 1;
@@ -297,6 +309,10 @@ public class Mac {
   {
     for (int x = 0; x < num_whole_sigmoid_points; x++)
     {
+      // V's are between 0 and 1.  But the sliders for inflect pt and eceentricity are from 0 to 100
+      // So we must scale the V's by 100 to put vals into range where inflect pt and eccentricity vals
+      // produce intended result for sigmoid.
+      
       whole_sigmoid_mu[x] = 100 * whole_sigmoid_V[x];
       whole_sigmoid_mu[x] = (float) Math.exp(-1 * (whole_sigmoid_mu[x] - horizInflectionLocation) / eccentricity) + 1;
       whole_sigmoid_mu[x] = eta / whole_sigmoid_mu[x] + 1;
@@ -325,14 +341,14 @@ public class Mac {
         //// We also fill out the cumulative rho distribution in this loop as well. We need it so 
         //// we can make a draw of a winner in each CM.
         
-        // I think this factor of 100 is needed because the horiz. inflect pt is defined as varyng between 0 and 100.
+        // I think this factor of 100 is needed because the horiz. inflect pt is defined as varying between 0 and 100.
         // even though the V scale (abcissa) in the V-to-mu plot varies from 0 to 1. So we have to map the V's into
         // [0,100] in order for the subtraction to make sense.  ALTER: probably could define horiz inflect pt
         // to vary from 0 to 1, so that this mult would not be needed.  Not a big deal, I guess.
         temp = 100 * V.get(q).get(c);      
         temp = (float) Math.exp(-1 * (temp - horizInflectionLocation) / eccentricity) + 1;        // "1" needed to prevent div by 0 in next line.
         
-        // eta is the overall range (hieght) of the V-to-mu transform.
+        // eta is the overall range (height) of the V-to-mu transform.
         temp = eta / temp  + 1;
         
         mu.get(q).set(c, temp);
@@ -398,11 +414,11 @@ public class Mac {
   public void computeCodeAccuracyStats()
   {    
     // the prob that the max V cell wins in each CM = mu val of that cell over muSum.
-    // Call that value, P.  the overall accuracy across all CMs, as a percentage, is also P, because all CMs have
+    // Call that value, P.  The overall accuracy across all CMs, as a percentage, is also P, because all CMs have
     // approx the same value for P.  The expected number of CMs in which the max V cell wins is just P * Q, but we don't explicitly report that.
     
-//    this.expectedAccuracy = this.expectedAccuracy;                                // mean of binomial dist. is Q times this.
-    varianceAccuracy = expectedAccuracy * (1 - expectedAccuracy);      // var of binomial dis. is Q times this.
+//    this.expectedAccuracy = this.expectedAccuracy;                            // mean of binomial dist. is Q times this.
+    varianceAccuracy = expectedAccuracy * (1 - expectedAccuracy);               // var of binomial dist. is Q times this.
     stdDevExpectedAccuracy = Math.sqrt(this.varianceAccuracy);
   }
   
