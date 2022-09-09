@@ -8,11 +8,11 @@ package CSApackage;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Dictionary;
-import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 
@@ -148,6 +148,8 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     absoluteCrosstalkLims = new javax.swing.JRadioButton();
     relativeToMaxV_Lims = new javax.swing.JRadioButton();
     gamma_Slider1 = new javax.swing.JSlider();
+    winningCode = new javax.swing.JTextField();
+    jButton1 = new javax.swing.JButton();
     jPanel3 = new javax.swing.JPanel();
     labSingleCMChartTitle1 = new javax.swing.JLabel();
     singleCM_V_rho_Panel = new SingleCMPanel();
@@ -438,6 +440,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.gridy = 3;
     gridBagConstraints.ipadx = 2;
     gridBagConstraints.ipady = 2;
+    gridBagConstraints.weightx = 0.1;
     gridBagConstraints.insets = new java.awt.Insets(1, 6, 1, 6);
     controlPanel.add(generateNewSample, gridBagConstraints);
 
@@ -505,6 +508,28 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.ipady = 2;
     gridBagConstraints.insets = new java.awt.Insets(2, 6, 2, 6);
     controlPanel.add(gamma_Slider1, gridBagConstraints);
+
+    winningCode.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+    winningCode.setToolTipText("enter space-separated list of winners (cell index within each CM)");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 3;
+    gridBagConstraints.gridheight = 2;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.weightx = 2.0;
+    gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
+    controlPanel.add(winningCode, gridBagConstraints);
+
+    jButton1.setText("Set Winning Code");
+    jButton1.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButton1ActionPerformed(evt);
+      }
+    });
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 4;
+    controlPanel.add(jButton1, gridBagConstraints);
 
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 1;
@@ -1296,6 +1321,18 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     ((ExplicitInputDisplayPanel)ExplicitInputDisplay).repaint();
   }//GEN-LAST:event_spinnerKStateChanged
 
+  private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+    // set winners in CMs to the explicit list present in winners list textbox.
+//    String[] listOfWinners = new String[1];
+    String[] listOfWinners = this.winningCode.getText().split(",");
+    int dex = 0;
+    for (String dexStr : listOfWinners)
+    {
+      theApp.theMac.maxV_index.set(dex++, Integer.parseInt(dexStr));
+    }    
+  }//GEN-LAST:event_jButton1ActionPerformed
+
   protected boolean isCrossTalkRelativeToCurrentMax_V()
   {
     return relativeToMax_V_CrosstalkLims;
@@ -1425,6 +1462,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
   private javax.swing.JSlider gamma_Slider1;
   protected javax.swing.JButton generateNewSample;
   private javax.swing.JSlider inflection_Slider;
+  private javax.swing.JButton jButton1;
   private javax.swing.JLabel jLabel1;
   private javax.swing.JLabel jLabel2;
   private javax.swing.JLabel jLabel3;
@@ -1458,6 +1496,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
   protected javax.swing.JTextField stdDevAccuracy;
   private javax.swing.JPanel theMacPlanPanel;
   private javax.swing.ButtonGroup type_crosstalk_lims;
+  private javax.swing.JTextField winningCode;
   // End of variables declaration//GEN-END:variables
 
   /**
