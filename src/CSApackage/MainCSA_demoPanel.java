@@ -148,6 +148,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     absoluteCrosstalkLims = new javax.swing.JRadioButton();
     relativeToMaxV_Lims = new javax.swing.JRadioButton();
     gamma_Slider1 = new javax.swing.JSlider();
+    jPanel5 = new javax.swing.JPanel();
     winningCode = new javax.swing.JTextField();
     jButton1 = new javax.swing.JButton();
     jPanel3 = new javax.swing.JPanel();
@@ -509,27 +510,46 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.insets = new java.awt.Insets(2, 6, 2, 6);
     controlPanel.add(gamma_Slider1, gridBagConstraints);
 
+    jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Maunually Set Winning Code"));
+    jPanel5.setPreferredSize(new java.awt.Dimension(200, 100));
+    jPanel5.setLayout(new java.awt.GridBagLayout());
+
     winningCode.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-    winningCode.setToolTipText("enter space-separated list of winners (cell index within each CM)");
+    winningCode.setToolTipText("enter coma-separated list of winners (cell index within each CM)");
+    winningCode.setMaximumSize(new java.awt.Dimension(2147483647, 4));
+    winningCode.setMinimumSize(new java.awt.Dimension(7, 4));
+    winningCode.setPreferredSize(new java.awt.Dimension(200, 4));
     gridBagConstraints = new java.awt.GridBagConstraints();
-    gridBagConstraints.gridx = 2;
-    gridBagConstraints.gridy = 3;
-    gridBagConstraints.gridheight = 2;
-    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-    gridBagConstraints.weightx = 2.0;
-    gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
-    controlPanel.add(winningCode, gridBagConstraints);
+    gridBagConstraints.gridx = 0;
+    gridBagConstraints.gridy = 0;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+    gridBagConstraints.weighty = 1.0;
+    jPanel5.add(winningCode, gridBagConstraints);
 
     jButton1.setText("Set Winning Code");
+    jButton1.setPreferredSize(new java.awt.Dimension(88, 12));
     jButton1.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         jButton1ActionPerformed(evt);
       }
     });
     gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 0;
+    gridBagConstraints.gridy = 1;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+    gridBagConstraints.weighty = 0.3;
+    jPanel5.add(jButton1, gridBagConstraints);
+
+    gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 2;
-    gridBagConstraints.gridy = 4;
-    controlPanel.add(jButton1, gridBagConstraints);
+    gridBagConstraints.gridy = 3;
+    gridBagConstraints.gridheight = 2;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+    gridBagConstraints.ipadx = 2;
+    gridBagConstraints.ipady = 2;
+    gridBagConstraints.weightx = 1.0;
+    gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+    controlPanel.add(jPanel5, gridBagConstraints);
 
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 1;
@@ -1324,13 +1344,18 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
   private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
     // set winners in CMs to the explicit list present in winners list textbox.
-//    String[] listOfWinners = new String[1];
     String[] listOfWinners = this.winningCode.getText().split(",");
-    int dex = 0;
-    for (String dexStr : listOfWinners)
+    int cmDex = 0;
+    while (cmDex < theApp.theMac.Q && cmDex < listOfWinners.length)
     {
-      theApp.theMac.maxV_index.set(dex++, Integer.parseInt(dexStr));
+      int cellDex = Integer.parseInt(listOfWinners[cmDex]);
+      cellDex = Math.min(cellDex, theApp.theMac.K-1);
+      theApp.theMac.maxV_index.set(cmDex++, cellDex);
     }    
+    theApp.theMac.create_V_Distributions(false, true);
+    theApp.theMac.updateDependentDistributions();
+    theApp.theMac.chooseCodeAndComputeAccuracies();    
+    ((MacPlanPanel)theMacPlanPanel).repaint();
   }//GEN-LAST:event_jButton1ActionPerformed
 
   protected boolean isCrossTalkRelativeToCurrentMax_V()
@@ -1472,6 +1497,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
   private javax.swing.JPanel jPanel2;
   private javax.swing.JPanel jPanel3;
   private javax.swing.JPanel jPanel4;
+  private javax.swing.JPanel jPanel5;
   private javax.swing.JPanel jPanel6;
   private javax.swing.JSplitPane jSplitPane1;
   private javax.swing.JLabel labMacChartTitle;
