@@ -76,9 +76,16 @@ public class ExplicitInputDisplayPanel extends javax.swing.JPanel {
     int ypos = 0;
     
     // draw input units
-    for (int c = 0; c < m_Controller.getTheApp().getNumInputUnits(); c++)
+    int numInputUnits = m_Controller.getTheApp().getNumInputUnits();
+    
+    // Figure out where to start drawing the input units so that the input field
+    // is centered below mac.
+    int input_field_width = numInputUnits * cellDiameter + (numInputUnits - 1) * cellDiameter;
+    int left_edge_input_field = (overallWidth - input_field_width) /  2;
+    
+    for (int c = 0; c < numInputUnits; c++)
     {
-      int cell_ulx = c * cellHorizSpace;
+      int cell_ulx = left_edge_input_field + c * cellHorizSpace;
       g2.drawOval(cell_ulx + cellHorizInset, inputUnits_y + cellHorizInset, cellDiameter, cellDiameter);
     }
     
@@ -101,25 +108,37 @@ public class ExplicitInputDisplayPanel extends javax.swing.JPanel {
     int linkDest_y = mac_y + cellHorizSpace - cellHorizInset;
     
     g2.setColor(Color.LIGHT_GRAY);
-    
-    
-    for (int c = 0; c < m_Controller.getTheApp().getNumInputUnits(); c++)
+        
+    for (int c = 0; c < numInputUnits; c++)
     {
-      int linkOrigin_x = c * cellHorizSpace + (cellHorizSpace / 2);
+      int linkOrigin_x = left_edge_input_field + c * cellHorizSpace + (cellHorizSpace / 2);
       
       cm_ulx = mac_x_left_margin;
       for (int q = 0; q < theMac.getQ(); q++)
-      {      
+      {     
         for (int k = 0; k < theMac.getK(); k++)
         {
           int linkDest_x = cm_ulx + k * cellHorizSpace + (cellHorizSpace / 2);
-
-
           g2.drawLine(linkOrigin_x, linkOrigin_y, linkDest_x, linkDest_y);
         }
         cm_ulx += CM_width + inter_CM_space;
-      }
+      }      
+    }
+    
+    // Highlight the input wts only to the middle CM.
+    
+    int middle_cm_dex = theMac.getQ() / 2;
+    cm_ulx = mac_x_left_margin + middle_cm_dex * (CM_width + inter_CM_space);
+    g2.setColor(Color.BLUE);
+    for (int c = 0; c < numInputUnits; c++)
+    {
+      int linkOrigin_x = left_edge_input_field + c * cellHorizSpace + (cellHorizSpace / 2);
       
+      for (int k = 0; k < theMac.getK(); k++)
+      {
+        int linkDest_x = cm_ulx + k * cellHorizSpace + (cellHorizSpace / 2);
+        g2.drawLine(linkOrigin_x, linkOrigin_y, linkDest_x, linkDest_y);
+      }      
     }
     
         
