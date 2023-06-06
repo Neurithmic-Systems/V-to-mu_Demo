@@ -510,7 +510,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     gridBagConstraints.insets = new java.awt.Insets(2, 6, 2, 6);
     controlPanel.add(gamma_Slider1, gridBagConstraints);
 
-    jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Maunually Set Winning Code"));
+    jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Manually Set Winning Code"));
     jPanel5.setPreferredSize(new java.awt.Dimension(200, 100));
     jPanel5.setLayout(new java.awt.GridBagLayout());
 

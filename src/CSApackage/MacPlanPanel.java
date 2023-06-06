@@ -174,12 +174,12 @@ public class MacPlanPanel extends javax.swing.JPanel
     // but we really don't want bars to get too wide so we have an upper limit on bar width.
     // we check that here and recompute the other widths based on the max bar width.
     
-    if (barWidth > maxBarWidth)
-    {
-      barWidth = maxBarWidth;
-      barZoneWidth = barWidth + 2 * barHorizMargin;
-//      CM_width = K * barZoneWidth;
-    }
+//    if (barWidth > maxBarWidth)
+//    {
+//      barWidth = maxBarWidth;
+//      barZoneWidth = barWidth + 2 * barHorizMargin;
+////      CM_width = K * barZoneWidth;
+//    }
     
     // Fill out all the CMs. This code is a double loop to make it easy if we want
     // to change to using two rows to show CMs.

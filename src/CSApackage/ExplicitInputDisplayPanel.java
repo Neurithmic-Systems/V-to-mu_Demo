@@ -1,6 +1,7 @@
 package CSApackage;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 
 /*
@@ -30,6 +31,8 @@ public class ExplicitInputDisplayPanel extends javax.swing.JPanel {
   private Mac theMac = null;
   MainCSA_demoPanel m_Controller = null;
   private MacPlanPanel m_macPlanPanel = null;
+  
+  Font titleFont = new Font("Serif", Font.BOLD, 14);
 
   /**
    * Creates new form ExplicitInputDisplayPanel
@@ -89,11 +92,16 @@ public class ExplicitInputDisplayPanel extends javax.swing.JPanel {
       g2.drawOval(cell_ulx + cellHorizInset, inputUnits_y + cellHorizInset, cellDiameter, cellDiameter);
     }
     
+    g2.setFont(titleFont);
+    
     // draw mac units
     CM_width = theMac.getK() * cellHorizSpace;
     int cm_ulx = mac_x_left_margin;
     for (int q = 0; q < theMac.getQ(); q++)
     {      
+      // Draw label for CM above its cells.
+      g2.drawString("CM" + String.format("%1d", q+1), cm_ulx + CM_width / 2 - 15, 20);
+      
       for (int k = 0; k < theMac.getK(); k++)
       {
         int cell_ulx = cm_ulx + k * cellHorizSpace;
