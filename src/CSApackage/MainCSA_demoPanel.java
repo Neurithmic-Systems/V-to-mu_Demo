@@ -747,7 +747,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     macStatsPanel.setLayout(new java.awt.GridBagLayout());
 
     jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-    jLabel1.setText(" Actual Accuracy: ");
+    jLabel1.setText(" Actual Accuracy (Intersect.)");
     jLabel1.setToolTipText("<html>\n<font size=4>\nThe fraction of CMs in which max V cell actually wins, for the depicted sample.");
     jLabel1.setMinimumSize(new java.awt.Dimension(200, 22));
     jLabel1.setPreferredSize(new java.awt.Dimension(200, 50));
@@ -783,7 +783,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     macStatsPanel.add(accuracy, gridBagConstraints);
 
     jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-    jLabel2.setText(" Expected Accuracy:");
+    jLabel2.setText(" Expected Accuracy (intersect.)");
     jLabel2.setToolTipText("<html>\n<font size=4>\nExpected fraction of CMs in which max V cell is chosen winner.  Within any one CM,<br>\nthis is a Bernoulli trial with success probability equal to the &rho; value of the max V cell,<br>\ni.e., the max &rho; value. So the expected accuracy of the whole chosen code, i.e.,  across<br>\nall Q CMs, is simply the average of the max &rho; values across the Q CMs.  It's essentially <br>\nbinomial, except that the exact &rho; values can differ across the CMs.");
     jLabel2.setPreferredSize(new java.awt.Dimension(158, 50));
     gridBagConstraints = new java.awt.GridBagConstraints();
@@ -814,7 +814,7 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     macStatsPanel.add(expectedAccuracy, gridBagConstraints);
 
     jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-    jLabel3.setText(" Std. Dev. Accuracy:");
+    jLabel3.setText(" Std. Dev. Accuracy (Intersect.)");
     jLabel3.setToolTipText("<html>\n<font size=4>\nAve of the variance of the expected accuracy over the Q CMs. The choice process in each CM is a Bernoulli process, <br>\nso the variance of expected accuracy in any one CM is just the &rho; val of the max-V cell times (1 - that &rho; val).  <br>\nSo this field just reports the average of those Q expected accuracy variance values.");
     jLabel3.setPreferredSize(new java.awt.Dimension(159, 50));
     gridBagConstraints = new java.awt.GridBagConstraints();
