@@ -42,40 +42,73 @@ MainCSA_demoPanel m_Controller = null;
     java.awt.GridBagConstraints gridBagConstraints;
 
     expSettings = new javax.swing.JPanel();
+    jLabel5 = new javax.swing.JLabel();
+    maxV = new javax.swing.JTextField();
     jLabel1 = new javax.swing.JLabel();
     maxVDelta = new javax.swing.JTextField();
     jLabel2 = new javax.swing.JLabel();
     numSamples = new javax.swing.JTextField();
+    jLabel3 = new javax.swing.JLabel();
+    minCrosstalk = new javax.swing.JTextField();
+    jLabel4 = new javax.swing.JLabel();
+    maxCrosstalk = new javax.swing.JTextField();
+    IP = new javax.swing.JLabel();
+    IP_val = new javax.swing.JTextField();
+    Ecc = new javax.swing.JLabel();
+    Ecc_val = new javax.swing.JTextField();
     outputFileChooser = new javax.swing.JFileChooser();
-    jButton1 = new javax.swing.JButton();
+    runExp = new javax.swing.JButton();
     jScrollPane1 = new javax.swing.JScrollPane();
     jTextArea1 = new javax.swing.JTextArea();
+    abbrevOutputChkBx = new javax.swing.JCheckBox();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     setTitle("Choose Output File for Experiment Results");
     setFont(new java.awt.Font("Adobe Arabic", 0, 18)); // NOI18N
     setLocation(new java.awt.Point(0, 0));
-    setPreferredSize(new java.awt.Dimension(1000, 1500));
     getContentPane().setLayout(new java.awt.GridBagLayout());
 
-    expSettings.setLayout(new java.awt.GridBagLayout());
+    java.awt.GridBagLayout expSettingsLayout = new java.awt.GridBagLayout();
+    expSettingsLayout.columnWidths = new int[] {0, 5, 0, 5, 0};
+    expSettingsLayout.rowHeights = new int[] {0, 5, 0, 5, 0};
+    expSettings.setLayout(expSettingsLayout);
+
+    jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+    jLabel5.setText("Max V");
+    jLabel5.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 0;
+    gridBagConstraints.gridy = 0;
+    expSettings.add(jLabel5, gridBagConstraints);
+
+    maxV.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+    maxV.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+    maxV.setText("1.0");
+    maxV.setMinimumSize(new java.awt.Dimension(60, 28));
+    maxV.setPreferredSize(new java.awt.Dimension(80, 26));
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 1;
+    gridBagConstraints.gridy = 0;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+    gridBagConstraints.insets = new java.awt.Insets(0, 30, 0, 0);
+    expSettings.add(maxV, gridBagConstraints);
 
     jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
     jLabel1.setText("Max V Delta");
     jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
-    gridBagConstraints.gridy = 0;
+    gridBagConstraints.gridy = 1;
     expSettings.add(jLabel1, gridBagConstraints);
 
     maxVDelta.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
     maxVDelta.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-    maxVDelta.setText("0.05");
+    maxVDelta.setText("0.1");
     maxVDelta.setMinimumSize(new java.awt.Dimension(60, 28));
     maxVDelta.setPreferredSize(new java.awt.Dimension(80, 26));
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 1;
-    gridBagConstraints.gridy = 0;
+    gridBagConstraints.gridy = 1;
     gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
     gridBagConstraints.insets = new java.awt.Insets(0, 30, 0, 0);
     expSettings.add(maxVDelta, gridBagConstraints);
@@ -85,6 +118,7 @@ MainCSA_demoPanel m_Controller = null;
     jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
+    gridBagConstraints.gridy = 2;
     gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
     expSettings.add(jLabel2, gridBagConstraints);
 
@@ -95,9 +129,92 @@ MainCSA_demoPanel m_Controller = null;
     numSamples.setPreferredSize(new java.awt.Dimension(80, 26));
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 1;
+    gridBagConstraints.gridy = 2;
     gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
     gridBagConstraints.insets = new java.awt.Insets(10, 30, 0, 0);
     expSettings.add(numSamples, gridBagConstraints);
+
+    jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+    jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    jLabel3.setText("Min Crosstalk");
+    jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 0;
+    expSettings.add(jLabel3, gridBagConstraints);
+
+    minCrosstalk.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+    minCrosstalk.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+    minCrosstalk.setText("0.10");
+    minCrosstalk.setMinimumSize(new java.awt.Dimension(60, 28));
+    minCrosstalk.setPreferredSize(new java.awt.Dimension(80, 26));
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 4;
+    gridBagConstraints.gridy = 0;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+    gridBagConstraints.insets = new java.awt.Insets(0, 30, 0, 0);
+    expSettings.add(minCrosstalk, gridBagConstraints);
+
+    jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+    jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    jLabel4.setText("Max Crosstalk");
+    jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 1;
+    expSettings.add(jLabel4, gridBagConstraints);
+
+    maxCrosstalk.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+    maxCrosstalk.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+    maxCrosstalk.setText("0.20");
+    maxCrosstalk.setMinimumSize(new java.awt.Dimension(60, 28));
+    maxCrosstalk.setPreferredSize(new java.awt.Dimension(80, 26));
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 4;
+    gridBagConstraints.gridy = 1;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+    gridBagConstraints.insets = new java.awt.Insets(0, 30, 0, 0);
+    expSettings.add(maxCrosstalk, gridBagConstraints);
+
+    IP.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+    IP.setText("IP");
+    IP.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 0;
+    gridBagConstraints.gridy = 4;
+    expSettings.add(IP, gridBagConstraints);
+
+    IP_val.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+    IP_val.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+    IP_val.setText("50");
+    IP_val.setMinimumSize(new java.awt.Dimension(60, 28));
+    IP_val.setPreferredSize(new java.awt.Dimension(80, 26));
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 1;
+    gridBagConstraints.gridy = 4;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+    gridBagConstraints.insets = new java.awt.Insets(10, 30, 0, 0);
+    expSettings.add(IP_val, gridBagConstraints);
+
+    Ecc.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+    Ecc.setText("Eccentricity");
+    Ecc.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 4;
+    expSettings.add(Ecc, gridBagConstraints);
+
+    Ecc_val.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+    Ecc_val.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+    Ecc_val.setText("15");
+    Ecc_val.setMinimumSize(new java.awt.Dimension(60, 28));
+    Ecc_val.setPreferredSize(new java.awt.Dimension(80, 26));
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 4;
+    gridBagConstraints.gridy = 4;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+    gridBagConstraints.insets = new java.awt.Insets(0, 30, 0, 0);
+    expSettings.add(Ecc_val, gridBagConstraints);
 
     getContentPane().add(expSettings, new java.awt.GridBagConstraints());
 
@@ -110,22 +227,21 @@ MainCSA_demoPanel m_Controller = null;
     gridBagConstraints.insets = new java.awt.Insets(30, 0, 0, 0);
     getContentPane().add(outputFileChooser, gridBagConstraints);
 
-    jButton1.setBackground(new java.awt.Color(255, 204, 153));
-    jButton1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-    jButton1.setText("Run Experiment");
-    jButton1.addActionListener(new java.awt.event.ActionListener() {
+    runExp.setBackground(new java.awt.Color(255, 204, 153));
+    runExp.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+    runExp.setText("Run Experiment");
+    runExp.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        jButton1ActionPerformed(evt);
+        runExpActionPerformed(evt);
       }
     });
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 3;
-    gridBagConstraints.gridwidth = 2;
     gridBagConstraints.ipadx = 3;
     gridBagConstraints.ipady = 3;
     gridBagConstraints.insets = new java.awt.Insets(16, 6, 16, 6);
-    getContentPane().add(jButton1, gridBagConstraints);
+    getContentPane().add(runExp, gridBagConstraints);
 
     jTextArea1.setColumns(20);
     jTextArea1.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
@@ -141,19 +257,40 @@ MainCSA_demoPanel m_Controller = null;
     gridBagConstraints.weighty = 1.0;
     getContentPane().add(jScrollPane1, gridBagConstraints);
 
+    abbrevOutputChkBx.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+    abbrevOutputChkBx.setText("Abbreviated Output");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 1;
+    gridBagConstraints.gridy = 3;
+    getContentPane().add(abbrevOutputChkBx, gridBagConstraints);
+
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
-  private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+  private void runExpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runExpActionPerformed
     
-    // We will use current settings of parameters.  
+    // We will get settings of parameters from GUI controls.  
     // Outer loop will iterate over max v values from 1.0 down to a lower limit by decrements equal to max V delta.
     // Inner loop will iterate over number x of specified samples.  Basically, this is just number of times to hit the "Generate New Sample" button.
     // We'll report the ave of the Expected Accuracy and of its Std. Dev, over those x samples.
     // We write several vals: all the params, max V, ave. expecte acc., and ave std. dev. of expected acc., on each line of output file.
     
-    double max_V = m_Controller.current_max_V_value / 100f;
-    double max_V_low_lim = (double)m_Controller.getMaxCrosstalkLimitValue() / 100;
+    double max_V = Double.parseDouble(this.maxV.getText());
+//    double max_V_low_lim = (double)m_Controller.getMaxCrosstalkLimitValue() / 100;
+    
+    double max_V_low_lim = Double.parseDouble(this.maxCrosstalk.getText());
+    m_Controller.getTheApp().theMac.setEccentricity(Integer.parseInt(this.Ecc_val.getText()));
+    m_Controller.getTheApp().theMac.setHorizInflectionLocation(Integer.parseInt(this.IP_val.getText()));
+    m_Controller.getTheApp().theMac.SetCrossTalkLowLim(Float.parseFloat(this.minCrosstalk.getText()));
+    m_Controller.getTheApp().theMac.SetCrossTalkHighLim(Float.parseFloat(this.maxCrosstalk.getText()));
+    
+    m_Controller.updateOtherPanelsConsistently();
+    m_Controller.updateSliders(
+            Integer.parseInt(this.IP_val.getText()), 
+            Integer.parseInt(this.Ecc_val.getText()),
+            Float.parseFloat(this.minCrosstalk.getText()),
+            Float.parseFloat(this.maxCrosstalk.getText()));
+    
     double max_V_delta = Double.parseDouble(maxVDelta.getText());
     int numSamples = Integer.parseInt(this.numSamples.getText());
     double single_exp_acc_res = 0;
@@ -171,7 +308,21 @@ MainCSA_demoPanel m_Controller = null;
     {
       double aveExpAcc = 0;
       double aveStdDev = 0;
+      
+      m_Controller.getTheApp().theMac.SetWinner_V_Val((float)max_V);
                  
+      //// Optionally update sigmoid parameters as function of G and/or crosstalk
+      
+      // Should have option to either set IP and ecc,
+      //   - as fn of G
+      //   - as fn of crosstalk
+      //   - as fn of G and crosstalk
+      // and all of these possible dependencies should be either
+      //   - computed using hardcoded fns, or
+      //   - gotten from tables specfied in files.
+      
+      
+      
 //      int val = (int) (-0.2f * m_Controller.getTheApp().theMac.GetWinner_V_Val() ) + 30;
 //      m_Controller.getTheApp().theMac.setEccentricity(val);
               
@@ -192,7 +343,11 @@ MainCSA_demoPanel m_Controller = null;
 //        single_exp_acc_res = Double.parseDouble(m_Controller.expectedAccuracy.getText());
 //        single_std_dev_res = Double.parseDouble(m_Controller.stdDevAccuracy.getText());
         
-        this.jTextArea1.append(String.format("                      max V: %3.2f  exp. accuracy: %3.2f   std. Dev.: %3.2f\n", max_V, single_exp_acc_res, single_std_dev_res));
+        if ( ! this.abbrevOutputChkBx.isSelected())
+        {
+          this.jTextArea1.append(String.format("                      max V: %3.2f  exp. accuracy: %3.2f   std. Dev.: %3.2f\n", max_V, single_exp_acc_res, single_std_dev_res));
+        }
+        
         aveExpAcc += single_exp_acc_res;
         aveStdDev += single_std_dev_res;        
       }
@@ -201,17 +356,25 @@ MainCSA_demoPanel m_Controller = null;
       aveStdDev /= numSamples;
               
       // write values to outputfile
-      this.jTextArea1.append(String.format(" AVE OF %2d SAMPLES    max V: %3.2f  exp. accuracy: %3.2f   std. Dev.: %3.2f\n\n", numSamples, max_V, aveExpAcc, aveStdDev));
+      
+      if ( ! this.abbrevOutputChkBx.isSelected())
+      {
+        this.jTextArea1.append(String.format(" AVE OF %2d SAMPLES    max V: %3.2f  exp. accuracy: %3.2f   std. Dev.: %3.2f\n\n", numSamples, max_V, aveExpAcc, aveStdDev));
+      }
+      else
+      {
+        this.jTextArea1.append(String.format(" G: %3.2f  exp. int.: %3.2f   std. Dev.: %3.2f\n", max_V, aveExpAcc, aveStdDev));
+      }
+          
 //      this.jTextArea1.append(String.format("------------------------------------------------------------------------------\n\n"));
       
       max_V -= max_V_delta;
-      m_Controller.getTheApp().theMac.SetWinner_V_Val((float)max_V);
       
       //NOTE:  SHOULD WE update GUI controls to be in synced with automated experiments....Nahhh...Rod 4-1-19
 //      m_Controller.updateStateOfGUI();
       
     }
-  }//GEN-LAST:event_jButton1ActionPerformed
+  }//GEN-LAST:event_runExpActionPerformed
 
   /**
    * @param args the command line arguments
@@ -256,14 +419,25 @@ MainCSA_demoPanel m_Controller = null;
   }
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
+  private javax.swing.JLabel Ecc;
+  protected javax.swing.JTextField Ecc_val;
+  private javax.swing.JLabel IP;
+  protected javax.swing.JTextField IP_val;
+  private javax.swing.JCheckBox abbrevOutputChkBx;
   private javax.swing.JPanel expSettings;
-  private javax.swing.JButton jButton1;
   private javax.swing.JLabel jLabel1;
   private javax.swing.JLabel jLabel2;
+  private javax.swing.JLabel jLabel3;
+  private javax.swing.JLabel jLabel4;
+  private javax.swing.JLabel jLabel5;
   private javax.swing.JScrollPane jScrollPane1;
   private javax.swing.JTextArea jTextArea1;
+  protected javax.swing.JTextField maxCrosstalk;
+  protected javax.swing.JTextField maxV;
   protected javax.swing.JTextField maxVDelta;
+  protected javax.swing.JTextField minCrosstalk;
   protected javax.swing.JTextField numSamples;
   protected javax.swing.JFileChooser outputFileChooser;
+  private javax.swing.JButton runExp;
   // End of variables declaration//GEN-END:variables
 }

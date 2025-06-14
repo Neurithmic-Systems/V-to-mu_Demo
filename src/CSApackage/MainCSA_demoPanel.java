@@ -1417,6 +1417,14 @@ public class MainCSA_demoPanel extends javax.swing.JPanel
     updateStatsControls();    
   }
   
+  protected void updateSliders(int IP, int ecc, float minCrosstalk, float maxCrosstalk)
+  {            
+    this.beta_slider.setValue(ecc);
+    this.inflection_Slider.setValue(IP);
+    this.min_crosstalk_slider.setValue((int)(minCrosstalk * 100));
+    this.max_crosstalk_slider.setValue((int)(maxCrosstalk * 100));
+  }
+  
   protected void updateStatsControls()
   {
     this.accuracy.setText(String.format("%3.2f", theApp.theMac.getAccuracy()));

@@ -309,7 +309,7 @@ public class Mac {
   {
     for (int x = 0; x < num_whole_sigmoid_points; x++)
     {
-      // V's are between 0 and 1.  But the sliders for inflect pt and eceentricity are from 0 to 100
+      // V's are between 0 and 1.  But the sliders for inflect pt and eccentricity are from 0 to 100
       // So we must scale the V's by 100 to put vals into range where inflect pt and eccentricity vals
       // produce intended result for sigmoid.
       
