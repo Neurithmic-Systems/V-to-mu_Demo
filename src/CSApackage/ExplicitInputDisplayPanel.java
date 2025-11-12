@@ -133,21 +133,21 @@ public class ExplicitInputDisplayPanel extends javax.swing.JPanel {
       }      
     }
     
-    // Highlight the input wts only to the middle CM.
+    // Highlight the input wts only to the middle CM.   COMMENTED THIS SECTION OUT...IT WORKS BUT ISN'T NEEDED....
     
-    int middle_cm_dex = theMac.getQ() / 2;
-    cm_ulx = mac_x_left_margin + middle_cm_dex * (CM_width + inter_CM_space);
-    g2.setColor(Color.BLUE);
-    for (int c = 0; c < numInputUnits; c++)
-    {
-      int linkOrigin_x = left_edge_input_field + c * cellHorizSpace + (cellHorizSpace / 2);
-      
-      for (int k = 0; k < theMac.getK(); k++)
-      {
-        int linkDest_x = cm_ulx + k * cellHorizSpace + (cellHorizSpace / 2);
-        g2.drawLine(linkOrigin_x, linkOrigin_y, linkDest_x, linkDest_y);
-      }      
-    }
+//    int middle_cm_dex = theMac.getQ() / 2;
+//    cm_ulx = mac_x_left_margin + middle_cm_dex * (CM_width + inter_CM_space);
+//    g2.setColor(Color.BLUE);
+//    for (int c = 0; c < numInputUnits; c++)
+//    {
+//      int linkOrigin_x = left_edge_input_field + c * cellHorizSpace + (cellHorizSpace / 2);
+//      
+//      for (int k = 0; k < theMac.getK(); k++)
+//      {
+//        int linkDest_x = cm_ulx + k * cellHorizSpace + (cellHorizSpace / 2);
+//        g2.drawLine(linkOrigin_x, linkOrigin_y, linkDest_x, linkDest_y);
+//      }      
+//    }
     
         
         // draw box around the area for one CM (which includes the two stacked charts)        
